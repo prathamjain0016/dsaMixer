@@ -1,0 +1,6 @@
+{
+  "permissions": {
+    "allow": ["Bash(./run.sh *)", "Edit(/homework/**/STATUS.md)"],
+    "deny": ["Read(/.env)", "Edit(/dsamixer.db)"]
+  }
+}

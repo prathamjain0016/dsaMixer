@@ -1,0 +1,5072 @@
+[
+ {
+  "num": 1,
+  "title": "Two Sum (sorted array)",
+  "difficulty": "Easy",
+  "section": "Arrays",
+  "subtopic": "Two Pointers",
+  "pattern": "Two Pointers",
+  "pattern_hint": "Two Pointers — use two indices moving toward/away from each other to reduce O(n²) to O(n).",
+  "url": "https://leetcode.com/problemset/?search=Two%20Sum"
+ },
+ {
+  "num": 2,
+  "title": "Three Sum",
+  "difficulty": "Medium",
+  "section": "Arrays",
+  "subtopic": "Two Pointers",
+  "pattern": "Two Pointers",
+  "pattern_hint": "Two Pointers — use two indices moving toward/away from each other to reduce O(n²) to O(n).",
+  "url": "https://leetcode.com/problemset/?search=Three%20Sum"
+ },
+ {
+  "num": 3,
+  "title": "Four Sum",
+  "difficulty": "Medium",
+  "section": "Arrays",
+  "subtopic": "Two Pointers",
+  "pattern": "Two Pointers",
+  "pattern_hint": "Two Pointers — use two indices moving toward/away from each other to reduce O(n²) to O(n).",
+  "url": "https://leetcode.com/problemset/?search=Four%20Sum"
+ },
+ {
+  "num": 4,
+  "title": "Container With Most Water",
+  "difficulty": "Medium",
+  "section": "Arrays",
+  "subtopic": "Two Pointers",
+  "pattern": "Two Pointers",
+  "pattern_hint": "Two Pointers — use two indices moving toward/away from each other to reduce O(n²) to O(n).",
+  "url": "https://leetcode.com/problemset/?search=Container%20With%20Most%20Water"
+ },
+ {
+  "num": 5,
+  "title": "Trapping Rain Water",
+  "difficulty": "Hard",
+  "section": "Arrays",
+  "subtopic": "Two Pointers",
+  "pattern": "Two Pointers",
+  "pattern_hint": "Two Pointers — use two indices moving toward/away from each other to reduce O(n²) to O(n).",
+  "url": "https://leetcode.com/problemset/?search=Trapping%20Rain%20Water"
+ },
+ {
+  "num": 6,
+  "title": "Remove Duplicates from Sorted Array",
+  "difficulty": "Easy",
+  "section": "Arrays",
+  "subtopic": "Two Pointers",
+  "pattern": "Two Pointers",
+  "pattern_hint": "Two Pointers — use two indices moving toward/away from each other to reduce O(n²) to O(n).",
+  "url": "https://leetcode.com/problemset/?search=Remove%20Duplicates%20from%20Sorted%20Array"
+ },
+ {
+  "num": 7,
+  "title": "Move Zeroes to End",
+  "difficulty": "Easy",
+  "section": "Arrays",
+  "subtopic": "Two Pointers",
+  "pattern": "Two Pointers",
+  "pattern_hint": "Two Pointers — use two indices moving toward/away from each other to reduce O(n²) to O(n).",
+  "url": "https://leetcode.com/problemset/?search=Move%20Zeroes%20to%20End"
+ },
+ {
+  "num": 8,
+  "title": "Sort Colors (Dutch National Flag)",
+  "difficulty": "Medium",
+  "section": "Arrays",
+  "subtopic": "Two Pointers",
+  "pattern": "Two Pointers",
+  "pattern_hint": "Two Pointers — use two indices moving toward/away from each other to reduce O(n²) to O(n).",
+  "url": "https://leetcode.com/problemset/?search=Sort%20Colors"
+ },
+ {
+  "num": 9,
+  "title": "Minimum Size Subarray Sum",
+  "difficulty": "Medium",
+  "section": "Arrays",
+  "subtopic": "Two Pointers",
+  "pattern": "Two Pointers",
+  "pattern_hint": "Two Pointers — use two indices moving toward/away from each other to reduce O(n²) to O(n).",
+  "url": "https://leetcode.com/problemset/?search=Minimum%20Size%20Subarray%20Sum"
+ },
+ {
+  "num": 10,
+  "title": "Squares of a Sorted Array",
+  "difficulty": "Easy",
+  "section": "Arrays",
+  "subtopic": "Two Pointers",
+  "pattern": "Two Pointers",
+  "pattern_hint": "Two Pointers — use two indices moving toward/away from each other to reduce O(n²) to O(n).",
+  "url": "https://leetcode.com/problemset/?search=Squares%20of%20a%20Sorted%20Array"
+ },
+ {
+  "num": 11,
+  "title": "Longest Substring Without Repeating Characters",
+  "difficulty": "Medium",
+  "section": "Arrays",
+  "subtopic": "Sliding Window",
+  "pattern": "Sliding Window",
+  "pattern_hint": "Sliding Window — maintain a window of elements; expand/shrink to satisfy a constraint.",
+  "url": "https://leetcode.com/problemset/?search=Longest%20Substring%20Without%20Repeating%20Characters"
+ },
+ {
+  "num": 12,
+  "title": "Maximum Sum Subarray of Size K",
+  "difficulty": "Easy",
+  "section": "Arrays",
+  "subtopic": "Sliding Window",
+  "pattern": "Sliding Window",
+  "pattern_hint": "Sliding Window — maintain a window of elements; expand/shrink to satisfy a constraint.",
+  "url": "https://leetcode.com/problemset/?search=Maximum%20Sum%20Subarray%20of%20Size%20K"
+ },
+ {
+  "num": 13,
+  "title": "Fruit Into Baskets (at most 2 distinct)",
+  "difficulty": "Medium",
+  "section": "Arrays",
+  "subtopic": "Sliding Window",
+  "pattern": "Sliding Window",
+  "pattern_hint": "Sliding Window — maintain a window of elements; expand/shrink to satisfy a constraint.",
+  "url": "https://leetcode.com/problemset/?search=Fruit%20Into%20Baskets"
+ },
+ {
+  "num": 14,
+  "title": "Minimum Window Substring",
+  "difficulty": "Hard",
+  "section": "Arrays",
+  "subtopic": "Sliding Window",
+  "pattern": "Sliding Window",
+  "pattern_hint": "Sliding Window — maintain a window of elements; expand/shrink to satisfy a constraint.",
+  "url": "https://leetcode.com/problemset/?search=Minimum%20Window%20Substring"
+ },
+ {
+  "num": 15,
+  "title": "Longest Subarray with Ones after Replacement",
+  "difficulty": "Medium",
+  "section": "Arrays",
+  "subtopic": "Sliding Window",
+  "pattern": "Sliding Window",
+  "pattern_hint": "Sliding Window — maintain a window of elements; expand/shrink to satisfy a constraint.",
+  "url": "https://leetcode.com/problemset/?search=Longest%20Subarray%20with%20Ones%20after%20Replacement"
+ },
+ {
+  "num": 16,
+  "title": "Permutation in String",
+  "difficulty": "Medium",
+  "section": "Arrays",
+  "subtopic": "Sliding Window",
+  "pattern": "Sliding Window",
+  "pattern_hint": "Sliding Window — maintain a window of elements; expand/shrink to satisfy a constraint.",
+  "url": "https://leetcode.com/problemset/?search=Permutation%20in%20String"
+ },
+ {
+  "num": 17,
+  "title": "Find All Anagrams in a String",
+  "difficulty": "Medium",
+  "section": "Arrays",
+  "subtopic": "Sliding Window",
+  "pattern": "Sliding Window",
+  "pattern_hint": "Sliding Window — maintain a window of elements; expand/shrink to satisfy a constraint.",
+  "url": "https://leetcode.com/problemset/?search=Find%20All%20Anagrams%20in%20a%20String"
+ },
+ {
+  "num": 18,
+  "title": "Substring with Concatenation of All Words",
+  "difficulty": "Hard",
+  "section": "Arrays",
+  "subtopic": "Sliding Window",
+  "pattern": "Sliding Window",
+  "pattern_hint": "Sliding Window — maintain a window of elements; expand/shrink to satisfy a constraint.",
+  "url": "https://leetcode.com/problemset/?search=Substring%20with%20Concatenation%20of%20All%20Words"
+ },
+ {
+  "num": 19,
+  "title": "Max Consecutive Ones III",
+  "difficulty": "Medium",
+  "section": "Arrays",
+  "subtopic": "Sliding Window",
+  "pattern": "Sliding Window",
+  "pattern_hint": "Sliding Window — maintain a window of elements; expand/shrink to satisfy a constraint.",
+  "url": "https://leetcode.com/problemset/?search=Max%20Consecutive%20Ones%20III"
+ },
+ {
+  "num": 20,
+  "title": "Number of Subarrays with Product Less Than K",
+  "difficulty": "Medium",
+  "section": "Arrays",
+  "subtopic": "Sliding Window",
+  "pattern": "Sliding Window",
+  "pattern_hint": "Sliding Window — maintain a window of elements; expand/shrink to satisfy a constraint.",
+  "url": "https://leetcode.com/problemset/?search=Number%20of%20Subarrays%20with%20Product%20Less%20Than%20K"
+ },
+ {
+  "num": 21,
+  "title": "Subarray Sum Equals K",
+  "difficulty": "Medium",
+  "section": "Arrays",
+  "subtopic": "Prefix Sum / Difference Array",
+  "pattern": "Prefix Sum",
+  "pattern_hint": "Prefix Sum — precompute cumulative sums for O(1) range queries.",
+  "url": "https://leetcode.com/problemset/?search=Subarray%20Sum%20Equals%20K"
+ },
+ {
+  "num": 22,
+  "title": "Range Sum Query — Immutable",
+  "difficulty": "Easy",
+  "section": "Arrays",
+  "subtopic": "Prefix Sum / Difference Array",
+  "pattern": "Prefix Sum",
+  "pattern_hint": "Prefix Sum — precompute cumulative sums for O(1) range queries.",
+  "url": "https://leetcode.com/problemset/?search=Range%20Sum%20Query%20%E2%80%94%20Immutable"
+ },
+ {
+  "num": 23,
+  "title": "Continuous Subarray Sum (multiple of k)",
+  "difficulty": "Medium",
+  "section": "Arrays",
+  "subtopic": "Prefix Sum / Difference Array",
+  "pattern": "Prefix Sum",
+  "pattern_hint": "Prefix Sum — precompute cumulative sums for O(1) range queries.",
+  "url": "https://leetcode.com/problemset/?search=Continuous%20Subarray%20Sum"
+ },
+ {
+  "num": 24,
+  "title": "Product of Array Except Self",
+  "difficulty": "Medium",
+  "section": "Arrays",
+  "subtopic": "Prefix Sum / Difference Array",
+  "pattern": "Prefix Sum",
+  "pattern_hint": "Prefix Sum — precompute cumulative sums for O(1) range queries.",
+  "url": "https://leetcode.com/problemset/?search=Product%20of%20Array%20Except%20Self"
+ },
+ {
+  "num": 25,
+  "title": "Find Pivot Index",
+  "difficulty": "Easy",
+  "section": "Arrays",
+  "subtopic": "Prefix Sum / Difference Array",
+  "pattern": "Prefix Sum",
+  "pattern_hint": "Prefix Sum — precompute cumulative sums for O(1) range queries.",
+  "url": "https://leetcode.com/problemset/?search=Find%20Pivot%20Index"
+ },
+ {
+  "num": 26,
+  "title": "Count Subarrays with Equal 0s and 1s",
+  "difficulty": "Medium",
+  "section": "Arrays",
+  "subtopic": "Prefix Sum / Difference Array",
+  "pattern": "Prefix Sum",
+  "pattern_hint": "Prefix Sum — precompute cumulative sums for O(1) range queries.",
+  "url": "https://leetcode.com/problemset/?search=Count%20Subarrays%20with%20Equal%200s%20and%201s"
+ },
+ {
+  "num": 27,
+  "title": "Subarray Sums Divisible by K",
+  "difficulty": "Medium",
+  "section": "Arrays",
+  "subtopic": "Prefix Sum / Difference Array",
+  "pattern": "Prefix Sum",
+  "pattern_hint": "Prefix Sum — precompute cumulative sums for O(1) range queries.",
+  "url": "https://leetcode.com/problemset/?search=Subarray%20Sums%20Divisible%20by%20K"
+ },
+ {
+  "num": 28,
+  "title": "Minimum Operations to Reduce X to Zero",
+  "difficulty": "Medium",
+  "section": "Arrays",
+  "subtopic": "Prefix Sum / Difference Array",
+  "pattern": "Prefix Sum",
+  "pattern_hint": "Prefix Sum — precompute cumulative sums for O(1) range queries.",
+  "url": "https://leetcode.com/problemset/?search=Minimum%20Operations%20to%20Reduce%20X%20to%20Zero"
+ },
+ {
+  "num": 29,
+  "title": "Running Sum of 1D Array",
+  "difficulty": "Easy",
+  "section": "Arrays",
+  "subtopic": "Prefix Sum / Difference Array",
+  "pattern": "Prefix Sum",
+  "pattern_hint": "Prefix Sum — precompute cumulative sums for O(1) range queries.",
+  "url": "https://leetcode.com/problemset/?search=Running%20Sum%20of%201D%20Array"
+ },
+ {
+  "num": 30,
+  "title": "Random Pick with Weight",
+  "difficulty": "Medium",
+  "section": "Arrays",
+  "subtopic": "Prefix Sum / Difference Array",
+  "pattern": "Prefix Sum",
+  "pattern_hint": "Prefix Sum — precompute cumulative sums for O(1) range queries.",
+  "url": "https://leetcode.com/problemset/?search=Random%20Pick%20with%20Weight"
+ },
+ {
+  "num": 31,
+  "title": "Maximum Subarray (Kadane's)",
+  "difficulty": "Medium",
+  "section": "Arrays",
+  "subtopic": "Kadane's / Greedy on Arrays",
+  "pattern": "Kadane's Algorithm",
+  "pattern_hint": "Kadane's Algorithm — track local and global maximum for maximum subarray problems.",
+  "url": "https://leetcode.com/problemset/?search=Maximum%20Subarray"
+ },
+ {
+  "num": 32,
+  "title": "Maximum Product Subarray",
+  "difficulty": "Medium",
+  "section": "Arrays",
+  "subtopic": "Kadane's / Greedy on Arrays",
+  "pattern": "Kadane's Algorithm",
+  "pattern_hint": "Kadane's Algorithm — track local and global maximum for maximum subarray problems.",
+  "url": "https://leetcode.com/problemset/?search=Maximum%20Product%20Subarray"
+ },
+ {
+  "num": 33,
+  "title": "Best Time to Buy and Sell Stock",
+  "difficulty": "Easy",
+  "section": "Arrays",
+  "subtopic": "Kadane's / Greedy on Arrays",
+  "pattern": "Kadane's Algorithm",
+  "pattern_hint": "Kadane's Algorithm — track local and global maximum for maximum subarray problems.",
+  "url": "https://leetcode.com/problemset/?search=Best%20Time%20to%20Buy%20and%20Sell%20Stock"
+ },
+ {
+  "num": 34,
+  "title": "Best Time to Buy and Sell Stock II",
+  "difficulty": "Medium",
+  "section": "Arrays",
+  "subtopic": "Kadane's / Greedy on Arrays",
+  "pattern": "Kadane's Algorithm",
+  "pattern_hint": "Kadane's Algorithm — track local and global maximum for maximum subarray problems.",
+  "url": "https://leetcode.com/problemset/?search=Best%20Time%20to%20Buy%20and%20Sell%20Stock%20II"
+ },
+ {
+  "num": 35,
+  "title": "Jump Game",
+  "difficulty": "Medium",
+  "section": "Arrays",
+  "subtopic": "Kadane's / Greedy on Arrays",
+  "pattern": "Kadane's Algorithm",
+  "pattern_hint": "Kadane's Algorithm — track local and global maximum for maximum subarray problems.",
+  "url": "https://leetcode.com/problemset/?search=Jump%20Game"
+ },
+ {
+  "num": 36,
+  "title": "Jump Game II (minimum jumps)",
+  "difficulty": "Medium",
+  "section": "Arrays",
+  "subtopic": "Kadane's / Greedy on Arrays",
+  "pattern": "Kadane's Algorithm",
+  "pattern_hint": "Kadane's Algorithm — track local and global maximum for maximum subarray problems.",
+  "url": "https://leetcode.com/problemset/?search=Jump%20Game%20II"
+ },
+ {
+  "num": 37,
+  "title": "Gas Station",
+  "difficulty": "Medium",
+  "section": "Arrays",
+  "subtopic": "Kadane's / Greedy on Arrays",
+  "pattern": "Kadane's Algorithm",
+  "pattern_hint": "Kadane's Algorithm — track local and global maximum for maximum subarray problems.",
+  "url": "https://leetcode.com/problemset/?search=Gas%20Station"
+ },
+ {
+  "num": 38,
+  "title": "Candy Distribution",
+  "difficulty": "Hard",
+  "section": "Arrays",
+  "subtopic": "Kadane's / Greedy on Arrays",
+  "pattern": "Kadane's Algorithm",
+  "pattern_hint": "Kadane's Algorithm — track local and global maximum for maximum subarray problems.",
+  "url": "https://leetcode.com/problemset/?search=Candy%20Distribution"
+ },
+ {
+  "num": 39,
+  "title": "Partition Labels",
+  "difficulty": "Medium",
+  "section": "Arrays",
+  "subtopic": "Kadane's / Greedy on Arrays",
+  "pattern": "Kadane's Algorithm",
+  "pattern_hint": "Kadane's Algorithm — track local and global maximum for maximum subarray problems.",
+  "url": "https://leetcode.com/problemset/?search=Partition%20Labels"
+ },
+ {
+  "num": 40,
+  "title": "Minimum Number of Arrows to Burst Balloons",
+  "difficulty": "Medium",
+  "section": "Arrays",
+  "subtopic": "Kadane's / Greedy on Arrays",
+  "pattern": "Kadane's Algorithm",
+  "pattern_hint": "Kadane's Algorithm — track local and global maximum for maximum subarray problems.",
+  "url": "https://leetcode.com/problemset/?search=Minimum%20Number%20of%20Arrows%20to%20Burst%20Balloons"
+ },
+ {
+  "num": 41,
+  "title": "Merge Intervals",
+  "difficulty": "Medium",
+  "section": "Arrays",
+  "subtopic": "Sorting & Searching in Arrays",
+  "pattern": "Sorting + Binary Search",
+  "pattern_hint": "Sorting + Binary Search — sort once, then binary-search for O(n log n) solutions.",
+  "url": "https://leetcode.com/problemset/?search=Merge%20Intervals"
+ },
+ {
+  "num": 42,
+  "title": "Insert Interval",
+  "difficulty": "Medium",
+  "section": "Arrays",
+  "subtopic": "Sorting & Searching in Arrays",
+  "pattern": "Sorting + Binary Search",
+  "pattern_hint": "Sorting + Binary Search — sort once, then binary-search for O(n log n) solutions.",
+  "url": "https://leetcode.com/problemset/?search=Insert%20Interval"
+ },
+ {
+  "num": 43,
+  "title": "Meeting Rooms II (min conference rooms)",
+  "difficulty": "Medium",
+  "section": "Arrays",
+  "subtopic": "Sorting & Searching in Arrays",
+  "pattern": "Sorting + Binary Search",
+  "pattern_hint": "Sorting + Binary Search — sort once, then binary-search for O(n log n) solutions.",
+  "url": "https://leetcode.com/problemset/?search=Meeting%20Rooms%20II"
+ },
+ {
+  "num": 44,
+  "title": "Non-overlapping Intervals",
+  "difficulty": "Medium",
+  "section": "Arrays",
+  "subtopic": "Sorting & Searching in Arrays",
+  "pattern": "Sorting + Binary Search",
+  "pattern_hint": "Sorting + Binary Search — sort once, then binary-search for O(n log n) solutions.",
+  "url": "https://leetcode.com/problemset/?search=Non-overlapping%20Intervals"
+ },
+ {
+  "num": 45,
+  "title": "Largest Number (custom sort)",
+  "difficulty": "Medium",
+  "section": "Arrays",
+  "subtopic": "Sorting & Searching in Arrays",
+  "pattern": "Sorting + Binary Search",
+  "pattern_hint": "Sorting + Binary Search — sort once, then binary-search for O(n log n) solutions.",
+  "url": "https://leetcode.com/problemset/?search=Largest%20Number"
+ },
+ {
+  "num": 46,
+  "title": "Kth Largest Element in an Array",
+  "difficulty": "Medium",
+  "section": "Arrays",
+  "subtopic": "Sorting & Searching in Arrays",
+  "pattern": "Sorting + Binary Search",
+  "pattern_hint": "Sorting + Binary Search — sort once, then binary-search for O(n log n) solutions.",
+  "url": "https://leetcode.com/problemset/?search=Kth%20Largest%20Element%20in%20an%20Array"
+ },
+ {
+  "num": 47,
+  "title": "Find Minimum in Rotated Sorted Array",
+  "difficulty": "Medium",
+  "section": "Arrays",
+  "subtopic": "Sorting & Searching in Arrays",
+  "pattern": "Sorting + Binary Search",
+  "pattern_hint": "Sorting + Binary Search — sort once, then binary-search for O(n log n) solutions.",
+  "url": "https://leetcode.com/problemset/?search=Find%20Minimum%20in%20Rotated%20Sorted%20Array"
+ },
+ {
+  "num": 48,
+  "title": "Search in Rotated Sorted Array",
+  "difficulty": "Medium",
+  "section": "Arrays",
+  "subtopic": "Sorting & Searching in Arrays",
+  "pattern": "Sorting + Binary Search",
+  "pattern_hint": "Sorting + Binary Search — sort once, then binary-search for O(n log n) solutions.",
+  "url": "https://leetcode.com/problemset/?search=Search%20in%20Rotated%20Sorted%20Array"
+ },
+ {
+  "num": 49,
+  "title": "Count of Smaller Numbers After Self",
+  "difficulty": "Hard",
+  "section": "Arrays",
+  "subtopic": "Sorting & Searching in Arrays",
+  "pattern": "Sorting + Binary Search",
+  "pattern_hint": "Sorting + Binary Search — sort once, then binary-search for O(n log n) solutions.",
+  "url": "https://leetcode.com/problemset/?search=Count%20of%20Smaller%20Numbers%20After%20Self"
+ },
+ {
+  "num": 50,
+  "title": "Find the Duplicate Number",
+  "difficulty": "Medium",
+  "section": "Arrays",
+  "subtopic": "Sorting & Searching in Arrays",
+  "pattern": "Sorting + Binary Search",
+  "pattern_hint": "Sorting + Binary Search — sort once, then binary-search for O(n log n) solutions.",
+  "url": "https://leetcode.com/problemset/?search=Find%20the%20Duplicate%20Number"
+ },
+ {
+  "num": 51,
+  "title": "Valid Anagram",
+  "difficulty": "Easy",
+  "section": "Strings",
+  "subtopic": "String Manipulation & Hashing",
+  "pattern": "HashMap / Frequency Count",
+  "pattern_hint": "HashMap / Frequency Count — count character frequencies to compare or find patterns.",
+  "url": "https://leetcode.com/problemset/?search=Valid%20Anagram"
+ },
+ {
+  "num": 52,
+  "title": "Group Anagrams",
+  "difficulty": "Medium",
+  "section": "Strings",
+  "subtopic": "String Manipulation & Hashing",
+  "pattern": "HashMap / Frequency Count",
+  "pattern_hint": "HashMap / Frequency Count — count character frequencies to compare or find patterns.",
+  "url": "https://leetcode.com/problemset/?search=Group%20Anagrams"
+ },
+ {
+  "num": 53,
+  "title": "Longest Common Prefix",
+  "difficulty": "Easy",
+  "section": "Strings",
+  "subtopic": "String Manipulation & Hashing",
+  "pattern": "HashMap / Frequency Count",
+  "pattern_hint": "HashMap / Frequency Count — count character frequencies to compare or find patterns.",
+  "url": "https://leetcode.com/problemset/?search=Longest%20Common%20Prefix"
+ },
+ {
+  "num": 54,
+  "title": "Reverse Words in a String",
+  "difficulty": "Medium",
+  "section": "Strings",
+  "subtopic": "String Manipulation & Hashing",
+  "pattern": "HashMap / Frequency Count",
+  "pattern_hint": "HashMap / Frequency Count — count character frequencies to compare or find patterns.",
+  "url": "https://leetcode.com/problemset/?search=Reverse%20Words%20in%20a%20String"
+ },
+ {
+  "num": 55,
+  "title": "String to Integer (atoi)",
+  "difficulty": "Medium",
+  "section": "Strings",
+  "subtopic": "String Manipulation & Hashing",
+  "pattern": "HashMap / Frequency Count",
+  "pattern_hint": "HashMap / Frequency Count — count character frequencies to compare or find patterns.",
+  "url": "https://leetcode.com/problemset/?search=String%20to%20Integer"
+ },
+ {
+  "num": 56,
+  "title": "Roman to Integer",
+  "difficulty": "Easy",
+  "section": "Strings",
+  "subtopic": "String Manipulation & Hashing",
+  "pattern": "HashMap / Frequency Count",
+  "pattern_hint": "HashMap / Frequency Count — count character frequencies to compare or find patterns.",
+  "url": "https://leetcode.com/problemset/?search=Roman%20to%20Integer"
+ },
+ {
+  "num": 57,
+  "title": "Integer to Roman",
+  "difficulty": "Medium",
+  "section": "Strings",
+  "subtopic": "String Manipulation & Hashing",
+  "pattern": "HashMap / Frequency Count",
+  "pattern_hint": "HashMap / Frequency Count — count character frequencies to compare or find patterns.",
+  "url": "https://leetcode.com/problemset/?search=Integer%20to%20Roman"
+ },
+ {
+  "num": 58,
+  "title": "Count and Say",
+  "difficulty": "Medium",
+  "section": "Strings",
+  "subtopic": "String Manipulation & Hashing",
+  "pattern": "HashMap / Frequency Count",
+  "pattern_hint": "HashMap / Frequency Count — count character frequencies to compare or find patterns.",
+  "url": "https://leetcode.com/problemset/?search=Count%20and%20Say"
+ },
+ {
+  "num": 59,
+  "title": "ZigZag Conversion",
+  "difficulty": "Medium",
+  "section": "Strings",
+  "subtopic": "String Manipulation & Hashing",
+  "pattern": "HashMap / Frequency Count",
+  "pattern_hint": "HashMap / Frequency Count — count character frequencies to compare or find patterns.",
+  "url": "https://leetcode.com/problemset/?search=ZigZag%20Conversion"
+ },
+ {
+  "num": 60,
+  "title": "Multiply Strings",
+  "difficulty": "Medium",
+  "section": "Strings",
+  "subtopic": "String Manipulation & Hashing",
+  "pattern": "HashMap / Frequency Count",
+  "pattern_hint": "HashMap / Frequency Count — count character frequencies to compare or find patterns.",
+  "url": "https://leetcode.com/problemset/?search=Multiply%20Strings"
+ },
+ {
+  "num": 61,
+  "title": "Longest Palindrome (by rearrangement)",
+  "difficulty": "Easy",
+  "section": "Strings",
+  "subtopic": "String Manipulation & Hashing",
+  "pattern": "HashMap / Frequency Count",
+  "pattern_hint": "HashMap / Frequency Count — count character frequencies to compare or find patterns.",
+  "url": "https://leetcode.com/problemset/?search=Longest%20Palindrome"
+ },
+ {
+  "num": 62,
+  "title": "First Unique Character in a String",
+  "difficulty": "Easy",
+  "section": "Strings",
+  "subtopic": "String Manipulation & Hashing",
+  "pattern": "HashMap / Frequency Count",
+  "pattern_hint": "HashMap / Frequency Count — count character frequencies to compare or find patterns.",
+  "url": "https://leetcode.com/problemset/?search=First%20Unique%20Character%20in%20a%20String"
+ },
+ {
+  "num": 63,
+  "title": "Longest Repeating Character Replacement",
+  "difficulty": "Medium",
+  "section": "Strings",
+  "subtopic": "Sliding Window on Strings",
+  "pattern": "Variable-size Sliding Window",
+  "pattern_hint": "Variable-size Sliding Window — track character counts inside a window.",
+  "url": "https://leetcode.com/problemset/?search=Longest%20Repeating%20Character%20Replacement"
+ },
+ {
+  "num": 64,
+  "title": "Minimum Window Substring (revisited with string focus)",
+  "difficulty": "Hard",
+  "section": "Strings",
+  "subtopic": "Sliding Window on Strings",
+  "pattern": "Variable-size Sliding Window",
+  "pattern_hint": "Variable-size Sliding Window — track character counts inside a window.",
+  "url": "https://leetcode.com/problemset/?search=Minimum%20Window%20Substring"
+ },
+ {
+  "num": 65,
+  "title": "Longest Substring with At Most K Distinct Characters",
+  "difficulty": "Medium",
+  "section": "Strings",
+  "subtopic": "Sliding Window on Strings",
+  "pattern": "Variable-size Sliding Window",
+  "pattern_hint": "Variable-size Sliding Window — track character counts inside a window.",
+  "url": "https://leetcode.com/problemset/?search=Longest%20Substring%20with%20At%20Most%20K%20Distinct%20Characters"
+ },
+ {
+  "num": 66,
+  "title": "Longest Substring with At Most Two Distinct Characters",
+  "difficulty": "Medium",
+  "section": "Strings",
+  "subtopic": "Sliding Window on Strings",
+  "pattern": "Variable-size Sliding Window",
+  "pattern_hint": "Variable-size Sliding Window — track character counts inside a window.",
+  "url": "https://leetcode.com/problemset/?search=Longest%20Substring%20with%20At%20Most%20Two%20Distinct%20Characters"
+ },
+ {
+  "num": 67,
+  "title": "Longest Palindromic Substring",
+  "difficulty": "Medium",
+  "section": "Strings",
+  "subtopic": "Sliding Window on Strings",
+  "pattern": "Variable-size Sliding Window",
+  "pattern_hint": "Variable-size Sliding Window — track character counts inside a window.",
+  "url": "https://leetcode.com/problemset/?search=Longest%20Palindromic%20Substring"
+ },
+ {
+  "num": 68,
+  "title": "Palindromic Substrings (count all)",
+  "difficulty": "Medium",
+  "section": "Strings",
+  "subtopic": "Sliding Window on Strings",
+  "pattern": "Variable-size Sliding Window",
+  "pattern_hint": "Variable-size Sliding Window — track character counts inside a window.",
+  "url": "https://leetcode.com/problemset/?search=Palindromic%20Substrings"
+ },
+ {
+  "num": 69,
+  "title": "Implement strStr() / Needle in Haystack",
+  "difficulty": "Easy",
+  "section": "Strings",
+  "subtopic": "Pattern Matching",
+  "pattern": "KMP / Rabin-Karp / Z-Algorithm",
+  "pattern_hint": "KMP / Rabin-Karp / Z-Algorithm — efficient O(n+m) substring search.",
+  "url": "https://leetcode.com/problemset/?search=Implement%20strStr%20/%20Needle%20in%20Haystack"
+ },
+ {
+  "num": 70,
+  "title": "Repeated Substring Pattern",
+  "difficulty": "Easy",
+  "section": "Strings",
+  "subtopic": "Pattern Matching",
+  "pattern": "KMP / Rabin-Karp / Z-Algorithm",
+  "pattern_hint": "KMP / Rabin-Karp / Z-Algorithm — efficient O(n+m) substring search.",
+  "url": "https://leetcode.com/problemset/?search=Repeated%20Substring%20Pattern"
+ },
+ {
+  "num": 71,
+  "title": "Shortest Palindrome (KMP)",
+  "difficulty": "Hard",
+  "section": "Strings",
+  "subtopic": "Pattern Matching",
+  "pattern": "KMP / Rabin-Karp / Z-Algorithm",
+  "pattern_hint": "KMP / Rabin-Karp / Z-Algorithm — efficient O(n+m) substring search.",
+  "url": "https://leetcode.com/problemset/?search=Shortest%20Palindrome"
+ },
+ {
+  "num": 72,
+  "title": "Longest Happy Prefix (KMP failure function)",
+  "difficulty": "Hard",
+  "section": "Strings",
+  "subtopic": "Pattern Matching",
+  "pattern": "KMP / Rabin-Karp / Z-Algorithm",
+  "pattern_hint": "KMP / Rabin-Karp / Z-Algorithm — efficient O(n+m) substring search.",
+  "url": "https://leetcode.com/problemset/?search=Longest%20Happy%20Prefix"
+ },
+ {
+  "num": 73,
+  "title": "Find the Index of the First Occurrence in a String",
+  "difficulty": "Easy",
+  "section": "Strings",
+  "subtopic": "Pattern Matching",
+  "pattern": "KMP / Rabin-Karp / Z-Algorithm",
+  "pattern_hint": "KMP / Rabin-Karp / Z-Algorithm — efficient O(n+m) substring search.",
+  "url": "https://leetcode.com/problemset/?search=Find%20the%20Index%20of%20the%20First%20Occurrence%20in%20a%20String"
+ },
+ {
+  "num": 74,
+  "title": "Wildcard Matching",
+  "difficulty": "Hard",
+  "section": "Strings",
+  "subtopic": "Pattern Matching",
+  "pattern": "KMP / Rabin-Karp / Z-Algorithm",
+  "pattern_hint": "KMP / Rabin-Karp / Z-Algorithm — efficient O(n+m) substring search.",
+  "url": "https://leetcode.com/problemset/?search=Wildcard%20Matching"
+ },
+ {
+  "num": 75,
+  "title": "Regular Expression Matching",
+  "difficulty": "Hard",
+  "section": "Strings",
+  "subtopic": "Pattern Matching",
+  "pattern": "KMP / Rabin-Karp / Z-Algorithm",
+  "pattern_hint": "KMP / Rabin-Karp / Z-Algorithm — efficient O(n+m) substring search.",
+  "url": "https://leetcode.com/problemset/?search=Regular%20Expression%20Matching"
+ },
+ {
+  "num": 76,
+  "title": "Word Break",
+  "difficulty": "Medium",
+  "section": "Strings",
+  "subtopic": "Pattern Matching",
+  "pattern": "KMP / Rabin-Karp / Z-Algorithm",
+  "pattern_hint": "KMP / Rabin-Karp / Z-Algorithm — efficient O(n+m) substring search.",
+  "url": "https://leetcode.com/problemset/?search=Word%20Break"
+ },
+ {
+  "num": 77,
+  "title": "Word Break II",
+  "difficulty": "Hard",
+  "section": "Strings",
+  "subtopic": "Pattern Matching",
+  "pattern": "KMP / Rabin-Karp / Z-Algorithm",
+  "pattern_hint": "KMP / Rabin-Karp / Z-Algorithm — efficient O(n+m) substring search.",
+  "url": "https://leetcode.com/problemset/?search=Word%20Break%20II"
+ },
+ {
+  "num": 78,
+  "title": "Decode Ways",
+  "difficulty": "Medium",
+  "section": "Strings",
+  "subtopic": "Pattern Matching",
+  "pattern": "KMP / Rabin-Karp / Z-Algorithm",
+  "pattern_hint": "KMP / Rabin-Karp / Z-Algorithm — efficient O(n+m) substring search.",
+  "url": "https://leetcode.com/problemset/?search=Decode%20Ways"
+ },
+ {
+  "num": 79,
+  "title": "Valid Parentheses",
+  "difficulty": "Easy",
+  "section": "Strings",
+  "subtopic": "Stack-based String Problems",
+  "pattern": "Monotonic Stack / Explicit Stack",
+  "pattern_hint": "Monotonic Stack / Explicit Stack — process characters left-to-right with a stack.",
+  "url": "https://leetcode.com/problemset/?search=Valid%20Parentheses"
+ },
+ {
+  "num": 80,
+  "title": "Minimum Remove to Make Valid Parentheses",
+  "difficulty": "Medium",
+  "section": "Strings",
+  "subtopic": "Stack-based String Problems",
+  "pattern": "Monotonic Stack / Explicit Stack",
+  "pattern_hint": "Monotonic Stack / Explicit Stack — process characters left-to-right with a stack.",
+  "url": "https://leetcode.com/problemset/?search=Minimum%20Remove%20to%20Make%20Valid%20Parentheses"
+ },
+ {
+  "num": 81,
+  "title": "Score of Parentheses",
+  "difficulty": "Medium",
+  "section": "Strings",
+  "subtopic": "Stack-based String Problems",
+  "pattern": "Monotonic Stack / Explicit Stack",
+  "pattern_hint": "Monotonic Stack / Explicit Stack — process characters left-to-right with a stack.",
+  "url": "https://leetcode.com/problemset/?search=Score%20of%20Parentheses"
+ },
+ {
+  "num": 82,
+  "title": "Decode String (k[encoded_string])",
+  "difficulty": "Medium",
+  "section": "Strings",
+  "subtopic": "Stack-based String Problems",
+  "pattern": "Monotonic Stack / Explicit Stack",
+  "pattern_hint": "Monotonic Stack / Explicit Stack — process characters left-to-right with a stack.",
+  "url": "https://leetcode.com/problemset/?search=Decode%20String"
+ },
+ {
+  "num": 83,
+  "title": "Remove All Adjacent Duplicates in String",
+  "difficulty": "Easy",
+  "section": "Strings",
+  "subtopic": "Stack-based String Problems",
+  "pattern": "Monotonic Stack / Explicit Stack",
+  "pattern_hint": "Monotonic Stack / Explicit Stack — process characters left-to-right with a stack.",
+  "url": "https://leetcode.com/problemset/?search=Remove%20All%20Adjacent%20Duplicates%20in%20String"
+ },
+ {
+  "num": 84,
+  "title": "Remove K Digits",
+  "difficulty": "Medium",
+  "section": "Strings",
+  "subtopic": "Stack-based String Problems",
+  "pattern": "Monotonic Stack / Explicit Stack",
+  "pattern_hint": "Monotonic Stack / Explicit Stack — process characters left-to-right with a stack.",
+  "url": "https://leetcode.com/problemset/?search=Remove%20K%20Digits"
+ },
+ {
+  "num": 85,
+  "title": "Basic Calculator II",
+  "difficulty": "Medium",
+  "section": "Strings",
+  "subtopic": "Stack-based String Problems",
+  "pattern": "Monotonic Stack / Explicit Stack",
+  "pattern_hint": "Monotonic Stack / Explicit Stack — process characters left-to-right with a stack.",
+  "url": "https://leetcode.com/problemset/?search=Basic%20Calculator%20II"
+ },
+ {
+  "num": 86,
+  "title": "Evaluate Reverse Polish Notation",
+  "difficulty": "Medium",
+  "section": "Strings",
+  "subtopic": "Stack-based String Problems",
+  "pattern": "Monotonic Stack / Explicit Stack",
+  "pattern_hint": "Monotonic Stack / Explicit Stack — process characters left-to-right with a stack.",
+  "url": "https://leetcode.com/problemset/?search=Evaluate%20Reverse%20Polish%20Notation"
+ },
+ {
+  "num": 87,
+  "title": "Remove Duplicate Letters (lexicographically smallest)",
+  "difficulty": "Medium",
+  "section": "Strings",
+  "subtopic": "Stack-based String Problems",
+  "pattern": "Monotonic Stack / Explicit Stack",
+  "pattern_hint": "Monotonic Stack / Explicit Stack — process characters left-to-right with a stack.",
+  "url": "https://leetcode.com/problemset/?search=Remove%20Duplicate%20Letters"
+ },
+ {
+  "num": 88,
+  "title": "Largest Rectangle in Histogram (string of bars)",
+  "difficulty": "Hard",
+  "section": "Strings",
+  "subtopic": "Stack-based String Problems",
+  "pattern": "Monotonic Stack / Explicit Stack",
+  "pattern_hint": "Monotonic Stack / Explicit Stack — process characters left-to-right with a stack.",
+  "url": "https://leetcode.com/problemset/?search=Largest%20Rectangle%20in%20Histogram"
+ },
+ {
+  "num": 89,
+  "title": "Linked List Cycle Detection",
+  "difficulty": "Easy",
+  "section": "Linked Lists",
+  "subtopic": "Fast & Slow Pointers",
+  "pattern": "Floyd's Cycle Detection",
+  "pattern_hint": "Floyd's Cycle Detection — two pointers at different speeds to detect cycles and midpoints.",
+  "url": "https://leetcode.com/problemset/?search=Linked%20List%20Cycle%20Detection"
+ },
+ {
+  "num": 90,
+  "title": "Linked List Cycle II (entry point)",
+  "difficulty": "Medium",
+  "section": "Linked Lists",
+  "subtopic": "Fast & Slow Pointers",
+  "pattern": "Floyd's Cycle Detection",
+  "pattern_hint": "Floyd's Cycle Detection — two pointers at different speeds to detect cycles and midpoints.",
+  "url": "https://leetcode.com/problemset/?search=Linked%20List%20Cycle%20II"
+ },
+ {
+  "num": 91,
+  "title": "Find the Middle of Linked List",
+  "difficulty": "Easy",
+  "section": "Linked Lists",
+  "subtopic": "Fast & Slow Pointers",
+  "pattern": "Floyd's Cycle Detection",
+  "pattern_hint": "Floyd's Cycle Detection — two pointers at different speeds to detect cycles and midpoints.",
+  "url": "https://leetcode.com/problemset/?search=Find%20the%20Middle%20of%20Linked%20List"
+ },
+ {
+  "num": 92,
+  "title": "Happy Number (cycle in sequence)",
+  "difficulty": "Easy",
+  "section": "Linked Lists",
+  "subtopic": "Fast & Slow Pointers",
+  "pattern": "Floyd's Cycle Detection",
+  "pattern_hint": "Floyd's Cycle Detection — two pointers at different speeds to detect cycles and midpoints.",
+  "url": "https://leetcode.com/problemset/?search=Happy%20Number"
+ },
+ {
+  "num": 93,
+  "title": "Palindrome Linked List",
+  "difficulty": "Easy",
+  "section": "Linked Lists",
+  "subtopic": "Fast & Slow Pointers",
+  "pattern": "Floyd's Cycle Detection",
+  "pattern_hint": "Floyd's Cycle Detection — two pointers at different speeds to detect cycles and midpoints.",
+  "url": "https://leetcode.com/problemset/?search=Palindrome%20Linked%20List"
+ },
+ {
+  "num": 94,
+  "title": "Reorder List (L0→Ln→L1→Ln-1)",
+  "difficulty": "Medium",
+  "section": "Linked Lists",
+  "subtopic": "Fast & Slow Pointers",
+  "pattern": "Floyd's Cycle Detection",
+  "pattern_hint": "Floyd's Cycle Detection — two pointers at different speeds to detect cycles and midpoints.",
+  "url": "https://leetcode.com/problemset/?search=Reorder%20List"
+ },
+ {
+  "num": 95,
+  "title": "Reverse a Linked List",
+  "difficulty": "Easy",
+  "section": "Linked Lists",
+  "subtopic": "Reversal & Merging",
+  "pattern": "In-place Reversal",
+  "pattern_hint": "In-place Reversal — reverse sublists or entire lists using pointer manipulation.",
+  "url": "https://leetcode.com/problemset/?search=Reverse%20a%20Linked%20List"
+ },
+ {
+  "num": 96,
+  "title": "Reverse Linked List II (sub-list)",
+  "difficulty": "Medium",
+  "section": "Linked Lists",
+  "subtopic": "Reversal & Merging",
+  "pattern": "In-place Reversal",
+  "pattern_hint": "In-place Reversal — reverse sublists or entire lists using pointer manipulation.",
+  "url": "https://leetcode.com/problemset/?search=Reverse%20Linked%20List%20II"
+ },
+ {
+  "num": 97,
+  "title": "Reverse Nodes in k-Group",
+  "difficulty": "Hard",
+  "section": "Linked Lists",
+  "subtopic": "Reversal & Merging",
+  "pattern": "In-place Reversal",
+  "pattern_hint": "In-place Reversal — reverse sublists or entire lists using pointer manipulation.",
+  "url": "https://leetcode.com/problemset/?search=Reverse%20Nodes%20in%20k-Group"
+ },
+ {
+  "num": 98,
+  "title": "Rotate List by k",
+  "difficulty": "Medium",
+  "section": "Linked Lists",
+  "subtopic": "Reversal & Merging",
+  "pattern": "In-place Reversal",
+  "pattern_hint": "In-place Reversal — reverse sublists or entire lists using pointer manipulation.",
+  "url": "https://leetcode.com/problemset/?search=Rotate%20List%20by%20k"
+ },
+ {
+  "num": 99,
+  "title": "Merge Two Sorted Lists",
+  "difficulty": "Easy",
+  "section": "Linked Lists",
+  "subtopic": "Reversal & Merging",
+  "pattern": "In-place Reversal",
+  "pattern_hint": "In-place Reversal — reverse sublists or entire lists using pointer manipulation.",
+  "url": "https://leetcode.com/problemset/?search=Merge%20Two%20Sorted%20Lists"
+ },
+ {
+  "num": 100,
+  "title": "Merge K Sorted Lists",
+  "difficulty": "Hard",
+  "section": "Linked Lists",
+  "subtopic": "Reversal & Merging",
+  "pattern": "In-place Reversal",
+  "pattern_hint": "In-place Reversal — reverse sublists or entire lists using pointer manipulation.",
+  "url": "https://leetcode.com/problemset/?search=Merge%20K%20Sorted%20Lists"
+ },
+ {
+  "num": 101,
+  "title": "Sort List (merge sort on LL)",
+  "difficulty": "Medium",
+  "section": "Linked Lists",
+  "subtopic": "Reversal & Merging",
+  "pattern": "In-place Reversal",
+  "pattern_hint": "In-place Reversal — reverse sublists or entire lists using pointer manipulation.",
+  "url": "https://leetcode.com/problemset/?search=Sort%20List"
+ },
+ {
+  "num": 102,
+  "title": "Partition List around value x",
+  "difficulty": "Medium",
+  "section": "Linked Lists",
+  "subtopic": "Reversal & Merging",
+  "pattern": "In-place Reversal",
+  "pattern_hint": "In-place Reversal — reverse sublists or entire lists using pointer manipulation.",
+  "url": "https://leetcode.com/problemset/?search=Partition%20List%20around%20value%20x"
+ },
+ {
+  "num": 103,
+  "title": "Remove Nth Node from End",
+  "difficulty": "Medium",
+  "section": "Linked Lists",
+  "subtopic": "Reversal & Merging",
+  "pattern": "In-place Reversal",
+  "pattern_hint": "In-place Reversal — reverse sublists or entire lists using pointer manipulation.",
+  "url": "https://leetcode.com/problemset/?search=Remove%20Nth%20Node%20from%20End"
+ },
+ {
+  "num": 104,
+  "title": "Delete Node in a Linked List (no head)",
+  "difficulty": "Easy",
+  "section": "Linked Lists",
+  "subtopic": "Reversal & Merging",
+  "pattern": "In-place Reversal",
+  "pattern_hint": "In-place Reversal — reverse sublists or entire lists using pointer manipulation.",
+  "url": "https://leetcode.com/problemset/?search=Delete%20Node%20in%20a%20Linked%20List"
+ },
+ {
+  "num": 105,
+  "title": "Odd Even Linked List",
+  "difficulty": "Medium",
+  "section": "Linked Lists",
+  "subtopic": "Reversal & Merging",
+  "pattern": "In-place Reversal",
+  "pattern_hint": "In-place Reversal — reverse sublists or entire lists using pointer manipulation.",
+  "url": "https://leetcode.com/problemset/?search=Odd%20Even%20Linked%20List"
+ },
+ {
+  "num": 106,
+  "title": "Intersection of Two Linked Lists",
+  "difficulty": "Easy",
+  "section": "Linked Lists",
+  "subtopic": "Reversal & Merging",
+  "pattern": "In-place Reversal",
+  "pattern_hint": "In-place Reversal — reverse sublists or entire lists using pointer manipulation.",
+  "url": "https://leetcode.com/problemset/?search=Intersection%20of%20Two%20Linked%20Lists"
+ },
+ {
+  "num": 107,
+  "title": "Flatten a Multilevel Doubly Linked List",
+  "difficulty": "Medium",
+  "section": "Linked Lists",
+  "subtopic": "Reversal & Merging",
+  "pattern": "In-place Reversal",
+  "pattern_hint": "In-place Reversal — reverse sublists or entire lists using pointer manipulation.",
+  "url": "https://leetcode.com/problemset/?search=Flatten%20a%20Multilevel%20Doubly%20Linked%20List"
+ },
+ {
+  "num": 108,
+  "title": "Copy List with Random Pointer",
+  "difficulty": "Medium",
+  "section": "Linked Lists",
+  "subtopic": "Reversal & Merging",
+  "pattern": "In-place Reversal",
+  "pattern_hint": "In-place Reversal — reverse sublists or entire lists using pointer manipulation.",
+  "url": "https://leetcode.com/problemset/?search=Copy%20List%20with%20Random%20Pointer"
+ },
+ {
+  "num": 109,
+  "title": "LRU Cache (design problem)",
+  "difficulty": "Medium",
+  "section": "Linked Lists",
+  "subtopic": "Reversal & Merging",
+  "pattern": "In-place Reversal",
+  "pattern_hint": "In-place Reversal — reverse sublists or entire lists using pointer manipulation.",
+  "url": "https://leetcode.com/problemset/?search=LRU%20Cache"
+ },
+ {
+  "num": 110,
+  "title": "LFU Cache",
+  "difficulty": "Hard",
+  "section": "Linked Lists",
+  "subtopic": "Advanced Linked List",
+  "pattern": "Advanced Linked List",
+  "pattern_hint": "",
+  "url": "https://leetcode.com/problemset/?search=LFU%20Cache"
+ },
+ {
+  "num": 111,
+  "title": "Design Skiplist",
+  "difficulty": "Hard",
+  "section": "Linked Lists",
+  "subtopic": "Advanced Linked List",
+  "pattern": "Advanced Linked List",
+  "pattern_hint": "",
+  "url": "https://leetcode.com/problemset/?search=Design%20Skiplist"
+ },
+ {
+  "num": 112,
+  "title": "Add Two Numbers (LL representation)",
+  "difficulty": "Medium",
+  "section": "Linked Lists",
+  "subtopic": "Advanced Linked List",
+  "pattern": "Advanced Linked List",
+  "pattern_hint": "",
+  "url": "https://leetcode.com/problemset/?search=Add%20Two%20Numbers"
+ },
+ {
+  "num": 113,
+  "title": "Add Two Numbers II (no reversal)",
+  "difficulty": "Medium",
+  "section": "Linked Lists",
+  "subtopic": "Advanced Linked List",
+  "pattern": "Advanced Linked List",
+  "pattern_hint": "",
+  "url": "https://leetcode.com/problemset/?search=Add%20Two%20Numbers%20II"
+ },
+ {
+  "num": 114,
+  "title": "Swap Nodes in Pairs",
+  "difficulty": "Medium",
+  "section": "Linked Lists",
+  "subtopic": "Advanced Linked List",
+  "pattern": "Advanced Linked List",
+  "pattern_hint": "",
+  "url": "https://leetcode.com/problemset/?search=Swap%20Nodes%20in%20Pairs"
+ },
+ {
+  "num": 115,
+  "title": "Remove Duplicates from Sorted List II",
+  "difficulty": "Medium",
+  "section": "Linked Lists",
+  "subtopic": "Advanced Linked List",
+  "pattern": "Advanced Linked List",
+  "pattern_hint": "",
+  "url": "https://leetcode.com/problemset/?search=Remove%20Duplicates%20from%20Sorted%20List%20II"
+ },
+ {
+  "num": 116,
+  "title": "Next Greater Node in Linked List",
+  "difficulty": "Medium",
+  "section": "Linked Lists",
+  "subtopic": "Advanced Linked List",
+  "pattern": "Advanced Linked List",
+  "pattern_hint": "",
+  "url": "https://leetcode.com/problemset/?search=Next%20Greater%20Node%20in%20Linked%20List"
+ },
+ {
+  "num": 117,
+  "title": "Insert into a Sorted Circular Linked List",
+  "difficulty": "Medium",
+  "section": "Linked Lists",
+  "subtopic": "Advanced Linked List",
+  "pattern": "Advanced Linked List",
+  "pattern_hint": "",
+  "url": "https://leetcode.com/problemset/?search=Insert%20into%20a%20Sorted%20Circular%20Linked%20List"
+ },
+ {
+  "num": 118,
+  "title": "Convert Binary Number in LL to Integer",
+  "difficulty": "Easy",
+  "section": "Linked Lists",
+  "subtopic": "Advanced Linked List",
+  "pattern": "Advanced Linked List",
+  "pattern_hint": "",
+  "url": "https://leetcode.com/problemset/?search=Convert%20Binary%20Number%20in%20LL%20to%20Integer"
+ },
+ {
+  "num": 119,
+  "title": "Next Greater Element I",
+  "difficulty": "Easy",
+  "section": "Stacks & Queues",
+  "subtopic": "Monotonic Stack",
+  "pattern": "Monotonic Stack",
+  "pattern_hint": "Monotonic Stack — maintain a stack in increasing/decreasing order for next-greater/smaller queries.",
+  "url": "https://leetcode.com/problemset/?search=Next%20Greater%20Element%20I"
+ },
+ {
+  "num": 120,
+  "title": "Next Greater Element II (circular)",
+  "difficulty": "Medium",
+  "section": "Stacks & Queues",
+  "subtopic": "Monotonic Stack",
+  "pattern": "Monotonic Stack",
+  "pattern_hint": "Monotonic Stack — maintain a stack in increasing/decreasing order for next-greater/smaller queries.",
+  "url": "https://leetcode.com/problemset/?search=Next%20Greater%20Element%20II"
+ },
+ {
+  "num": 121,
+  "title": "Daily Temperatures",
+  "difficulty": "Medium",
+  "section": "Stacks & Queues",
+  "subtopic": "Monotonic Stack",
+  "pattern": "Monotonic Stack",
+  "pattern_hint": "Monotonic Stack — maintain a stack in increasing/decreasing order for next-greater/smaller queries.",
+  "url": "https://leetcode.com/problemset/?search=Daily%20Temperatures"
+ },
+ {
+  "num": 122,
+  "title": "Largest Rectangle in Histogram",
+  "difficulty": "Hard",
+  "section": "Stacks & Queues",
+  "subtopic": "Monotonic Stack",
+  "pattern": "Monotonic Stack",
+  "pattern_hint": "Monotonic Stack — maintain a stack in increasing/decreasing order for next-greater/smaller queries.",
+  "url": "https://leetcode.com/problemset/?search=Largest%20Rectangle%20in%20Histogram"
+ },
+ {
+  "num": 123,
+  "title": "Maximal Rectangle in Binary Matrix",
+  "difficulty": "Hard",
+  "section": "Stacks & Queues",
+  "subtopic": "Monotonic Stack",
+  "pattern": "Monotonic Stack",
+  "pattern_hint": "Monotonic Stack — maintain a stack in increasing/decreasing order for next-greater/smaller queries.",
+  "url": "https://leetcode.com/problemset/?search=Maximal%20Rectangle%20in%20Binary%20Matrix"
+ },
+ {
+  "num": 124,
+  "title": "Sum of Subarray Minimums",
+  "difficulty": "Medium",
+  "section": "Stacks & Queues",
+  "subtopic": "Monotonic Stack",
+  "pattern": "Monotonic Stack",
+  "pattern_hint": "Monotonic Stack — maintain a stack in increasing/decreasing order for next-greater/smaller queries.",
+  "url": "https://leetcode.com/problemset/?search=Sum%20of%20Subarray%20Minimums"
+ },
+ {
+  "num": 125,
+  "title": "Maximum Width Ramp",
+  "difficulty": "Medium",
+  "section": "Stacks & Queues",
+  "subtopic": "Monotonic Stack",
+  "pattern": "Monotonic Stack",
+  "pattern_hint": "Monotonic Stack — maintain a stack in increasing/decreasing order for next-greater/smaller queries.",
+  "url": "https://leetcode.com/problemset/?search=Maximum%20Width%20Ramp"
+ },
+ {
+  "num": 126,
+  "title": "Online Stock Span",
+  "difficulty": "Medium",
+  "section": "Stacks & Queues",
+  "subtopic": "Monotonic Stack",
+  "pattern": "Monotonic Stack",
+  "pattern_hint": "Monotonic Stack — maintain a stack in increasing/decreasing order for next-greater/smaller queries.",
+  "url": "https://leetcode.com/problemset/?search=Online%20Stock%20Span"
+ },
+ {
+  "num": 127,
+  "title": "132 Pattern",
+  "difficulty": "Medium",
+  "section": "Stacks & Queues",
+  "subtopic": "Monotonic Stack",
+  "pattern": "Monotonic Stack",
+  "pattern_hint": "Monotonic Stack — maintain a stack in increasing/decreasing order for next-greater/smaller queries.",
+  "url": "https://leetcode.com/problemset/?search=132%20Pattern"
+ },
+ {
+  "num": 128,
+  "title": "Asteroid Collision",
+  "difficulty": "Medium",
+  "section": "Stacks & Queues",
+  "subtopic": "Monotonic Stack",
+  "pattern": "Monotonic Stack",
+  "pattern_hint": "Monotonic Stack — maintain a stack in increasing/decreasing order for next-greater/smaller queries.",
+  "url": "https://leetcode.com/problemset/?search=Asteroid%20Collision"
+ },
+ {
+  "num": 129,
+  "title": "Sliding Window Maximum",
+  "difficulty": "Hard",
+  "section": "Stacks & Queues",
+  "subtopic": "Queue / Deque Patterns",
+  "pattern": "Monotonic Deque",
+  "pattern_hint": "Monotonic Deque — maintain a deque for sliding window max/min in O(n).",
+  "url": "https://leetcode.com/problemset/?search=Sliding%20Window%20Maximum"
+ },
+ {
+  "num": 130,
+  "title": "First Negative in Every Window of Size K",
+  "difficulty": "Medium",
+  "section": "Stacks & Queues",
+  "subtopic": "Queue / Deque Patterns",
+  "pattern": "Monotonic Deque",
+  "pattern_hint": "Monotonic Deque — maintain a deque for sliding window max/min in O(n).",
+  "url": "https://leetcode.com/problemset/?search=First%20Negative%20in%20Every%20Window%20of%20Size%20K"
+ },
+ {
+  "num": 131,
+  "title": "Implement Stack using Queues",
+  "difficulty": "Easy",
+  "section": "Stacks & Queues",
+  "subtopic": "Queue / Deque Patterns",
+  "pattern": "Monotonic Deque",
+  "pattern_hint": "Monotonic Deque — maintain a deque for sliding window max/min in O(n).",
+  "url": "https://leetcode.com/problemset/?search=Implement%20Stack%20using%20Queues"
+ },
+ {
+  "num": 132,
+  "title": "Implement Queue using Stacks",
+  "difficulty": "Easy",
+  "section": "Stacks & Queues",
+  "subtopic": "Queue / Deque Patterns",
+  "pattern": "Monotonic Deque",
+  "pattern_hint": "Monotonic Deque — maintain a deque for sliding window max/min in O(n).",
+  "url": "https://leetcode.com/problemset/?search=Implement%20Queue%20using%20Stacks"
+ },
+ {
+  "num": 133,
+  "title": "Design Circular Queue",
+  "difficulty": "Medium",
+  "section": "Stacks & Queues",
+  "subtopic": "Queue / Deque Patterns",
+  "pattern": "Monotonic Deque",
+  "pattern_hint": "Monotonic Deque — maintain a deque for sliding window max/min in O(n).",
+  "url": "https://leetcode.com/problemset/?search=Design%20Circular%20Queue"
+ },
+ {
+  "num": 134,
+  "title": "Design Circular Deque",
+  "difficulty": "Medium",
+  "section": "Stacks & Queues",
+  "subtopic": "Queue / Deque Patterns",
+  "pattern": "Monotonic Deque",
+  "pattern_hint": "Monotonic Deque — maintain a deque for sliding window max/min in O(n).",
+  "url": "https://leetcode.com/problemset/?search=Design%20Circular%20Deque"
+ },
+ {
+  "num": 135,
+  "title": "Max of Min for Every Window Size",
+  "difficulty": "Hard",
+  "section": "Stacks & Queues",
+  "subtopic": "Queue / Deque Patterns",
+  "pattern": "Monotonic Deque",
+  "pattern_hint": "Monotonic Deque — maintain a deque for sliding window max/min in O(n).",
+  "url": "https://leetcode.com/problemset/?search=Max%20of%20Min%20for%20Every%20Window%20Size"
+ },
+ {
+  "num": 136,
+  "title": "Shortest Subarray with Sum at Least K",
+  "difficulty": "Hard",
+  "section": "Stacks & Queues",
+  "subtopic": "Queue / Deque Patterns",
+  "pattern": "Monotonic Deque",
+  "pattern_hint": "Monotonic Deque — maintain a deque for sliding window max/min in O(n).",
+  "url": "https://leetcode.com/problemset/?search=Shortest%20Subarray%20with%20Sum%20at%20Least%20K"
+ },
+ {
+  "num": 137,
+  "title": "Jump Game VI (DP + deque)",
+  "difficulty": "Medium",
+  "section": "Stacks & Queues",
+  "subtopic": "Queue / Deque Patterns",
+  "pattern": "Monotonic Deque",
+  "pattern_hint": "Monotonic Deque — maintain a deque for sliding window max/min in O(n).",
+  "url": "https://leetcode.com/problemset/?search=Jump%20Game%20VI"
+ },
+ {
+  "num": 138,
+  "title": "Constrained Subsequence Sum",
+  "difficulty": "Hard",
+  "section": "Stacks & Queues",
+  "subtopic": "Queue / Deque Patterns",
+  "pattern": "Monotonic Deque",
+  "pattern_hint": "Monotonic Deque — maintain a deque for sliding window max/min in O(n).",
+  "url": "https://leetcode.com/problemset/?search=Constrained%20Subsequence%20Sum"
+ },
+ {
+  "num": 139,
+  "title": "Task Scheduler",
+  "difficulty": "Medium",
+  "section": "Stacks & Queues",
+  "subtopic": "Queue / Deque Patterns",
+  "pattern": "Monotonic Deque",
+  "pattern_hint": "Monotonic Deque — maintain a deque for sliding window max/min in O(n).",
+  "url": "https://leetcode.com/problemset/?search=Task%20Scheduler"
+ },
+ {
+  "num": 140,
+  "title": "Number of Recent Calls",
+  "difficulty": "Easy",
+  "section": "Stacks & Queues",
+  "subtopic": "Queue / Deque Patterns",
+  "pattern": "Monotonic Deque",
+  "pattern_hint": "Monotonic Deque — maintain a deque for sliding window max/min in O(n).",
+  "url": "https://leetcode.com/problemset/?search=Number%20of%20Recent%20Calls"
+ },
+ {
+  "num": 141,
+  "title": "Dota2 Senate",
+  "difficulty": "Medium",
+  "section": "Stacks & Queues",
+  "subtopic": "Queue / Deque Patterns",
+  "pattern": "Monotonic Deque",
+  "pattern_hint": "Monotonic Deque — maintain a deque for sliding window max/min in O(n).",
+  "url": "https://leetcode.com/problemset/?search=Dota2%20Senate"
+ },
+ {
+  "num": 142,
+  "title": "Reveal Cards in Increasing Order",
+  "difficulty": "Medium",
+  "section": "Stacks & Queues",
+  "subtopic": "Queue / Deque Patterns",
+  "pattern": "Monotonic Deque",
+  "pattern_hint": "Monotonic Deque — maintain a deque for sliding window max/min in O(n).",
+  "url": "https://leetcode.com/problemset/?search=Reveal%20Cards%20in%20Increasing%20Order"
+ },
+ {
+  "num": 143,
+  "title": "Rotten Oranges (BFS)",
+  "difficulty": "Medium",
+  "section": "Stacks & Queues",
+  "subtopic": "Queue / Deque Patterns",
+  "pattern": "Monotonic Deque",
+  "pattern_hint": "Monotonic Deque — maintain a deque for sliding window max/min in O(n).",
+  "url": "https://leetcode.com/problemset/?search=Rotten%20Oranges"
+ },
+ {
+  "num": 144,
+  "title": "Binary Search (basic)",
+  "difficulty": "Easy",
+  "section": "Binary Search",
+  "subtopic": "Classic Binary Search",
+  "pattern": "Binary Search",
+  "pattern_hint": "Binary Search — repeatedly halve the search space on a monotonic function.",
+  "url": "https://leetcode.com/problemset/?search=Binary%20Search"
+ },
+ {
+  "num": 145,
+  "title": "First Bad Version",
+  "difficulty": "Easy",
+  "section": "Binary Search",
+  "subtopic": "Classic Binary Search",
+  "pattern": "Binary Search",
+  "pattern_hint": "Binary Search — repeatedly halve the search space on a monotonic function.",
+  "url": "https://leetcode.com/problemset/?search=First%20Bad%20Version"
+ },
+ {
+  "num": 146,
+  "title": "Search Insert Position",
+  "difficulty": "Easy",
+  "section": "Binary Search",
+  "subtopic": "Classic Binary Search",
+  "pattern": "Binary Search",
+  "pattern_hint": "Binary Search — repeatedly halve the search space on a monotonic function.",
+  "url": "https://leetcode.com/problemset/?search=Search%20Insert%20Position"
+ },
+ {
+  "num": 147,
+  "title": "Count of Range Sum (advanced)",
+  "difficulty": "Hard",
+  "section": "Binary Search",
+  "subtopic": "Classic Binary Search",
+  "pattern": "Binary Search",
+  "pattern_hint": "Binary Search — repeatedly halve the search space on a monotonic function.",
+  "url": "https://leetcode.com/problemset/?search=Count%20of%20Range%20Sum"
+ },
+ {
+  "num": 148,
+  "title": "Find Peak Element",
+  "difficulty": "Medium",
+  "section": "Binary Search",
+  "subtopic": "Classic Binary Search",
+  "pattern": "Binary Search",
+  "pattern_hint": "Binary Search — repeatedly halve the search space on a monotonic function.",
+  "url": "https://leetcode.com/problemset/?search=Find%20Peak%20Element"
+ },
+ {
+  "num": 149,
+  "title": "Find Minimum in Rotated Sorted Array II (duplicates)",
+  "difficulty": "Hard",
+  "section": "Binary Search",
+  "subtopic": "Classic Binary Search",
+  "pattern": "Binary Search",
+  "pattern_hint": "Binary Search — repeatedly halve the search space on a monotonic function.",
+  "url": "https://leetcode.com/problemset/?search=Find%20Minimum%20in%20Rotated%20Sorted%20Array%20II"
+ },
+ {
+  "num": 150,
+  "title": "Search a 2D Matrix",
+  "difficulty": "Medium",
+  "section": "Binary Search",
+  "subtopic": "Classic Binary Search",
+  "pattern": "Binary Search",
+  "pattern_hint": "Binary Search — repeatedly halve the search space on a monotonic function.",
+  "url": "https://leetcode.com/problemset/?search=Search%20a%202D%20Matrix"
+ },
+ {
+  "num": 151,
+  "title": "Search a 2D Matrix II",
+  "difficulty": "Medium",
+  "section": "Binary Search",
+  "subtopic": "Classic Binary Search",
+  "pattern": "Binary Search",
+  "pattern_hint": "Binary Search — repeatedly halve the search space on a monotonic function.",
+  "url": "https://leetcode.com/problemset/?search=Search%20a%202D%20Matrix%20II"
+ },
+ {
+  "num": 152,
+  "title": "Kth Smallest Element in Sorted Matrix",
+  "difficulty": "Medium",
+  "section": "Binary Search",
+  "subtopic": "Classic Binary Search",
+  "pattern": "Binary Search",
+  "pattern_hint": "Binary Search — repeatedly halve the search space on a monotonic function.",
+  "url": "https://leetcode.com/problemset/?search=Kth%20Smallest%20Element%20in%20Sorted%20Matrix"
+ },
+ {
+  "num": 153,
+  "title": "Find K Closest Elements",
+  "difficulty": "Medium",
+  "section": "Binary Search",
+  "subtopic": "Classic Binary Search",
+  "pattern": "Binary Search",
+  "pattern_hint": "Binary Search — repeatedly halve the search space on a monotonic function.",
+  "url": "https://leetcode.com/problemset/?search=Find%20K%20Closest%20Elements"
+ },
+ {
+  "num": 154,
+  "title": "Capacity to Ship Packages Within D Days",
+  "difficulty": "Medium",
+  "section": "Binary Search",
+  "subtopic": "Binary Search on Answer",
+  "pattern": "Parametric Search",
+  "pattern_hint": "Parametric Search — binary search on the answer space, validate with a feasibility function.",
+  "url": "https://leetcode.com/problemset/?search=Capacity%20to%20Ship%20Packages%20Within%20D%20Days"
+ },
+ {
+  "num": 155,
+  "title": "Split Array Largest Sum",
+  "difficulty": "Hard",
+  "section": "Binary Search",
+  "subtopic": "Binary Search on Answer",
+  "pattern": "Parametric Search",
+  "pattern_hint": "Parametric Search — binary search on the answer space, validate with a feasibility function.",
+  "url": "https://leetcode.com/problemset/?search=Split%20Array%20Largest%20Sum"
+ },
+ {
+  "num": 156,
+  "title": "Koko Eating Bananas",
+  "difficulty": "Medium",
+  "section": "Binary Search",
+  "subtopic": "Binary Search on Answer",
+  "pattern": "Parametric Search",
+  "pattern_hint": "Parametric Search — binary search on the answer space, validate with a feasibility function.",
+  "url": "https://leetcode.com/problemset/?search=Koko%20Eating%20Bananas"
+ },
+ {
+  "num": 157,
+  "title": "Minimum Number of Days to Make m Bouquets",
+  "difficulty": "Medium",
+  "section": "Binary Search",
+  "subtopic": "Binary Search on Answer",
+  "pattern": "Parametric Search",
+  "pattern_hint": "Parametric Search — binary search on the answer space, validate with a feasibility function.",
+  "url": "https://leetcode.com/problemset/?search=Minimum%20Number%20of%20Days%20to%20Make%20m%20Bouquets"
+ },
+ {
+  "num": 158,
+  "title": "Magnetic Force Between Two Balls",
+  "difficulty": "Medium",
+  "section": "Binary Search",
+  "subtopic": "Binary Search on Answer",
+  "pattern": "Parametric Search",
+  "pattern_hint": "Parametric Search — binary search on the answer space, validate with a feasibility function.",
+  "url": "https://leetcode.com/problemset/?search=Magnetic%20Force%20Between%20Two%20Balls"
+ },
+ {
+  "num": 159,
+  "title": "Find the Smallest Divisor Given a Threshold",
+  "difficulty": "Medium",
+  "section": "Binary Search",
+  "subtopic": "Binary Search on Answer",
+  "pattern": "Parametric Search",
+  "pattern_hint": "Parametric Search — binary search on the answer space, validate with a feasibility function.",
+  "url": "https://leetcode.com/problemset/?search=Find%20the%20Smallest%20Divisor%20Given%20a%20Threshold"
+ },
+ {
+  "num": 160,
+  "title": "Allocate Minimum Number of Pages",
+  "difficulty": "Medium",
+  "section": "Binary Search",
+  "subtopic": "Binary Search on Answer",
+  "pattern": "Parametric Search",
+  "pattern_hint": "Parametric Search — binary search on the answer space, validate with a feasibility function.",
+  "url": "https://leetcode.com/problemset/?search=Allocate%20Minimum%20Number%20of%20Pages"
+ },
+ {
+  "num": 161,
+  "title": "Aggressive Cows (SPOJ classic)",
+  "difficulty": "Medium",
+  "section": "Binary Search",
+  "subtopic": "Binary Search on Answer",
+  "pattern": "Parametric Search",
+  "pattern_hint": "Parametric Search — binary search on the answer space, validate with a feasibility function.",
+  "url": "https://leetcode.com/problemset/?search=Aggressive%20Cows"
+ },
+ {
+  "num": 162,
+  "title": "Painters Partition Problem",
+  "difficulty": "Hard",
+  "section": "Binary Search",
+  "subtopic": "Binary Search on Answer",
+  "pattern": "Parametric Search",
+  "pattern_hint": "Parametric Search — binary search on the answer space, validate with a feasibility function.",
+  "url": "https://leetcode.com/problemset/?search=Painters%20Partition%20Problem"
+ },
+ {
+  "num": 163,
+  "title": "EKO — Cutting Trees (binary search on height)",
+  "difficulty": "Medium",
+  "section": "Binary Search",
+  "subtopic": "Binary Search on Answer",
+  "pattern": "Parametric Search",
+  "pattern_hint": "Parametric Search — binary search on the answer space, validate with a feasibility function.",
+  "url": "https://leetcode.com/problemset/?search=EKO%20%E2%80%94%20Cutting%20Trees"
+ },
+ {
+  "num": 164,
+  "title": "Median of Two Sorted Arrays",
+  "difficulty": "Hard",
+  "section": "Binary Search",
+  "subtopic": "Binary Search on Answer",
+  "pattern": "Parametric Search",
+  "pattern_hint": "Parametric Search — binary search on the answer space, validate with a feasibility function.",
+  "url": "https://leetcode.com/problemset/?search=Median%20of%20Two%20Sorted%20Arrays"
+ },
+ {
+  "num": 165,
+  "title": "K-th Smallest Prime Fraction",
+  "difficulty": "Hard",
+  "section": "Binary Search",
+  "subtopic": "Binary Search on Answer",
+  "pattern": "Parametric Search",
+  "pattern_hint": "Parametric Search — binary search on the answer space, validate with a feasibility function.",
+  "url": "https://leetcode.com/problemset/?search=K-th%20Smallest%20Prime%20Fraction"
+ },
+ {
+  "num": 166,
+  "title": "Find K-th Smallest Pair Distance",
+  "difficulty": "Hard",
+  "section": "Binary Search",
+  "subtopic": "Binary Search on Answer",
+  "pattern": "Parametric Search",
+  "pattern_hint": "Parametric Search — binary search on the answer space, validate with a feasibility function.",
+  "url": "https://leetcode.com/problemset/?search=Find%20K-th%20Smallest%20Pair%20Distance"
+ },
+ {
+  "num": 167,
+  "title": "Count of Pairs with Sum Less Than Target",
+  "difficulty": "Easy",
+  "section": "Binary Search",
+  "subtopic": "Binary Search on Answer",
+  "pattern": "Parametric Search",
+  "pattern_hint": "Parametric Search — binary search on the answer space, validate with a feasibility function.",
+  "url": "https://leetcode.com/problemset/?search=Count%20of%20Pairs%20with%20Sum%20Less%20Than%20Target"
+ },
+ {
+  "num": 168,
+  "title": "Maximum Running Time of N Computers",
+  "difficulty": "Hard",
+  "section": "Binary Search",
+  "subtopic": "Binary Search on Answer",
+  "pattern": "Parametric Search",
+  "pattern_hint": "Parametric Search — binary search on the answer space, validate with a feasibility function.",
+  "url": "https://leetcode.com/problemset/?search=Maximum%20Running%20Time%20of%20N%20Computers"
+ },
+ {
+  "num": 169,
+  "title": "Longest Increasing Subsequence (O(n log n))",
+  "difficulty": "Medium",
+  "section": "Binary Search",
+  "subtopic": "Bisect Tricks",
+  "pattern": "Bisect Tricks",
+  "pattern_hint": "",
+  "url": "https://leetcode.com/problemset/?search=Longest%20Increasing%20Subsequence%29"
+ },
+ {
+  "num": 170,
+  "title": "Russian Doll Envelopes",
+  "difficulty": "Hard",
+  "section": "Binary Search",
+  "subtopic": "Bisect Tricks",
+  "pattern": "Bisect Tricks",
+  "pattern_hint": "",
+  "url": "https://leetcode.com/problemset/?search=Russian%20Doll%20Envelopes"
+ },
+ {
+  "num": 171,
+  "title": "Count of Smaller Numbers After Self (BIT/BST)",
+  "difficulty": "Hard",
+  "section": "Binary Search",
+  "subtopic": "Bisect Tricks",
+  "pattern": "Bisect Tricks",
+  "pattern_hint": "",
+  "url": "https://leetcode.com/problemset/?search=Count%20of%20Smaller%20Numbers%20After%20Self"
+ },
+ {
+  "num": 172,
+  "title": "Minimum Operations to Make Array Increasing",
+  "difficulty": "Easy",
+  "section": "Binary Search",
+  "subtopic": "Bisect Tricks",
+  "pattern": "Bisect Tricks",
+  "pattern_hint": "",
+  "url": "https://leetcode.com/problemset/?search=Minimum%20Operations%20to%20Make%20Array%20Increasing"
+ },
+ {
+  "num": 173,
+  "title": "Maximum Profit in Job Scheduling",
+  "difficulty": "Hard",
+  "section": "Binary Search",
+  "subtopic": "Bisect Tricks",
+  "pattern": "Bisect Tricks",
+  "pattern_hint": "",
+  "url": "https://leetcode.com/problemset/?search=Maximum%20Profit%20in%20Job%20Scheduling"
+ },
+ {
+  "num": 174,
+  "title": "Number of Longest Increasing Subsequences",
+  "difficulty": "Medium",
+  "section": "Binary Search",
+  "subtopic": "Bisect Tricks",
+  "pattern": "Bisect Tricks",
+  "pattern_hint": "",
+  "url": "https://leetcode.com/problemset/?search=Number%20of%20Longest%20Increasing%20Subsequences"
+ },
+ {
+  "num": 175,
+  "title": "Binary Tree Inorder Traversal (iterative)",
+  "difficulty": "Easy",
+  "section": "Trees",
+  "subtopic": "Tree Traversals",
+  "pattern": "DFS (Pre/In/Post-order) & BFS (Level-order)",
+  "pattern_hint": "DFS (Pre/In/Post-order) & BFS (Level-order) — foundation of nearly all tree problems.",
+  "url": "https://leetcode.com/problemset/?search=Binary%20Tree%20Inorder%20Traversal"
+ },
+ {
+  "num": 176,
+  "title": "Binary Tree Preorder Traversal (iterative)",
+  "difficulty": "Easy",
+  "section": "Trees",
+  "subtopic": "Tree Traversals",
+  "pattern": "DFS (Pre/In/Post-order) & BFS (Level-order)",
+  "pattern_hint": "DFS (Pre/In/Post-order) & BFS (Level-order) — foundation of nearly all tree problems.",
+  "url": "https://leetcode.com/problemset/?search=Binary%20Tree%20Preorder%20Traversal"
+ },
+ {
+  "num": 177,
+  "title": "Binary Tree Postorder Traversal (iterative)",
+  "difficulty": "Easy",
+  "section": "Trees",
+  "subtopic": "Tree Traversals",
+  "pattern": "DFS (Pre/In/Post-order) & BFS (Level-order)",
+  "pattern_hint": "DFS (Pre/In/Post-order) & BFS (Level-order) — foundation of nearly all tree problems.",
+  "url": "https://leetcode.com/problemset/?search=Binary%20Tree%20Postorder%20Traversal"
+ },
+ {
+  "num": 178,
+  "title": "Binary Tree Level Order Traversal",
+  "difficulty": "Medium",
+  "section": "Trees",
+  "subtopic": "Tree Traversals",
+  "pattern": "DFS (Pre/In/Post-order) & BFS (Level-order)",
+  "pattern_hint": "DFS (Pre/In/Post-order) & BFS (Level-order) — foundation of nearly all tree problems.",
+  "url": "https://leetcode.com/problemset/?search=Binary%20Tree%20Level%20Order%20Traversal"
+ },
+ {
+  "num": 179,
+  "title": "Binary Tree Zigzag Level Order",
+  "difficulty": "Medium",
+  "section": "Trees",
+  "subtopic": "Tree Traversals",
+  "pattern": "DFS (Pre/In/Post-order) & BFS (Level-order)",
+  "pattern_hint": "DFS (Pre/In/Post-order) & BFS (Level-order) — foundation of nearly all tree problems.",
+  "url": "https://leetcode.com/problemset/?search=Binary%20Tree%20Zigzag%20Level%20Order"
+ },
+ {
+  "num": 180,
+  "title": "Binary Tree Right Side View",
+  "difficulty": "Medium",
+  "section": "Trees",
+  "subtopic": "Tree Traversals",
+  "pattern": "DFS (Pre/In/Post-order) & BFS (Level-order)",
+  "pattern_hint": "DFS (Pre/In/Post-order) & BFS (Level-order) — foundation of nearly all tree problems.",
+  "url": "https://leetcode.com/problemset/?search=Binary%20Tree%20Right%20Side%20View"
+ },
+ {
+  "num": 181,
+  "title": "Average of Levels in Binary Tree",
+  "difficulty": "Easy",
+  "section": "Trees",
+  "subtopic": "Tree Traversals",
+  "pattern": "DFS (Pre/In/Post-order) & BFS (Level-order)",
+  "pattern_hint": "DFS (Pre/In/Post-order) & BFS (Level-order) — foundation of nearly all tree problems.",
+  "url": "https://leetcode.com/problemset/?search=Average%20of%20Levels%20in%20Binary%20Tree"
+ },
+ {
+  "num": 182,
+  "title": "N-ary Tree Level Order Traversal",
+  "difficulty": "Medium",
+  "section": "Trees",
+  "subtopic": "Tree Traversals",
+  "pattern": "DFS (Pre/In/Post-order) & BFS (Level-order)",
+  "pattern_hint": "DFS (Pre/In/Post-order) & BFS (Level-order) — foundation of nearly all tree problems.",
+  "url": "https://leetcode.com/problemset/?search=N-ary%20Tree%20Level%20Order%20Traversal"
+ },
+ {
+  "num": 183,
+  "title": "Vertical Order Traversal",
+  "difficulty": "Hard",
+  "section": "Trees",
+  "subtopic": "Tree Traversals",
+  "pattern": "DFS (Pre/In/Post-order) & BFS (Level-order)",
+  "pattern_hint": "DFS (Pre/In/Post-order) & BFS (Level-order) — foundation of nearly all tree problems.",
+  "url": "https://leetcode.com/problemset/?search=Vertical%20Order%20Traversal"
+ },
+ {
+  "num": 184,
+  "title": "Boundary Traversal of Binary Tree",
+  "difficulty": "Medium",
+  "section": "Trees",
+  "subtopic": "Tree Traversals",
+  "pattern": "DFS (Pre/In/Post-order) & BFS (Level-order)",
+  "pattern_hint": "DFS (Pre/In/Post-order) & BFS (Level-order) — foundation of nearly all tree problems.",
+  "url": "https://leetcode.com/problemset/?search=Boundary%20Traversal%20of%20Binary%20Tree"
+ },
+ {
+  "num": 185,
+  "title": "Maximum Depth of Binary Tree",
+  "difficulty": "Easy",
+  "section": "Trees",
+  "subtopic": "Binary Tree Properties",
+  "pattern": "Tree Recursion",
+  "pattern_hint": "Tree Recursion — solve sub-problems on left/right subtrees and combine results.",
+  "url": "https://leetcode.com/problemset/?search=Maximum%20Depth%20of%20Binary%20Tree"
+ },
+ {
+  "num": 186,
+  "title": "Minimum Depth of Binary Tree",
+  "difficulty": "Easy",
+  "section": "Trees",
+  "subtopic": "Binary Tree Properties",
+  "pattern": "Tree Recursion",
+  "pattern_hint": "Tree Recursion — solve sub-problems on left/right subtrees and combine results.",
+  "url": "https://leetcode.com/problemset/?search=Minimum%20Depth%20of%20Binary%20Tree"
+ },
+ {
+  "num": 187,
+  "title": "Diameter of Binary Tree",
+  "difficulty": "Easy",
+  "section": "Trees",
+  "subtopic": "Binary Tree Properties",
+  "pattern": "Tree Recursion",
+  "pattern_hint": "Tree Recursion — solve sub-problems on left/right subtrees and combine results.",
+  "url": "https://leetcode.com/problemset/?search=Diameter%20of%20Binary%20Tree"
+ },
+ {
+  "num": 188,
+  "title": "Balanced Binary Tree",
+  "difficulty": "Easy",
+  "section": "Trees",
+  "subtopic": "Binary Tree Properties",
+  "pattern": "Tree Recursion",
+  "pattern_hint": "Tree Recursion — solve sub-problems on left/right subtrees and combine results.",
+  "url": "https://leetcode.com/problemset/?search=Balanced%20Binary%20Tree"
+ },
+ {
+  "num": 189,
+  "title": "Same Tree",
+  "difficulty": "Easy",
+  "section": "Trees",
+  "subtopic": "Binary Tree Properties",
+  "pattern": "Tree Recursion",
+  "pattern_hint": "Tree Recursion — solve sub-problems on left/right subtrees and combine results.",
+  "url": "https://leetcode.com/problemset/?search=Same%20Tree"
+ },
+ {
+  "num": 190,
+  "title": "Symmetric Tree",
+  "difficulty": "Easy",
+  "section": "Trees",
+  "subtopic": "Binary Tree Properties",
+  "pattern": "Tree Recursion",
+  "pattern_hint": "Tree Recursion — solve sub-problems on left/right subtrees and combine results.",
+  "url": "https://leetcode.com/problemset/?search=Symmetric%20Tree"
+ },
+ {
+  "num": 191,
+  "title": "Invert Binary Tree",
+  "difficulty": "Easy",
+  "section": "Trees",
+  "subtopic": "Binary Tree Properties",
+  "pattern": "Tree Recursion",
+  "pattern_hint": "Tree Recursion — solve sub-problems on left/right subtrees and combine results.",
+  "url": "https://leetcode.com/problemset/?search=Invert%20Binary%20Tree"
+ },
+ {
+  "num": 192,
+  "title": "Count Complete Tree Nodes",
+  "difficulty": "Medium",
+  "section": "Trees",
+  "subtopic": "Binary Tree Properties",
+  "pattern": "Tree Recursion",
+  "pattern_hint": "Tree Recursion — solve sub-problems on left/right subtrees and combine results.",
+  "url": "https://leetcode.com/problemset/?search=Count%20Complete%20Tree%20Nodes"
+ },
+ {
+  "num": 193,
+  "title": "Sum of Left Leaves",
+  "difficulty": "Easy",
+  "section": "Trees",
+  "subtopic": "Binary Tree Properties",
+  "pattern": "Tree Recursion",
+  "pattern_hint": "Tree Recursion — solve sub-problems on left/right subtrees and combine results.",
+  "url": "https://leetcode.com/problemset/?search=Sum%20of%20Left%20Leaves"
+ },
+ {
+  "num": 194,
+  "title": "Path Sum",
+  "difficulty": "Easy",
+  "section": "Trees",
+  "subtopic": "Binary Tree Properties",
+  "pattern": "Tree Recursion",
+  "pattern_hint": "Tree Recursion — solve sub-problems on left/right subtrees and combine results.",
+  "url": "https://leetcode.com/problemset/?search=Path%20Sum"
+ },
+ {
+  "num": 195,
+  "title": "Path Sum II (all paths)",
+  "difficulty": "Medium",
+  "section": "Trees",
+  "subtopic": "Binary Tree Properties",
+  "pattern": "Tree Recursion",
+  "pattern_hint": "Tree Recursion — solve sub-problems on left/right subtrees and combine results.",
+  "url": "https://leetcode.com/problemset/?search=Path%20Sum%20II"
+ },
+ {
+  "num": 196,
+  "title": "Binary Tree Maximum Path Sum",
+  "difficulty": "Hard",
+  "section": "Trees",
+  "subtopic": "Binary Tree Properties",
+  "pattern": "Tree Recursion",
+  "pattern_hint": "Tree Recursion — solve sub-problems on left/right subtrees and combine results.",
+  "url": "https://leetcode.com/problemset/?search=Binary%20Tree%20Maximum%20Path%20Sum"
+ },
+ {
+  "num": 197,
+  "title": "Sum Root to Leaf Numbers",
+  "difficulty": "Medium",
+  "section": "Trees",
+  "subtopic": "Binary Tree Properties",
+  "pattern": "Tree Recursion",
+  "pattern_hint": "Tree Recursion — solve sub-problems on left/right subtrees and combine results.",
+  "url": "https://leetcode.com/problemset/?search=Sum%20Root%20to%20Leaf%20Numbers"
+ },
+ {
+  "num": 198,
+  "title": "Flatten Binary Tree to Linked List",
+  "difficulty": "Medium",
+  "section": "Trees",
+  "subtopic": "Binary Tree Properties",
+  "pattern": "Tree Recursion",
+  "pattern_hint": "Tree Recursion — solve sub-problems on left/right subtrees and combine results.",
+  "url": "https://leetcode.com/problemset/?search=Flatten%20Binary%20Tree%20to%20Linked%20List"
+ },
+ {
+  "num": 199,
+  "title": "Populating Next Right Pointers",
+  "difficulty": "Medium",
+  "section": "Trees",
+  "subtopic": "Binary Tree Properties",
+  "pattern": "Tree Recursion",
+  "pattern_hint": "Tree Recursion — solve sub-problems on left/right subtrees and combine results.",
+  "url": "https://leetcode.com/problemset/?search=Populating%20Next%20Right%20Pointers"
+ },
+ {
+  "num": 200,
+  "title": "Validate Binary Search Tree",
+  "difficulty": "Medium",
+  "section": "Trees",
+  "subtopic": "Binary Search Trees (BST)",
+  "pattern": "BST Property",
+  "pattern_hint": "BST Property — left < root < right; enables O(log n) search, insert, delete.",
+  "url": "https://leetcode.com/problemset/?search=Validate%20Binary%20Search%20Tree"
+ },
+ {
+  "num": 201,
+  "title": "Kth Smallest Element in a BST",
+  "difficulty": "Medium",
+  "section": "Trees",
+  "subtopic": "Binary Search Trees (BST)",
+  "pattern": "BST Property",
+  "pattern_hint": "BST Property — left < root < right; enables O(log n) search, insert, delete.",
+  "url": "https://leetcode.com/problemset/?search=Kth%20Smallest%20Element%20in%20a%20BST"
+ },
+ {
+  "num": 202,
+  "title": "Lowest Common Ancestor of BST",
+  "difficulty": "Easy",
+  "section": "Trees",
+  "subtopic": "Binary Search Trees (BST)",
+  "pattern": "BST Property",
+  "pattern_hint": "BST Property — left < root < right; enables O(log n) search, insert, delete.",
+  "url": "https://leetcode.com/problemset/?search=Lowest%20Common%20Ancestor%20of%20BST"
+ },
+ {
+  "num": 203,
+  "title": "Lowest Common Ancestor of Binary Tree",
+  "difficulty": "Medium",
+  "section": "Trees",
+  "subtopic": "Binary Search Trees (BST)",
+  "pattern": "BST Property",
+  "pattern_hint": "BST Property — left < root < right; enables O(log n) search, insert, delete.",
+  "url": "https://leetcode.com/problemset/?search=Lowest%20Common%20Ancestor%20of%20Binary%20Tree"
+ },
+ {
+  "num": 204,
+  "title": "Convert Sorted Array to BST",
+  "difficulty": "Easy",
+  "section": "Trees",
+  "subtopic": "Binary Search Trees (BST)",
+  "pattern": "BST Property",
+  "pattern_hint": "BST Property — left < root < right; enables O(log n) search, insert, delete.",
+  "url": "https://leetcode.com/problemset/?search=Convert%20Sorted%20Array%20to%20BST"
+ },
+ {
+  "num": 205,
+  "title": "Convert BST to Greater Tree",
+  "difficulty": "Medium",
+  "section": "Trees",
+  "subtopic": "Binary Search Trees (BST)",
+  "pattern": "BST Property",
+  "pattern_hint": "BST Property — left < root < right; enables O(log n) search, insert, delete.",
+  "url": "https://leetcode.com/problemset/?search=Convert%20BST%20to%20Greater%20Tree"
+ },
+ {
+  "num": 206,
+  "title": "Insert into a BST",
+  "difficulty": "Medium",
+  "section": "Trees",
+  "subtopic": "Binary Search Trees (BST)",
+  "pattern": "BST Property",
+  "pattern_hint": "BST Property — left < root < right; enables O(log n) search, insert, delete.",
+  "url": "https://leetcode.com/problemset/?search=Insert%20into%20a%20BST"
+ },
+ {
+  "num": 207,
+  "title": "Delete Node in a BST",
+  "difficulty": "Medium",
+  "section": "Trees",
+  "subtopic": "Binary Search Trees (BST)",
+  "pattern": "BST Property",
+  "pattern_hint": "BST Property — left < root < right; enables O(log n) search, insert, delete.",
+  "url": "https://leetcode.com/problemset/?search=Delete%20Node%20in%20a%20BST"
+ },
+ {
+  "num": 208,
+  "title": "Recover Binary Search Tree (two nodes swapped)",
+  "difficulty": "Hard",
+  "section": "Trees",
+  "subtopic": "Binary Search Trees (BST)",
+  "pattern": "BST Property",
+  "pattern_hint": "BST Property — left < root < right; enables O(log n) search, insert, delete.",
+  "url": "https://leetcode.com/problemset/?search=Recover%20Binary%20Search%20Tree"
+ },
+ {
+  "num": 209,
+  "title": "Unique Binary Search Trees (count)",
+  "difficulty": "Medium",
+  "section": "Trees",
+  "subtopic": "Binary Search Trees (BST)",
+  "pattern": "BST Property",
+  "pattern_hint": "BST Property — left < root < right; enables O(log n) search, insert, delete.",
+  "url": "https://leetcode.com/problemset/?search=Unique%20Binary%20Search%20Trees"
+ },
+ {
+  "num": 210,
+  "title": "Unique Binary Search Trees II (generate all)",
+  "difficulty": "Medium",
+  "section": "Trees",
+  "subtopic": "Binary Search Trees (BST)",
+  "pattern": "BST Property",
+  "pattern_hint": "BST Property — left < root < right; enables O(log n) search, insert, delete.",
+  "url": "https://leetcode.com/problemset/?search=Unique%20Binary%20Search%20Trees%20II"
+ },
+ {
+  "num": 211,
+  "title": "Serialize and Deserialize Binary Tree",
+  "difficulty": "Hard",
+  "section": "Trees",
+  "subtopic": "Binary Search Trees (BST)",
+  "pattern": "BST Property",
+  "pattern_hint": "BST Property — left < root < right; enables O(log n) search, insert, delete.",
+  "url": "https://leetcode.com/problemset/?search=Serialize%20and%20Deserialize%20Binary%20Tree"
+ },
+ {
+  "num": 212,
+  "title": "Binary Tree Cameras",
+  "difficulty": "Hard",
+  "section": "Trees",
+  "subtopic": "Binary Search Trees (BST)",
+  "pattern": "BST Property",
+  "pattern_hint": "BST Property — left < root < right; enables O(log n) search, insert, delete.",
+  "url": "https://leetcode.com/problemset/?search=Binary%20Tree%20Cameras"
+ },
+ {
+  "num": 213,
+  "title": "Construct BST from Preorder Traversal",
+  "difficulty": "Medium",
+  "section": "Trees",
+  "subtopic": "Binary Search Trees (BST)",
+  "pattern": "BST Property",
+  "pattern_hint": "BST Property — left < root < right; enables O(log n) search, insert, delete.",
+  "url": "https://leetcode.com/problemset/?search=Construct%20BST%20from%20Preorder%20Traversal"
+ },
+ {
+  "num": 214,
+  "title": "Two Sum IV in BST",
+  "difficulty": "Easy",
+  "section": "Trees",
+  "subtopic": "Binary Search Trees (BST)",
+  "pattern": "BST Property",
+  "pattern_hint": "BST Property — left < root < right; enables O(log n) search, insert, delete.",
+  "url": "https://leetcode.com/problemset/?search=Two%20Sum%20IV%20in%20BST"
+ },
+ {
+  "num": 215,
+  "title": "Range Sum Query — Mutable (Segment Tree / BIT)",
+  "difficulty": "Medium",
+  "section": "Trees",
+  "subtopic": "Segment Trees & BITs (Advanced)",
+  "pattern": "Segment Tree / Fenwick Tree",
+  "pattern_hint": "Segment Tree / Fenwick Tree — O(log n) range queries and point updates.",
+  "url": "https://leetcode.com/problemset/?search=Range%20Sum%20Query%20%E2%80%94%20Mutable"
+ },
+ {
+  "num": 216,
+  "title": "Range Minimum Query",
+  "difficulty": "Medium",
+  "section": "Trees",
+  "subtopic": "Segment Trees & BITs (Advanced)",
+  "pattern": "Segment Tree / Fenwick Tree",
+  "pattern_hint": "Segment Tree / Fenwick Tree — O(log n) range queries and point updates.",
+  "url": "https://leetcode.com/problemset/?search=Range%20Minimum%20Query"
+ },
+ {
+  "num": 217,
+  "title": "Count of Range Sum (Merge Sort / BIT)",
+  "difficulty": "Hard",
+  "section": "Trees",
+  "subtopic": "Segment Trees & BITs (Advanced)",
+  "pattern": "Segment Tree / Fenwick Tree",
+  "pattern_hint": "Segment Tree / Fenwick Tree — O(log n) range queries and point updates.",
+  "url": "https://leetcode.com/problemset/?search=Count%20of%20Range%20Sum"
+ },
+ {
+  "num": 218,
+  "title": "Number of Longest Increasing Subsequences (Segment Tree)",
+  "difficulty": "Medium",
+  "section": "Trees",
+  "subtopic": "Segment Trees & BITs (Advanced)",
+  "pattern": "Segment Tree / Fenwick Tree",
+  "pattern_hint": "Segment Tree / Fenwick Tree — O(log n) range queries and point updates.",
+  "url": "https://leetcode.com/problemset/?search=Number%20of%20Longest%20Increasing%20Subsequences"
+ },
+ {
+  "num": 219,
+  "title": "The Skyline Problem",
+  "difficulty": "Hard",
+  "section": "Trees",
+  "subtopic": "Segment Trees & BITs (Advanced)",
+  "pattern": "Segment Tree / Fenwick Tree",
+  "pattern_hint": "Segment Tree / Fenwick Tree — O(log n) range queries and point updates.",
+  "url": "https://leetcode.com/problemset/?search=The%20Skyline%20Problem"
+ },
+ {
+  "num": 220,
+  "title": "My Calendar I, II, III",
+  "difficulty": "Medium",
+  "section": "Trees",
+  "subtopic": "Segment Trees & BITs (Advanced)",
+  "pattern": "Segment Tree / Fenwick Tree",
+  "pattern_hint": "Segment Tree / Fenwick Tree — O(log n) range queries and point updates.",
+  "url": "https://leetcode.com/problemset/?search=My%20Calendar%20I%2C%20II%2C%20III"
+ },
+ {
+  "num": 221,
+  "title": "Rectangle Area II (coordinate compression)",
+  "difficulty": "Hard",
+  "section": "Trees",
+  "subtopic": "Segment Trees & BITs (Advanced)",
+  "pattern": "Segment Tree / Fenwick Tree",
+  "pattern_hint": "Segment Tree / Fenwick Tree — O(log n) range queries and point updates.",
+  "url": "https://leetcode.com/problemset/?search=Rectangle%20Area%20II"
+ },
+ {
+  "num": 222,
+  "title": "Falling Squares",
+  "difficulty": "Hard",
+  "section": "Trees",
+  "subtopic": "Segment Trees & BITs (Advanced)",
+  "pattern": "Segment Tree / Fenwick Tree",
+  "pattern_hint": "Segment Tree / Fenwick Tree — O(log n) range queries and point updates.",
+  "url": "https://leetcode.com/problemset/?search=Falling%20Squares"
+ },
+ {
+  "num": 223,
+  "title": "Interval List Intersections",
+  "difficulty": "Medium",
+  "section": "Trees",
+  "subtopic": "Segment Trees & BITs (Advanced)",
+  "pattern": "Segment Tree / Fenwick Tree",
+  "pattern_hint": "Segment Tree / Fenwick Tree — O(log n) range queries and point updates.",
+  "url": "https://leetcode.com/problemset/?search=Interval%20List%20Intersections"
+ },
+ {
+  "num": 224,
+  "title": "Data Stream as Disjoint Intervals",
+  "difficulty": "Hard",
+  "section": "Trees",
+  "subtopic": "Segment Trees & BITs (Advanced)",
+  "pattern": "Segment Tree / Fenwick Tree",
+  "pattern_hint": "Segment Tree / Fenwick Tree — O(log n) range queries and point updates.",
+  "url": "https://leetcode.com/problemset/?search=Data%20Stream%20as%20Disjoint%20Intervals"
+ },
+ {
+  "num": 225,
+  "title": "Implement Trie (Prefix Tree)",
+  "difficulty": "Medium",
+  "section": "Trees",
+  "subtopic": "Tries",
+  "pattern": "Trie (Prefix Tree)",
+  "pattern_hint": "Trie (Prefix Tree) — efficient prefix search and autocomplete in O(L) per query.",
+  "url": "https://leetcode.com/problemset/?search=Implement%20Trie"
+ },
+ {
+  "num": 226,
+  "title": "Word Search II (Trie + DFS)",
+  "difficulty": "Hard",
+  "section": "Trees",
+  "subtopic": "Tries",
+  "pattern": "Trie (Prefix Tree)",
+  "pattern_hint": "Trie (Prefix Tree) — efficient prefix search and autocomplete in O(L) per query.",
+  "url": "https://leetcode.com/problemset/?search=Word%20Search%20II"
+ },
+ {
+  "num": 227,
+  "title": "Design Add and Search Words Data Structure",
+  "difficulty": "Medium",
+  "section": "Trees",
+  "subtopic": "Tries",
+  "pattern": "Trie (Prefix Tree)",
+  "pattern_hint": "Trie (Prefix Tree) — efficient prefix search and autocomplete in O(L) per query.",
+  "url": "https://leetcode.com/problemset/?search=Design%20Add%20and%20Search%20Words%20Data%20Structure"
+ },
+ {
+  "num": 228,
+  "title": "Replace Words with Root (Trie)",
+  "difficulty": "Medium",
+  "section": "Trees",
+  "subtopic": "Tries",
+  "pattern": "Trie (Prefix Tree)",
+  "pattern_hint": "Trie (Prefix Tree) — efficient prefix search and autocomplete in O(L) per query.",
+  "url": "https://leetcode.com/problemset/?search=Replace%20Words%20with%20Root"
+ },
+ {
+  "num": 229,
+  "title": "Maximum XOR of Two Numbers (Trie)",
+  "difficulty": "Medium",
+  "section": "Trees",
+  "subtopic": "Tries",
+  "pattern": "Trie (Prefix Tree)",
+  "pattern_hint": "Trie (Prefix Tree) — efficient prefix search and autocomplete in O(L) per query.",
+  "url": "https://leetcode.com/problemset/?search=Maximum%20XOR%20of%20Two%20Numbers"
+ },
+ {
+  "num": 230,
+  "title": "Palindrome Pairs (Trie)",
+  "difficulty": "Hard",
+  "section": "Trees",
+  "subtopic": "Tries",
+  "pattern": "Trie (Prefix Tree)",
+  "pattern_hint": "Trie (Prefix Tree) — efficient prefix search and autocomplete in O(L) per query.",
+  "url": "https://leetcode.com/problemset/?search=Palindrome%20Pairs"
+ },
+ {
+  "num": 231,
+  "title": "Kth Largest Element in a Stream",
+  "difficulty": "Easy",
+  "section": "Heaps & Priority Queues",
+  "subtopic": "Top-K Pattern",
+  "pattern": "Min-Heap of size K",
+  "pattern_hint": "Min-Heap of size K — maintain the K largest elements efficiently.",
+  "url": "https://leetcode.com/problemset/?search=Kth%20Largest%20Element%20in%20a%20Stream"
+ },
+ {
+  "num": 232,
+  "title": "Top K Frequent Elements",
+  "difficulty": "Medium",
+  "section": "Heaps & Priority Queues",
+  "subtopic": "Top-K Pattern",
+  "pattern": "Min-Heap of size K",
+  "pattern_hint": "Min-Heap of size K — maintain the K largest elements efficiently.",
+  "url": "https://leetcode.com/problemset/?search=Top%20K%20Frequent%20Elements"
+ },
+ {
+  "num": 233,
+  "title": "Top K Frequent Words",
+  "difficulty": "Medium",
+  "section": "Heaps & Priority Queues",
+  "subtopic": "Top-K Pattern",
+  "pattern": "Min-Heap of size K",
+  "pattern_hint": "Min-Heap of size K — maintain the K largest elements efficiently.",
+  "url": "https://leetcode.com/problemset/?search=Top%20K%20Frequent%20Words"
+ },
+ {
+  "num": 234,
+  "title": "K Closest Points to Origin",
+  "difficulty": "Medium",
+  "section": "Heaps & Priority Queues",
+  "subtopic": "Top-K Pattern",
+  "pattern": "Min-Heap of size K",
+  "pattern_hint": "Min-Heap of size K — maintain the K largest elements efficiently.",
+  "url": "https://leetcode.com/problemset/?search=K%20Closest%20Points%20to%20Origin"
+ },
+ {
+  "num": 235,
+  "title": "Find K Pairs with Smallest Sums",
+  "difficulty": "Medium",
+  "section": "Heaps & Priority Queues",
+  "subtopic": "Top-K Pattern",
+  "pattern": "Min-Heap of size K",
+  "pattern_hint": "Min-Heap of size K — maintain the K largest elements efficiently.",
+  "url": "https://leetcode.com/problemset/?search=Find%20K%20Pairs%20with%20Smallest%20Sums"
+ },
+ {
+  "num": 236,
+  "title": "Kth Smallest Element in Sorted Matrix (Heap)",
+  "difficulty": "Medium",
+  "section": "Heaps & Priority Queues",
+  "subtopic": "Top-K Pattern",
+  "pattern": "Min-Heap of size K",
+  "pattern_hint": "Min-Heap of size K — maintain the K largest elements efficiently.",
+  "url": "https://leetcode.com/problemset/?search=Kth%20Smallest%20Element%20in%20Sorted%20Matrix"
+ },
+ {
+  "num": 237,
+  "title": "Sort Characters By Frequency",
+  "difficulty": "Medium",
+  "section": "Heaps & Priority Queues",
+  "subtopic": "Top-K Pattern",
+  "pattern": "Min-Heap of size K",
+  "pattern_hint": "Min-Heap of size K — maintain the K largest elements efficiently.",
+  "url": "https://leetcode.com/problemset/?search=Sort%20Characters%20By%20Frequency"
+ },
+ {
+  "num": 238,
+  "title": "Reorganize String",
+  "difficulty": "Medium",
+  "section": "Heaps & Priority Queues",
+  "subtopic": "Top-K Pattern",
+  "pattern": "Min-Heap of size K",
+  "pattern_hint": "Min-Heap of size K — maintain the K largest elements efficiently.",
+  "url": "https://leetcode.com/problemset/?search=Reorganize%20String"
+ },
+ {
+  "num": 239,
+  "title": "Task Scheduler (Heap approach)",
+  "difficulty": "Medium",
+  "section": "Heaps & Priority Queues",
+  "subtopic": "Top-K Pattern",
+  "pattern": "Min-Heap of size K",
+  "pattern_hint": "Min-Heap of size K — maintain the K largest elements efficiently.",
+  "url": "https://leetcode.com/problemset/?search=Task%20Scheduler"
+ },
+ {
+  "num": 240,
+  "title": "Maximum Frequency Stack",
+  "difficulty": "Hard",
+  "section": "Heaps & Priority Queues",
+  "subtopic": "Top-K Pattern",
+  "pattern": "Min-Heap of size K",
+  "pattern_hint": "Min-Heap of size K — maintain the K largest elements efficiently.",
+  "url": "https://leetcode.com/problemset/?search=Maximum%20Frequency%20Stack"
+ },
+ {
+  "num": 241,
+  "title": "Find Median from Data Stream",
+  "difficulty": "Hard",
+  "section": "Heaps & Priority Queues",
+  "subtopic": "Two-Heap Pattern",
+  "pattern": "Two Heaps",
+  "pattern_hint": "Two Heaps — one max-heap and one min-heap to find the median dynamically.",
+  "url": "https://leetcode.com/problemset/?search=Find%20Median%20from%20Data%20Stream"
+ },
+ {
+  "num": 242,
+  "title": "Sliding Window Median",
+  "difficulty": "Hard",
+  "section": "Heaps & Priority Queues",
+  "subtopic": "Two-Heap Pattern",
+  "pattern": "Two Heaps",
+  "pattern_hint": "Two Heaps — one max-heap and one min-heap to find the median dynamically.",
+  "url": "https://leetcode.com/problemset/?search=Sliding%20Window%20Median"
+ },
+ {
+  "num": 243,
+  "title": "IPO (Maximize Capital)",
+  "difficulty": "Hard",
+  "section": "Heaps & Priority Queues",
+  "subtopic": "Two-Heap Pattern",
+  "pattern": "Two Heaps",
+  "pattern_hint": "Two Heaps — one max-heap and one min-heap to find the median dynamically.",
+  "url": "https://leetcode.com/problemset/?search=IPO"
+ },
+ {
+  "num": 244,
+  "title": "Minimum Cost to Connect Sticks",
+  "difficulty": "Medium",
+  "section": "Heaps & Priority Queues",
+  "subtopic": "Two-Heap Pattern",
+  "pattern": "Two Heaps",
+  "pattern_hint": "Two Heaps — one max-heap and one min-heap to find the median dynamically.",
+  "url": "https://leetcode.com/problemset/?search=Minimum%20Cost%20to%20Connect%20Sticks"
+ },
+ {
+  "num": 245,
+  "title": "Smallest Range Covering Elements from K Lists",
+  "difficulty": "Hard",
+  "section": "Heaps & Priority Queues",
+  "subtopic": "Two-Heap Pattern",
+  "pattern": "Two Heaps",
+  "pattern_hint": "Two Heaps — one max-heap and one min-heap to find the median dynamically.",
+  "url": "https://leetcode.com/problemset/?search=Smallest%20Range%20Covering%20Elements%20from%20K%20Lists"
+ },
+ {
+  "num": 246,
+  "title": "Ugly Number II",
+  "difficulty": "Medium",
+  "section": "Heaps & Priority Queues",
+  "subtopic": "Two-Heap Pattern",
+  "pattern": "Two Heaps",
+  "pattern_hint": "Two Heaps — one max-heap and one min-heap to find the median dynamically.",
+  "url": "https://leetcode.com/problemset/?search=Ugly%20Number%20II"
+ },
+ {
+  "num": 247,
+  "title": "Super Ugly Number",
+  "difficulty": "Medium",
+  "section": "Heaps & Priority Queues",
+  "subtopic": "Two-Heap Pattern",
+  "pattern": "Two Heaps",
+  "pattern_hint": "Two Heaps — one max-heap and one min-heap to find the median dynamically.",
+  "url": "https://leetcode.com/problemset/?search=Super%20Ugly%20Number"
+ },
+ {
+  "num": 248,
+  "title": "Meeting Rooms III (heap-based room assignment)",
+  "difficulty": "Hard",
+  "section": "Heaps & Priority Queues",
+  "subtopic": "Two-Heap Pattern",
+  "pattern": "Two Heaps",
+  "pattern_hint": "Two Heaps — one max-heap and one min-heap to find the median dynamically.",
+  "url": "https://leetcode.com/problemset/?search=Meeting%20Rooms%20III"
+ },
+ {
+  "num": 249,
+  "title": "Employee Free Time",
+  "difficulty": "Hard",
+  "section": "Heaps & Priority Queues",
+  "subtopic": "Two-Heap Pattern",
+  "pattern": "Two Heaps",
+  "pattern_hint": "Two Heaps — one max-heap and one min-heap to find the median dynamically.",
+  "url": "https://leetcode.com/problemset/?search=Employee%20Free%20Time"
+ },
+ {
+  "num": 250,
+  "title": "Process Tasks Using Servers",
+  "difficulty": "Medium",
+  "section": "Heaps & Priority Queues",
+  "subtopic": "Two-Heap Pattern",
+  "pattern": "Two Heaps",
+  "pattern_hint": "Two Heaps — one max-heap and one min-heap to find the median dynamically.",
+  "url": "https://leetcode.com/problemset/?search=Process%20Tasks%20Using%20Servers"
+ },
+ {
+  "num": 251,
+  "title": "Single-Threaded CPU",
+  "difficulty": "Medium",
+  "section": "Heaps & Priority Queues",
+  "subtopic": "Two-Heap Pattern",
+  "pattern": "Two Heaps",
+  "pattern_hint": "Two Heaps — one max-heap and one min-heap to find the median dynamically.",
+  "url": "https://leetcode.com/problemset/?search=Single-Threaded%20CPU"
+ },
+ {
+  "num": 252,
+  "title": "Furthest Building You Can Reach",
+  "difficulty": "Medium",
+  "section": "Heaps & Priority Queues",
+  "subtopic": "Two-Heap Pattern",
+  "pattern": "Two Heaps",
+  "pattern_hint": "Two Heaps — one max-heap and one min-heap to find the median dynamically.",
+  "url": "https://leetcode.com/problemset/?search=Furthest%20Building%20You%20Can%20Reach"
+ },
+ {
+  "num": 253,
+  "title": "Number of Islands",
+  "difficulty": "Medium",
+  "section": "Graphs",
+  "subtopic": "BFS (Shortest Path / Level-order)",
+  "pattern": "BFS",
+  "pattern_hint": "BFS — explore nodes level by level; guarantees shortest path in unweighted graphs.",
+  "url": "https://leetcode.com/problemset/?search=Number%20of%20Islands"
+ },
+ {
+  "num": 254,
+  "title": "Max Area of Island",
+  "difficulty": "Medium",
+  "section": "Graphs",
+  "subtopic": "BFS (Shortest Path / Level-order)",
+  "pattern": "BFS",
+  "pattern_hint": "BFS — explore nodes level by level; guarantees shortest path in unweighted graphs.",
+  "url": "https://leetcode.com/problemset/?search=Max%20Area%20of%20Island"
+ },
+ {
+  "num": 255,
+  "title": "Flood Fill",
+  "difficulty": "Easy",
+  "section": "Graphs",
+  "subtopic": "BFS (Shortest Path / Level-order)",
+  "pattern": "BFS",
+  "pattern_hint": "BFS — explore nodes level by level; guarantees shortest path in unweighted graphs.",
+  "url": "https://leetcode.com/problemset/?search=Flood%20Fill"
+ },
+ {
+  "num": 256,
+  "title": "Pacific Atlantic Water Flow",
+  "difficulty": "Medium",
+  "section": "Graphs",
+  "subtopic": "BFS (Shortest Path / Level-order)",
+  "pattern": "BFS",
+  "pattern_hint": "BFS — explore nodes level by level; guarantees shortest path in unweighted graphs.",
+  "url": "https://leetcode.com/problemset/?search=Pacific%20Atlantic%20Water%20Flow"
+ },
+ {
+  "num": 257,
+  "title": "01 Matrix (multi-source BFS)",
+  "difficulty": "Medium",
+  "section": "Graphs",
+  "subtopic": "BFS (Shortest Path / Level-order)",
+  "pattern": "BFS",
+  "pattern_hint": "BFS — explore nodes level by level; guarantees shortest path in unweighted graphs.",
+  "url": "https://leetcode.com/problemset/?search=01%20Matrix"
+ },
+ {
+  "num": 258,
+  "title": "Rotting Oranges",
+  "difficulty": "Medium",
+  "section": "Graphs",
+  "subtopic": "BFS (Shortest Path / Level-order)",
+  "pattern": "BFS",
+  "pattern_hint": "BFS — explore nodes level by level; guarantees shortest path in unweighted graphs.",
+  "url": "https://leetcode.com/problemset/?search=Rotting%20Oranges"
+ },
+ {
+  "num": 259,
+  "title": "Walls and Gates (multi-source BFS)",
+  "difficulty": "Medium",
+  "section": "Graphs",
+  "subtopic": "BFS (Shortest Path / Level-order)",
+  "pattern": "BFS",
+  "pattern_hint": "BFS — explore nodes level by level; guarantees shortest path in unweighted graphs.",
+  "url": "https://leetcode.com/problemset/?search=Walls%20and%20Gates"
+ },
+ {
+  "num": 260,
+  "title": "Shortest Path in Binary Matrix",
+  "difficulty": "Medium",
+  "section": "Graphs",
+  "subtopic": "BFS (Shortest Path / Level-order)",
+  "pattern": "BFS",
+  "pattern_hint": "BFS — explore nodes level by level; guarantees shortest path in unweighted graphs.",
+  "url": "https://leetcode.com/problemset/?search=Shortest%20Path%20in%20Binary%20Matrix"
+ },
+ {
+  "num": 261,
+  "title": "Snakes and Ladders",
+  "difficulty": "Medium",
+  "section": "Graphs",
+  "subtopic": "BFS (Shortest Path / Level-order)",
+  "pattern": "BFS",
+  "pattern_hint": "BFS — explore nodes level by level; guarantees shortest path in unweighted graphs.",
+  "url": "https://leetcode.com/problemset/?search=Snakes%20and%20Ladders"
+ },
+ {
+  "num": 262,
+  "title": "Open the Lock",
+  "difficulty": "Medium",
+  "section": "Graphs",
+  "subtopic": "BFS (Shortest Path / Level-order)",
+  "pattern": "BFS",
+  "pattern_hint": "BFS — explore nodes level by level; guarantees shortest path in unweighted graphs.",
+  "url": "https://leetcode.com/problemset/?search=Open%20the%20Lock"
+ },
+ {
+  "num": 263,
+  "title": "Word Ladder",
+  "difficulty": "Hard",
+  "section": "Graphs",
+  "subtopic": "BFS (Shortest Path / Level-order)",
+  "pattern": "BFS",
+  "pattern_hint": "BFS — explore nodes level by level; guarantees shortest path in unweighted graphs.",
+  "url": "https://leetcode.com/problemset/?search=Word%20Ladder"
+ },
+ {
+  "num": 264,
+  "title": "Word Ladder II (all shortest paths)",
+  "difficulty": "Hard",
+  "section": "Graphs",
+  "subtopic": "BFS (Shortest Path / Level-order)",
+  "pattern": "BFS",
+  "pattern_hint": "BFS — explore nodes level by level; guarantees shortest path in unweighted graphs.",
+  "url": "https://leetcode.com/problemset/?search=Word%20Ladder%20II"
+ },
+ {
+  "num": 265,
+  "title": "Minimum Knight Moves",
+  "difficulty": "Medium",
+  "section": "Graphs",
+  "subtopic": "BFS (Shortest Path / Level-order)",
+  "pattern": "BFS",
+  "pattern_hint": "BFS — explore nodes level by level; guarantees shortest path in unweighted graphs.",
+  "url": "https://leetcode.com/problemset/?search=Minimum%20Knight%20Moves"
+ },
+ {
+  "num": 266,
+  "title": "Bus Routes (BFS on routes)",
+  "difficulty": "Hard",
+  "section": "Graphs",
+  "subtopic": "BFS (Shortest Path / Level-order)",
+  "pattern": "BFS",
+  "pattern_hint": "BFS — explore nodes level by level; guarantees shortest path in unweighted graphs.",
+  "url": "https://leetcode.com/problemset/?search=Bus%20Routes"
+ },
+ {
+  "num": 267,
+  "title": "Cut Off Trees for Golf Event",
+  "difficulty": "Hard",
+  "section": "Graphs",
+  "subtopic": "BFS (Shortest Path / Level-order)",
+  "pattern": "BFS",
+  "pattern_hint": "BFS — explore nodes level by level; guarantees shortest path in unweighted graphs.",
+  "url": "https://leetcode.com/problemset/?search=Cut%20Off%20Trees%20for%20Golf%20Event"
+ },
+ {
+  "num": 268,
+  "title": "Clone Graph",
+  "difficulty": "Medium",
+  "section": "Graphs",
+  "subtopic": "DFS / Backtracking on Graphs",
+  "pattern": "DFS with Visited Set",
+  "pattern_hint": "DFS with Visited Set — explore all paths; detect cycles and connected components.",
+  "url": "https://leetcode.com/problemset/?search=Clone%20Graph"
+ },
+ {
+  "num": 269,
+  "title": "Course Schedule (cycle detection)",
+  "difficulty": "Medium",
+  "section": "Graphs",
+  "subtopic": "DFS / Backtracking on Graphs",
+  "pattern": "DFS with Visited Set",
+  "pattern_hint": "DFS with Visited Set — explore all paths; detect cycles and connected components.",
+  "url": "https://leetcode.com/problemset/?search=Course%20Schedule"
+ },
+ {
+  "num": 270,
+  "title": "Course Schedule II (topological sort)",
+  "difficulty": "Medium",
+  "section": "Graphs",
+  "subtopic": "DFS / Backtracking on Graphs",
+  "pattern": "DFS with Visited Set",
+  "pattern_hint": "DFS with Visited Set — explore all paths; detect cycles and connected components.",
+  "url": "https://leetcode.com/problemset/?search=Course%20Schedule%20II"
+ },
+ {
+  "num": 271,
+  "title": "Number of Connected Components in Undirected Graph",
+  "difficulty": "Medium",
+  "section": "Graphs",
+  "subtopic": "DFS / Backtracking on Graphs",
+  "pattern": "DFS with Visited Set",
+  "pattern_hint": "DFS with Visited Set — explore all paths; detect cycles and connected components.",
+  "url": "https://leetcode.com/problemset/?search=Number%20of%20Connected%20Components%20in%20Undirected%20Graph"
+ },
+ {
+  "num": 272,
+  "title": "Graph Valid Tree",
+  "difficulty": "Medium",
+  "section": "Graphs",
+  "subtopic": "DFS / Backtracking on Graphs",
+  "pattern": "DFS with Visited Set",
+  "pattern_hint": "DFS with Visited Set — explore all paths; detect cycles and connected components.",
+  "url": "https://leetcode.com/problemset/?search=Graph%20Valid%20Tree"
+ },
+ {
+  "num": 273,
+  "title": "Redundant Connection (Union-Find)",
+  "difficulty": "Medium",
+  "section": "Graphs",
+  "subtopic": "DFS / Backtracking on Graphs",
+  "pattern": "DFS with Visited Set",
+  "pattern_hint": "DFS with Visited Set — explore all paths; detect cycles and connected components.",
+  "url": "https://leetcode.com/problemset/?search=Redundant%20Connection"
+ },
+ {
+  "num": 274,
+  "title": "Accounts Merge (Union-Find / DFS)",
+  "difficulty": "Medium",
+  "section": "Graphs",
+  "subtopic": "DFS / Backtracking on Graphs",
+  "pattern": "DFS with Visited Set",
+  "pattern_hint": "DFS with Visited Set — explore all paths; detect cycles and connected components.",
+  "url": "https://leetcode.com/problemset/?search=Accounts%20Merge"
+ },
+ {
+  "num": 275,
+  "title": "All Paths from Source to Target",
+  "difficulty": "Medium",
+  "section": "Graphs",
+  "subtopic": "DFS / Backtracking on Graphs",
+  "pattern": "DFS with Visited Set",
+  "pattern_hint": "DFS with Visited Set — explore all paths; detect cycles and connected components.",
+  "url": "https://leetcode.com/problemset/?search=All%20Paths%20from%20Source%20to%20Target"
+ },
+ {
+  "num": 276,
+  "title": "Is Graph Bipartite?",
+  "difficulty": "Medium",
+  "section": "Graphs",
+  "subtopic": "DFS / Backtracking on Graphs",
+  "pattern": "DFS with Visited Set",
+  "pattern_hint": "DFS with Visited Set — explore all paths; detect cycles and connected components.",
+  "url": "https://leetcode.com/problemset/?search=Is%20Graph%20Bipartite%3F"
+ },
+ {
+  "num": 277,
+  "title": "Possible Bipartition",
+  "difficulty": "Medium",
+  "section": "Graphs",
+  "subtopic": "DFS / Backtracking on Graphs",
+  "pattern": "DFS with Visited Set",
+  "pattern_hint": "DFS with Visited Set — explore all paths; detect cycles and connected components.",
+  "url": "https://leetcode.com/problemset/?search=Possible%20Bipartition"
+ },
+ {
+  "num": 278,
+  "title": "Alien Dictionary",
+  "difficulty": "Hard",
+  "section": "Graphs",
+  "subtopic": "Topological Sort",
+  "pattern": "Kahn's Algorithm / DFS Post-order",
+  "pattern_hint": "Kahn's Algorithm / DFS Post-order — linear ordering of nodes in a DAG.",
+  "url": "https://leetcode.com/problemset/?search=Alien%20Dictionary"
+ },
+ {
+  "num": 279,
+  "title": "Sequence Reconstruction",
+  "difficulty": "Medium",
+  "section": "Graphs",
+  "subtopic": "Topological Sort",
+  "pattern": "Kahn's Algorithm / DFS Post-order",
+  "pattern_hint": "Kahn's Algorithm / DFS Post-order — linear ordering of nodes in a DAG.",
+  "url": "https://leetcode.com/problemset/?search=Sequence%20Reconstruction"
+ },
+ {
+  "num": 280,
+  "title": "Minimum Height Trees",
+  "difficulty": "Medium",
+  "section": "Graphs",
+  "subtopic": "Topological Sort",
+  "pattern": "Kahn's Algorithm / DFS Post-order",
+  "pattern_hint": "Kahn's Algorithm / DFS Post-order — linear ordering of nodes in a DAG.",
+  "url": "https://leetcode.com/problemset/?search=Minimum%20Height%20Trees"
+ },
+ {
+  "num": 281,
+  "title": "Find Eventual Safe States",
+  "difficulty": "Medium",
+  "section": "Graphs",
+  "subtopic": "Topological Sort",
+  "pattern": "Kahn's Algorithm / DFS Post-order",
+  "pattern_hint": "Kahn's Algorithm / DFS Post-order — linear ordering of nodes in a DAG.",
+  "url": "https://leetcode.com/problemset/?search=Find%20Eventual%20Safe%20States"
+ },
+ {
+  "num": 282,
+  "title": "Parallel Courses (min semesters)",
+  "difficulty": "Medium",
+  "section": "Graphs",
+  "subtopic": "Topological Sort",
+  "pattern": "Kahn's Algorithm / DFS Post-order",
+  "pattern_hint": "Kahn's Algorithm / DFS Post-order — linear ordering of nodes in a DAG.",
+  "url": "https://leetcode.com/problemset/?search=Parallel%20Courses"
+ },
+ {
+  "num": 283,
+  "title": "Sort Items by Groups Respecting Dependencies",
+  "difficulty": "Hard",
+  "section": "Graphs",
+  "subtopic": "Topological Sort",
+  "pattern": "Kahn's Algorithm / DFS Post-order",
+  "pattern_hint": "Kahn's Algorithm / DFS Post-order — linear ordering of nodes in a DAG.",
+  "url": "https://leetcode.com/problemset/?search=Sort%20Items%20by%20Groups%20Respecting%20Dependencies"
+ },
+ {
+  "num": 284,
+  "title": "Find if Path Exists in Graph",
+  "difficulty": "Easy",
+  "section": "Graphs",
+  "subtopic": "Union-Find (Disjoint Set Union)",
+  "pattern": "DSU with Path Compression + Union by Rank",
+  "pattern_hint": "DSU with Path Compression + Union by Rank — near-O(1) amortised operations.",
+  "url": "https://leetcode.com/problemset/?search=Find%20if%20Path%20Exists%20in%20Graph"
+ },
+ {
+  "num": 285,
+  "title": "Number of Provinces",
+  "difficulty": "Medium",
+  "section": "Graphs",
+  "subtopic": "Union-Find (Disjoint Set Union)",
+  "pattern": "DSU with Path Compression + Union by Rank",
+  "pattern_hint": "DSU with Path Compression + Union by Rank — near-O(1) amortised operations.",
+  "url": "https://leetcode.com/problemset/?search=Number%20of%20Provinces"
+ },
+ {
+  "num": 286,
+  "title": "Redundant Connection II (directed)",
+  "difficulty": "Hard",
+  "section": "Graphs",
+  "subtopic": "Union-Find (Disjoint Set Union)",
+  "pattern": "DSU with Path Compression + Union by Rank",
+  "pattern_hint": "DSU with Path Compression + Union by Rank — near-O(1) amortised operations.",
+  "url": "https://leetcode.com/problemset/?search=Redundant%20Connection%20II"
+ },
+ {
+  "num": 287,
+  "title": "Making a Large Island",
+  "difficulty": "Hard",
+  "section": "Graphs",
+  "subtopic": "Union-Find (Disjoint Set Union)",
+  "pattern": "DSU with Path Compression + Union by Rank",
+  "pattern_hint": "DSU with Path Compression + Union by Rank — near-O(1) amortised operations.",
+  "url": "https://leetcode.com/problemset/?search=Making%20a%20Large%20Island"
+ },
+ {
+  "num": 288,
+  "title": "Swim in Rising Water",
+  "difficulty": "Hard",
+  "section": "Graphs",
+  "subtopic": "Union-Find (Disjoint Set Union)",
+  "pattern": "DSU with Path Compression + Union by Rank",
+  "pattern_hint": "DSU with Path Compression + Union by Rank — near-O(1) amortised operations.",
+  "url": "https://leetcode.com/problemset/?search=Swim%20in%20Rising%20Water"
+ },
+ {
+  "num": 289,
+  "title": "Earliest Moment When Everyone Become Friends",
+  "difficulty": "Medium",
+  "section": "Graphs",
+  "subtopic": "Union-Find (Disjoint Set Union)",
+  "pattern": "DSU with Path Compression + Union by Rank",
+  "pattern_hint": "DSU with Path Compression + Union by Rank — near-O(1) amortised operations.",
+  "url": "https://leetcode.com/problemset/?search=Earliest%20Moment%20When%20Everyone%20Become%20Friends"
+ },
+ {
+  "num": 290,
+  "title": "Satisfiability of Equality Equations",
+  "difficulty": "Medium",
+  "section": "Graphs",
+  "subtopic": "Union-Find (Disjoint Set Union)",
+  "pattern": "DSU with Path Compression + Union by Rank",
+  "pattern_hint": "DSU with Path Compression + Union by Rank — near-O(1) amortised operations.",
+  "url": "https://leetcode.com/problemset/?search=Satisfiability%20of%20Equality%20Equations"
+ },
+ {
+  "num": 291,
+  "title": "Remove Max Number of Edges to Keep Graph Fully Traversable",
+  "difficulty": "Hard",
+  "section": "Graphs",
+  "subtopic": "Union-Find (Disjoint Set Union)",
+  "pattern": "DSU with Path Compression + Union by Rank",
+  "pattern_hint": "DSU with Path Compression + Union by Rank — near-O(1) amortised operations.",
+  "url": "https://leetcode.com/problemset/?search=Remove%20Max%20Number%20of%20Edges%20to%20Keep%20Graph%20Fully%20Traversable"
+ },
+ {
+  "num": 292,
+  "title": "Network Delay Time (Dijkstra)",
+  "difficulty": "Medium",
+  "section": "Graphs",
+  "subtopic": "Shortest Path Algorithms",
+  "pattern": "Dijkstra / Bellman-Ford / Floyd-Warshall",
+  "pattern_hint": "Dijkstra / Bellman-Ford / Floyd-Warshall — weighted shortest paths.",
+  "url": "https://leetcode.com/problemset/?search=Network%20Delay%20Time"
+ },
+ {
+  "num": 293,
+  "title": "Path with Maximum Probability",
+  "difficulty": "Medium",
+  "section": "Graphs",
+  "subtopic": "Shortest Path Algorithms",
+  "pattern": "Dijkstra / Bellman-Ford / Floyd-Warshall",
+  "pattern_hint": "Dijkstra / Bellman-Ford / Floyd-Warshall — weighted shortest paths.",
+  "url": "https://leetcode.com/problemset/?search=Path%20with%20Maximum%20Probability"
+ },
+ {
+  "num": 294,
+  "title": "Cheapest Flights Within K Stops (Bellman-Ford)",
+  "difficulty": "Medium",
+  "section": "Graphs",
+  "subtopic": "Shortest Path Algorithms",
+  "pattern": "Dijkstra / Bellman-Ford / Floyd-Warshall",
+  "pattern_hint": "Dijkstra / Bellman-Ford / Floyd-Warshall — weighted shortest paths.",
+  "url": "https://leetcode.com/problemset/?search=Cheapest%20Flights%20Within%20K%20Stops"
+ },
+ {
+  "num": 295,
+  "title": "Find the City with Smallest Number of Neighbors (Floyd-Warshall)",
+  "difficulty": "Medium",
+  "section": "Graphs",
+  "subtopic": "Shortest Path Algorithms",
+  "pattern": "Dijkstra / Bellman-Ford / Floyd-Warshall",
+  "pattern_hint": "Dijkstra / Bellman-Ford / Floyd-Warshall — weighted shortest paths.",
+  "url": "https://leetcode.com/problemset/?search=Find%20the%20City%20with%20Smallest%20Number%20of%20Neighbors"
+ },
+ {
+  "num": 296,
+  "title": "Path with Minimum Effort (Dijkstra / Binary Search)",
+  "difficulty": "Medium",
+  "section": "Graphs",
+  "subtopic": "Shortest Path Algorithms",
+  "pattern": "Dijkstra / Bellman-Ford / Floyd-Warshall",
+  "pattern_hint": "Dijkstra / Bellman-Ford / Floyd-Warshall — weighted shortest paths.",
+  "url": "https://leetcode.com/problemset/?search=Path%20with%20Minimum%20Effort"
+ },
+ {
+  "num": 297,
+  "title": "Number of Ways to Arrive at Destination",
+  "difficulty": "Medium",
+  "section": "Graphs",
+  "subtopic": "Shortest Path Algorithms",
+  "pattern": "Dijkstra / Bellman-Ford / Floyd-Warshall",
+  "pattern_hint": "Dijkstra / Bellman-Ford / Floyd-Warshall — weighted shortest paths.",
+  "url": "https://leetcode.com/problemset/?search=Number%20of%20Ways%20to%20Arrive%20at%20Destination"
+ },
+ {
+  "num": 298,
+  "title": "Minimum Weighted Subgraph with Required Paths",
+  "difficulty": "Hard",
+  "section": "Graphs",
+  "subtopic": "Shortest Path Algorithms",
+  "pattern": "Dijkstra / Bellman-Ford / Floyd-Warshall",
+  "pattern_hint": "Dijkstra / Bellman-Ford / Floyd-Warshall — weighted shortest paths.",
+  "url": "https://leetcode.com/problemset/?search=Minimum%20Weighted%20Subgraph%20with%20Required%20Paths"
+ },
+ {
+  "num": 299,
+  "title": "Minimum Score of a Path Between Two Cities",
+  "difficulty": "Medium",
+  "section": "Graphs",
+  "subtopic": "Shortest Path Algorithms",
+  "pattern": "Dijkstra / Bellman-Ford / Floyd-Warshall",
+  "pattern_hint": "Dijkstra / Bellman-Ford / Floyd-Warshall — weighted shortest paths.",
+  "url": "https://leetcode.com/problemset/?search=Minimum%20Score%20of%20a%20Path%20Between%20Two%20Cities"
+ },
+ {
+  "num": 300,
+  "title": "Reachable Nodes in Subdivided Graph",
+  "difficulty": "Hard",
+  "section": "Graphs",
+  "subtopic": "Shortest Path Algorithms",
+  "pattern": "Dijkstra / Bellman-Ford / Floyd-Warshall",
+  "pattern_hint": "Dijkstra / Bellman-Ford / Floyd-Warshall — weighted shortest paths.",
+  "url": "https://leetcode.com/problemset/?search=Reachable%20Nodes%20in%20Subdivided%20Graph"
+ },
+ {
+  "num": 301,
+  "title": "K-th Shortest Path (Yen's Algorithm concept)",
+  "difficulty": "Hard",
+  "section": "Graphs",
+  "subtopic": "Shortest Path Algorithms",
+  "pattern": "Dijkstra / Bellman-Ford / Floyd-Warshall",
+  "pattern_hint": "Dijkstra / Bellman-Ford / Floyd-Warshall — weighted shortest paths.",
+  "url": "https://leetcode.com/problemset/?search=K-th%20Shortest%20Path"
+ },
+ {
+  "num": 302,
+  "title": "Min Cost to Connect All Points (Prim's)",
+  "difficulty": "Medium",
+  "section": "Graphs",
+  "subtopic": "Minimum Spanning Tree",
+  "pattern": "Kruskal's / Prim's",
+  "pattern_hint": "Kruskal's / Prim's — greedily build a spanning tree with minimum total edge weight.",
+  "url": "https://leetcode.com/problemset/?search=Min%20Cost%20to%20Connect%20All%20Points"
+ },
+ {
+  "num": 303,
+  "title": "Optimize Water Distribution in a Village",
+  "difficulty": "Hard",
+  "section": "Graphs",
+  "subtopic": "Minimum Spanning Tree",
+  "pattern": "Kruskal's / Prim's",
+  "pattern_hint": "Kruskal's / Prim's — greedily build a spanning tree with minimum total edge weight.",
+  "url": "https://leetcode.com/problemset/?search=Optimize%20Water%20Distribution%20in%20a%20Village"
+ },
+ {
+  "num": 304,
+  "title": "Critical Connections in a Network (Bridges)",
+  "difficulty": "Hard",
+  "section": "Graphs",
+  "subtopic": "Minimum Spanning Tree",
+  "pattern": "Kruskal's / Prim's",
+  "pattern_hint": "Kruskal's / Prim's — greedily build a spanning tree with minimum total edge weight.",
+  "url": "https://leetcode.com/problemset/?search=Critical%20Connections%20in%20a%20Network"
+ },
+ {
+  "num": 305,
+  "title": "Minimum Cost to Reach City with Tolls",
+  "difficulty": "Medium",
+  "section": "Graphs",
+  "subtopic": "Minimum Spanning Tree",
+  "pattern": "Kruskal's / Prim's",
+  "pattern_hint": "Kruskal's / Prim's — greedily build a spanning tree with minimum total edge weight.",
+  "url": "https://leetcode.com/problemset/?search=Minimum%20Cost%20to%20Reach%20City%20with%20Tolls"
+ },
+ {
+  "num": 306,
+  "title": "Find Critical and Pseudo-Critical Edges in MST",
+  "difficulty": "Hard",
+  "section": "Graphs",
+  "subtopic": "Minimum Spanning Tree",
+  "pattern": "Kruskal's / Prim's",
+  "pattern_hint": "Kruskal's / Prim's — greedily build a spanning tree with minimum total edge weight.",
+  "url": "https://leetcode.com/problemset/?search=Find%20Critical%20and%20Pseudo-Critical%20Edges%20in%20MST"
+ },
+ {
+  "num": 307,
+  "title": "Climbing Stairs",
+  "difficulty": "Easy",
+  "section": "Dynamic Programming",
+  "subtopic": "1-D DP (Linear Recurrences)",
+  "pattern": "1-D DP",
+  "pattern_hint": "1-D DP — state is a single index; transition from previous states.",
+  "url": "https://leetcode.com/problemset/?search=Climbing%20Stairs"
+ },
+ {
+  "num": 308,
+  "title": "House Robber",
+  "difficulty": "Medium",
+  "section": "Dynamic Programming",
+  "subtopic": "1-D DP (Linear Recurrences)",
+  "pattern": "1-D DP",
+  "pattern_hint": "1-D DP — state is a single index; transition from previous states.",
+  "url": "https://leetcode.com/problemset/?search=House%20Robber"
+ },
+ {
+  "num": 309,
+  "title": "House Robber II (circular)",
+  "difficulty": "Medium",
+  "section": "Dynamic Programming",
+  "subtopic": "1-D DP (Linear Recurrences)",
+  "pattern": "1-D DP",
+  "pattern_hint": "1-D DP — state is a single index; transition from previous states.",
+  "url": "https://leetcode.com/problemset/?search=House%20Robber%20II"
+ },
+ {
+  "num": 310,
+  "title": "House Robber III (tree DP)",
+  "difficulty": "Medium",
+  "section": "Dynamic Programming",
+  "subtopic": "1-D DP (Linear Recurrences)",
+  "pattern": "1-D DP",
+  "pattern_hint": "1-D DP — state is a single index; transition from previous states.",
+  "url": "https://leetcode.com/problemset/?search=House%20Robber%20III"
+ },
+ {
+  "num": 311,
+  "title": "Min Cost Climbing Stairs",
+  "difficulty": "Easy",
+  "section": "Dynamic Programming",
+  "subtopic": "1-D DP (Linear Recurrences)",
+  "pattern": "1-D DP",
+  "pattern_hint": "1-D DP — state is a single index; transition from previous states.",
+  "url": "https://leetcode.com/problemset/?search=Min%20Cost%20Climbing%20Stairs"
+ },
+ {
+  "num": 312,
+  "title": "Fibonacci Number",
+  "difficulty": "Easy",
+  "section": "Dynamic Programming",
+  "subtopic": "1-D DP (Linear Recurrences)",
+  "pattern": "1-D DP",
+  "pattern_hint": "1-D DP — state is a single index; transition from previous states.",
+  "url": "https://leetcode.com/problemset/?search=Fibonacci%20Number"
+ },
+ {
+  "num": 313,
+  "title": "Tribonacci Number",
+  "difficulty": "Easy",
+  "section": "Dynamic Programming",
+  "subtopic": "1-D DP (Linear Recurrences)",
+  "pattern": "1-D DP",
+  "pattern_hint": "1-D DP — state is a single index; transition from previous states.",
+  "url": "https://leetcode.com/problemset/?search=Tribonacci%20Number"
+ },
+ {
+  "num": 314,
+  "title": "Coin Change (minimum coins)",
+  "difficulty": "Medium",
+  "section": "Dynamic Programming",
+  "subtopic": "1-D DP (Linear Recurrences)",
+  "pattern": "1-D DP",
+  "pattern_hint": "1-D DP — state is a single index; transition from previous states.",
+  "url": "https://leetcode.com/problemset/?search=Coin%20Change"
+ },
+ {
+  "num": 315,
+  "title": "Coin Change II (number of ways)",
+  "difficulty": "Medium",
+  "section": "Dynamic Programming",
+  "subtopic": "1-D DP (Linear Recurrences)",
+  "pattern": "1-D DP",
+  "pattern_hint": "1-D DP — state is a single index; transition from previous states.",
+  "url": "https://leetcode.com/problemset/?search=Coin%20Change%20II"
+ },
+ {
+  "num": 316,
+  "title": "Perfect Squares",
+  "difficulty": "Medium",
+  "section": "Dynamic Programming",
+  "subtopic": "1-D DP (Linear Recurrences)",
+  "pattern": "1-D DP",
+  "pattern_hint": "1-D DP — state is a single index; transition from previous states.",
+  "url": "https://leetcode.com/problemset/?search=Perfect%20Squares"
+ },
+ {
+  "num": 317,
+  "title": "Integer Break",
+  "difficulty": "Medium",
+  "section": "Dynamic Programming",
+  "subtopic": "1-D DP (Linear Recurrences)",
+  "pattern": "1-D DP",
+  "pattern_hint": "1-D DP — state is a single index; transition from previous states.",
+  "url": "https://leetcode.com/problemset/?search=Integer%20Break"
+ },
+ {
+  "num": 318,
+  "title": "Decode Ways",
+  "difficulty": "Medium",
+  "section": "Dynamic Programming",
+  "subtopic": "1-D DP (Linear Recurrences)",
+  "pattern": "1-D DP",
+  "pattern_hint": "1-D DP — state is a single index; transition from previous states.",
+  "url": "https://leetcode.com/problemset/?search=Decode%20Ways"
+ },
+ {
+  "num": 319,
+  "title": "Decode Ways II",
+  "difficulty": "Hard",
+  "section": "Dynamic Programming",
+  "subtopic": "1-D DP (Linear Recurrences)",
+  "pattern": "1-D DP",
+  "pattern_hint": "1-D DP — state is a single index; transition from previous states.",
+  "url": "https://leetcode.com/problemset/?search=Decode%20Ways%20II"
+ },
+ {
+  "num": 320,
+  "title": "Ugly Number III",
+  "difficulty": "Medium",
+  "section": "Dynamic Programming",
+  "subtopic": "1-D DP (Linear Recurrences)",
+  "pattern": "1-D DP",
+  "pattern_hint": "1-D DP — state is a single index; transition from previous states.",
+  "url": "https://leetcode.com/problemset/?search=Ugly%20Number%20III"
+ },
+ {
+  "num": 321,
+  "title": "N-th Tribonacci Number",
+  "difficulty": "Easy",
+  "section": "Dynamic Programming",
+  "subtopic": "1-D DP (Linear Recurrences)",
+  "pattern": "1-D DP",
+  "pattern_hint": "1-D DP — state is a single index; transition from previous states.",
+  "url": "https://leetcode.com/problemset/?search=N-th%20Tribonacci%20Number"
+ },
+ {
+  "num": 322,
+  "title": "Unique Paths",
+  "difficulty": "Medium",
+  "section": "Dynamic Programming",
+  "subtopic": "2-D DP (Grid / Two Sequences)",
+  "pattern": "2-D DP",
+  "pattern_hint": "2-D DP — state is two indices (i, j); fill a table row by row.",
+  "url": "https://leetcode.com/problemset/?search=Unique%20Paths"
+ },
+ {
+  "num": 323,
+  "title": "Unique Paths II (with obstacles)",
+  "difficulty": "Medium",
+  "section": "Dynamic Programming",
+  "subtopic": "2-D DP (Grid / Two Sequences)",
+  "pattern": "2-D DP",
+  "pattern_hint": "2-D DP — state is two indices (i, j); fill a table row by row.",
+  "url": "https://leetcode.com/problemset/?search=Unique%20Paths%20II"
+ },
+ {
+  "num": 324,
+  "title": "Minimum Path Sum in Grid",
+  "difficulty": "Medium",
+  "section": "Dynamic Programming",
+  "subtopic": "2-D DP (Grid / Two Sequences)",
+  "pattern": "2-D DP",
+  "pattern_hint": "2-D DP — state is two indices (i, j); fill a table row by row.",
+  "url": "https://leetcode.com/problemset/?search=Minimum%20Path%20Sum%20in%20Grid"
+ },
+ {
+  "num": 325,
+  "title": "Dungeon Game (reverse DP)",
+  "difficulty": "Hard",
+  "section": "Dynamic Programming",
+  "subtopic": "2-D DP (Grid / Two Sequences)",
+  "pattern": "2-D DP",
+  "pattern_hint": "2-D DP — state is two indices (i, j); fill a table row by row.",
+  "url": "https://leetcode.com/problemset/?search=Dungeon%20Game"
+ },
+ {
+  "num": 326,
+  "title": "Maximal Square",
+  "difficulty": "Medium",
+  "section": "Dynamic Programming",
+  "subtopic": "2-D DP (Grid / Two Sequences)",
+  "pattern": "2-D DP",
+  "pattern_hint": "2-D DP — state is two indices (i, j); fill a table row by row.",
+  "url": "https://leetcode.com/problemset/?search=Maximal%20Square"
+ },
+ {
+  "num": 327,
+  "title": "Count Square Submatrices with All Ones",
+  "difficulty": "Medium",
+  "section": "Dynamic Programming",
+  "subtopic": "2-D DP (Grid / Two Sequences)",
+  "pattern": "2-D DP",
+  "pattern_hint": "2-D DP — state is two indices (i, j); fill a table row by row.",
+  "url": "https://leetcode.com/problemset/?search=Count%20Square%20Submatrices%20with%20All%20Ones"
+ },
+ {
+  "num": 328,
+  "title": "Longest Common Subsequence",
+  "difficulty": "Medium",
+  "section": "Dynamic Programming",
+  "subtopic": "2-D DP (Grid / Two Sequences)",
+  "pattern": "2-D DP",
+  "pattern_hint": "2-D DP — state is two indices (i, j); fill a table row by row.",
+  "url": "https://leetcode.com/problemset/?search=Longest%20Common%20Subsequence"
+ },
+ {
+  "num": 329,
+  "title": "Shortest Common Supersequence",
+  "difficulty": "Hard",
+  "section": "Dynamic Programming",
+  "subtopic": "2-D DP (Grid / Two Sequences)",
+  "pattern": "2-D DP",
+  "pattern_hint": "2-D DP — state is two indices (i, j); fill a table row by row.",
+  "url": "https://leetcode.com/problemset/?search=Shortest%20Common%20Supersequence"
+ },
+ {
+  "num": 330,
+  "title": "Edit Distance",
+  "difficulty": "Hard",
+  "section": "Dynamic Programming",
+  "subtopic": "2-D DP (Grid / Two Sequences)",
+  "pattern": "2-D DP",
+  "pattern_hint": "2-D DP — state is two indices (i, j); fill a table row by row.",
+  "url": "https://leetcode.com/problemset/?search=Edit%20Distance"
+ },
+ {
+  "num": 331,
+  "title": "Distinct Subsequences",
+  "difficulty": "Hard",
+  "section": "Dynamic Programming",
+  "subtopic": "2-D DP (Grid / Two Sequences)",
+  "pattern": "2-D DP",
+  "pattern_hint": "2-D DP — state is two indices (i, j); fill a table row by row.",
+  "url": "https://leetcode.com/problemset/?search=Distinct%20Subsequences"
+ },
+ {
+  "num": 332,
+  "title": "Interleaving String",
+  "difficulty": "Medium",
+  "section": "Dynamic Programming",
+  "subtopic": "2-D DP (Grid / Two Sequences)",
+  "pattern": "2-D DP",
+  "pattern_hint": "2-D DP — state is two indices (i, j); fill a table row by row.",
+  "url": "https://leetcode.com/problemset/?search=Interleaving%20String"
+ },
+ {
+  "num": 333,
+  "title": "Regular Expression Matching (DP)",
+  "difficulty": "Hard",
+  "section": "Dynamic Programming",
+  "subtopic": "2-D DP (Grid / Two Sequences)",
+  "pattern": "2-D DP",
+  "pattern_hint": "2-D DP — state is two indices (i, j); fill a table row by row.",
+  "url": "https://leetcode.com/problemset/?search=Regular%20Expression%20Matching"
+ },
+ {
+  "num": 334,
+  "title": "Wildcard Matching (DP)",
+  "difficulty": "Hard",
+  "section": "Dynamic Programming",
+  "subtopic": "2-D DP (Grid / Two Sequences)",
+  "pattern": "2-D DP",
+  "pattern_hint": "2-D DP — state is two indices (i, j); fill a table row by row.",
+  "url": "https://leetcode.com/problemset/?search=Wildcard%20Matching"
+ },
+ {
+  "num": 335,
+  "title": "Scramble String",
+  "difficulty": "Hard",
+  "section": "Dynamic Programming",
+  "subtopic": "2-D DP (Grid / Two Sequences)",
+  "pattern": "2-D DP",
+  "pattern_hint": "2-D DP — state is two indices (i, j); fill a table row by row.",
+  "url": "https://leetcode.com/problemset/?search=Scramble%20String"
+ },
+ {
+  "num": 336,
+  "title": "Burst Balloons (interval DP)",
+  "difficulty": "Hard",
+  "section": "Dynamic Programming",
+  "subtopic": "2-D DP (Grid / Two Sequences)",
+  "pattern": "2-D DP",
+  "pattern_hint": "2-D DP — state is two indices (i, j); fill a table row by row.",
+  "url": "https://leetcode.com/problemset/?search=Burst%20Balloons"
+ },
+ {
+  "num": 337,
+  "title": "0/1 Knapsack Problem",
+  "difficulty": "Medium",
+  "section": "Dynamic Programming",
+  "subtopic": "Knapsack Variants",
+  "pattern": "0/1 Knapsack / Unbounded Knapsack",
+  "pattern_hint": "0/1 Knapsack / Unbounded Knapsack — classic DP on items with weight/value.",
+  "url": "https://leetcode.com/problemset/?search=0/1%20Knapsack%20Problem"
+ },
+ {
+  "num": 338,
+  "title": "Unbounded Knapsack",
+  "difficulty": "Medium",
+  "section": "Dynamic Programming",
+  "subtopic": "Knapsack Variants",
+  "pattern": "0/1 Knapsack / Unbounded Knapsack",
+  "pattern_hint": "0/1 Knapsack / Unbounded Knapsack — classic DP on items with weight/value.",
+  "url": "https://leetcode.com/problemset/?search=Unbounded%20Knapsack"
+ },
+ {
+  "num": 339,
+  "title": "Partition Equal Subset Sum",
+  "difficulty": "Medium",
+  "section": "Dynamic Programming",
+  "subtopic": "Knapsack Variants",
+  "pattern": "0/1 Knapsack / Unbounded Knapsack",
+  "pattern_hint": "0/1 Knapsack / Unbounded Knapsack — classic DP on items with weight/value.",
+  "url": "https://leetcode.com/problemset/?search=Partition%20Equal%20Subset%20Sum"
+ },
+ {
+  "num": 340,
+  "title": "Target Sum (assign +/- to reach target)",
+  "difficulty": "Medium",
+  "section": "Dynamic Programming",
+  "subtopic": "Knapsack Variants",
+  "pattern": "0/1 Knapsack / Unbounded Knapsack",
+  "pattern_hint": "0/1 Knapsack / Unbounded Knapsack — classic DP on items with weight/value.",
+  "url": "https://leetcode.com/problemset/?search=Target%20Sum"
+ },
+ {
+  "num": 341,
+  "title": "Last Stone Weight II (knapsack)",
+  "difficulty": "Medium",
+  "section": "Dynamic Programming",
+  "subtopic": "Knapsack Variants",
+  "pattern": "0/1 Knapsack / Unbounded Knapsack",
+  "pattern_hint": "0/1 Knapsack / Unbounded Knapsack — classic DP on items with weight/value.",
+  "url": "https://leetcode.com/problemset/?search=Last%20Stone%20Weight%20II"
+ },
+ {
+  "num": 342,
+  "title": "Ones and Zeroes (2D knapsack)",
+  "difficulty": "Medium",
+  "section": "Dynamic Programming",
+  "subtopic": "Knapsack Variants",
+  "pattern": "0/1 Knapsack / Unbounded Knapsack",
+  "pattern_hint": "0/1 Knapsack / Unbounded Knapsack — classic DP on items with weight/value.",
+  "url": "https://leetcode.com/problemset/?search=Ones%20and%20Zeroes"
+ },
+ {
+  "num": 343,
+  "title": "Profitable Schemes",
+  "difficulty": "Hard",
+  "section": "Dynamic Programming",
+  "subtopic": "Knapsack Variants",
+  "pattern": "0/1 Knapsack / Unbounded Knapsack",
+  "pattern_hint": "0/1 Knapsack / Unbounded Knapsack — classic DP on items with weight/value.",
+  "url": "https://leetcode.com/problemset/?search=Profitable%20Schemes"
+ },
+ {
+  "num": 344,
+  "title": "Number of Dice Rolls with Target Sum",
+  "difficulty": "Medium",
+  "section": "Dynamic Programming",
+  "subtopic": "Knapsack Variants",
+  "pattern": "0/1 Knapsack / Unbounded Knapsack",
+  "pattern_hint": "0/1 Knapsack / Unbounded Knapsack — classic DP on items with weight/value.",
+  "url": "https://leetcode.com/problemset/?search=Number%20of%20Dice%20Rolls%20with%20Target%20Sum"
+ },
+ {
+  "num": 345,
+  "title": "Combination Sum IV",
+  "difficulty": "Medium",
+  "section": "Dynamic Programming",
+  "subtopic": "Knapsack Variants",
+  "pattern": "0/1 Knapsack / Unbounded Knapsack",
+  "pattern_hint": "0/1 Knapsack / Unbounded Knapsack — classic DP on items with weight/value.",
+  "url": "https://leetcode.com/problemset/?search=Combination%20Sum%20IV"
+ },
+ {
+  "num": 346,
+  "title": "Count Ways to Build Good Strings",
+  "difficulty": "Medium",
+  "section": "Dynamic Programming",
+  "subtopic": "Knapsack Variants",
+  "pattern": "0/1 Knapsack / Unbounded Knapsack",
+  "pattern_hint": "0/1 Knapsack / Unbounded Knapsack — classic DP on items with weight/value.",
+  "url": "https://leetcode.com/problemset/?search=Count%20Ways%20to%20Build%20Good%20Strings"
+ },
+ {
+  "num": 347,
+  "title": "Matrix Chain Multiplication",
+  "difficulty": "Hard",
+  "section": "Dynamic Programming",
+  "subtopic": "Interval / Range DP",
+  "pattern": "Interval DP",
+  "pattern_hint": "Interval DP — solve subproblems over all intervals [i, j], merge results.",
+  "url": "https://leetcode.com/problemset/?search=Matrix%20Chain%20Multiplication"
+ },
+ {
+  "num": 348,
+  "title": "Minimum Cost Tree from Leaf Values",
+  "difficulty": "Medium",
+  "section": "Dynamic Programming",
+  "subtopic": "Interval / Range DP",
+  "pattern": "Interval DP",
+  "pattern_hint": "Interval DP — solve subproblems over all intervals [i, j], merge results.",
+  "url": "https://leetcode.com/problemset/?search=Minimum%20Cost%20Tree%20from%20Leaf%20Values"
+ },
+ {
+  "num": 349,
+  "title": "Strange Printer",
+  "difficulty": "Hard",
+  "section": "Dynamic Programming",
+  "subtopic": "Interval / Range DP",
+  "pattern": "Interval DP",
+  "pattern_hint": "Interval DP — solve subproblems over all intervals [i, j], merge results.",
+  "url": "https://leetcode.com/problemset/?search=Strange%20Printer"
+ },
+ {
+  "num": 350,
+  "title": "Remove Boxes",
+  "difficulty": "Hard",
+  "section": "Dynamic Programming",
+  "subtopic": "Interval / Range DP",
+  "pattern": "Interval DP",
+  "pattern_hint": "Interval DP — solve subproblems over all intervals [i, j], merge results.",
+  "url": "https://leetcode.com/problemset/?search=Remove%20Boxes"
+ },
+ {
+  "num": 351,
+  "title": "Zuma Game",
+  "difficulty": "Hard",
+  "section": "Dynamic Programming",
+  "subtopic": "Interval / Range DP",
+  "pattern": "Interval DP",
+  "pattern_hint": "Interval DP — solve subproblems over all intervals [i, j], merge results.",
+  "url": "https://leetcode.com/problemset/?search=Zuma%20Game"
+ },
+ {
+  "num": 352,
+  "title": "Minimum Cost to Merge Stones",
+  "difficulty": "Hard",
+  "section": "Dynamic Programming",
+  "subtopic": "Interval / Range DP",
+  "pattern": "Interval DP",
+  "pattern_hint": "Interval DP — solve subproblems over all intervals [i, j], merge results.",
+  "url": "https://leetcode.com/problemset/?search=Minimum%20Cost%20to%20Merge%20Stones"
+ },
+ {
+  "num": 353,
+  "title": "Optimal Strategy for a Game",
+  "difficulty": "Medium",
+  "section": "Dynamic Programming",
+  "subtopic": "Interval / Range DP",
+  "pattern": "Interval DP",
+  "pattern_hint": "Interval DP — solve subproblems over all intervals [i, j], merge results.",
+  "url": "https://leetcode.com/problemset/?search=Optimal%20Strategy%20for%20a%20Game"
+ },
+ {
+  "num": 354,
+  "title": "Palindrome Partitioning II (min cuts)",
+  "difficulty": "Hard",
+  "section": "Dynamic Programming",
+  "subtopic": "Interval / Range DP",
+  "pattern": "Interval DP",
+  "pattern_hint": "Interval DP — solve subproblems over all intervals [i, j], merge results.",
+  "url": "https://leetcode.com/problemset/?search=Palindrome%20Partitioning%20II"
+ },
+ {
+  "num": 355,
+  "title": "Palindrome Partitioning IV (3 parts)",
+  "difficulty": "Hard",
+  "section": "Dynamic Programming",
+  "subtopic": "Interval / Range DP",
+  "pattern": "Interval DP",
+  "pattern_hint": "Interval DP — solve subproblems over all intervals [i, j], merge results.",
+  "url": "https://leetcode.com/problemset/?search=Palindrome%20Partitioning%20IV"
+ },
+ {
+  "num": 356,
+  "title": "Maximum Coins You Can Get",
+  "difficulty": "Medium",
+  "section": "Dynamic Programming",
+  "subtopic": "Interval / Range DP",
+  "pattern": "Interval DP",
+  "pattern_hint": "Interval DP — solve subproblems over all intervals [i, j], merge results.",
+  "url": "https://leetcode.com/problemset/?search=Maximum%20Coins%20You%20Can%20Get"
+ },
+ {
+  "num": 357,
+  "title": "Best Time to Buy and Sell Stock III (at most 2 transactions)",
+  "difficulty": "Hard",
+  "section": "Dynamic Programming",
+  "subtopic": "State-Machine DP (Stocks & Transactions)",
+  "pattern": "State Machine DP",
+  "pattern_hint": "State Machine DP — model allowed states (holding/not holding) and transitions.",
+  "url": "https://leetcode.com/problemset/?search=Best%20Time%20to%20Buy%20and%20Sell%20Stock%20III"
+ },
+ {
+  "num": 358,
+  "title": "Best Time to Buy and Sell Stock IV (at most k transactions)",
+  "difficulty": "Hard",
+  "section": "Dynamic Programming",
+  "subtopic": "State-Machine DP (Stocks & Transactions)",
+  "pattern": "State Machine DP",
+  "pattern_hint": "State Machine DP — model allowed states (holding/not holding) and transitions.",
+  "url": "https://leetcode.com/problemset/?search=Best%20Time%20to%20Buy%20and%20Sell%20Stock%20IV"
+ },
+ {
+  "num": 359,
+  "title": "Best Time to Buy and Sell Stock with Cooldown",
+  "difficulty": "Medium",
+  "section": "Dynamic Programming",
+  "subtopic": "State-Machine DP (Stocks & Transactions)",
+  "pattern": "State Machine DP",
+  "pattern_hint": "State Machine DP — model allowed states (holding/not holding) and transitions.",
+  "url": "https://leetcode.com/problemset/?search=Best%20Time%20to%20Buy%20and%20Sell%20Stock%20with%20Cooldown"
+ },
+ {
+  "num": 360,
+  "title": "Best Time to Buy and Sell Stock with Transaction Fee",
+  "difficulty": "Medium",
+  "section": "Dynamic Programming",
+  "subtopic": "State-Machine DP (Stocks & Transactions)",
+  "pattern": "State Machine DP",
+  "pattern_hint": "State Machine DP — model allowed states (holding/not holding) and transitions.",
+  "url": "https://leetcode.com/problemset/?search=Best%20Time%20to%20Buy%20and%20Sell%20Stock%20with%20Transaction%20Fee"
+ },
+ {
+  "num": 361,
+  "title": "Paint House",
+  "difficulty": "Medium",
+  "section": "Dynamic Programming",
+  "subtopic": "State-Machine DP (Stocks & Transactions)",
+  "pattern": "State Machine DP",
+  "pattern_hint": "State Machine DP — model allowed states (holding/not holding) and transitions.",
+  "url": "https://leetcode.com/problemset/?search=Paint%20House"
+ },
+ {
+  "num": 362,
+  "title": "Paint House II (k colors)",
+  "difficulty": "Hard",
+  "section": "Dynamic Programming",
+  "subtopic": "State-Machine DP (Stocks & Transactions)",
+  "pattern": "State Machine DP",
+  "pattern_hint": "State Machine DP — model allowed states (holding/not holding) and transitions.",
+  "url": "https://leetcode.com/problemset/?search=Paint%20House%20II"
+ },
+ {
+  "num": 363,
+  "title": "Paint Fence",
+  "difficulty": "Medium",
+  "section": "Dynamic Programming",
+  "subtopic": "State-Machine DP (Stocks & Transactions)",
+  "pattern": "State Machine DP",
+  "pattern_hint": "State Machine DP — model allowed states (holding/not holding) and transitions.",
+  "url": "https://leetcode.com/problemset/?search=Paint%20Fence"
+ },
+ {
+  "num": 364,
+  "title": "Student Attendance Record II",
+  "difficulty": "Hard",
+  "section": "Dynamic Programming",
+  "subtopic": "State-Machine DP (Stocks & Transactions)",
+  "pattern": "State Machine DP",
+  "pattern_hint": "State Machine DP — model allowed states (holding/not holding) and transitions.",
+  "url": "https://leetcode.com/problemset/?search=Student%20Attendance%20Record%20II"
+ },
+ {
+  "num": 365,
+  "title": "Coin Path (min cost with k steps)",
+  "difficulty": "Hard",
+  "section": "Dynamic Programming",
+  "subtopic": "State-Machine DP (Stocks & Transactions)",
+  "pattern": "State Machine DP",
+  "pattern_hint": "State Machine DP — model allowed states (holding/not holding) and transitions.",
+  "url": "https://leetcode.com/problemset/?search=Coin%20Path"
+ },
+ {
+  "num": 366,
+  "title": "Number of Ways to Stay in the Same Place After Some Steps",
+  "difficulty": "Hard",
+  "section": "Dynamic Programming",
+  "subtopic": "State-Machine DP (Stocks & Transactions)",
+  "pattern": "State Machine DP",
+  "pattern_hint": "State Machine DP — model allowed states (holding/not holding) and transitions.",
+  "url": "https://leetcode.com/problemset/?search=Number%20of%20Ways%20to%20Stay%20in%20the%20Same%20Place%20After%20Some%20Steps"
+ },
+ {
+  "num": 367,
+  "title": "Traveling Salesman Problem (bitmask DP)",
+  "difficulty": "Hard",
+  "section": "Dynamic Programming",
+  "subtopic": "Bitmask DP",
+  "pattern": "Bitmask DP",
+  "pattern_hint": "Bitmask DP — represent subsets as bitmasks; ideal for small n (≤20).",
+  "url": "https://leetcode.com/problemset/?search=Traveling%20Salesman%20Problem"
+ },
+ {
+  "num": 368,
+  "title": "Partition to K Equal Sum Subsets",
+  "difficulty": "Medium",
+  "section": "Dynamic Programming",
+  "subtopic": "Bitmask DP",
+  "pattern": "Bitmask DP",
+  "pattern_hint": "Bitmask DP — represent subsets as bitmasks; ideal for small n (≤20).",
+  "url": "https://leetcode.com/problemset/?search=Partition%20to%20K%20Equal%20Sum%20Subsets"
+ },
+ {
+  "num": 369,
+  "title": "Minimum XOR Sum of Two Arrays (assignment)",
+  "difficulty": "Hard",
+  "section": "Dynamic Programming",
+  "subtopic": "Bitmask DP",
+  "pattern": "Bitmask DP",
+  "pattern_hint": "Bitmask DP — represent subsets as bitmasks; ideal for small n (≤20).",
+  "url": "https://leetcode.com/problemset/?search=Minimum%20XOR%20Sum%20of%20Two%20Arrays"
+ },
+ {
+  "num": 370,
+  "title": "Maximum Students Taking Exam",
+  "difficulty": "Hard",
+  "section": "Dynamic Programming",
+  "subtopic": "Bitmask DP",
+  "pattern": "Bitmask DP",
+  "pattern_hint": "Bitmask DP — represent subsets as bitmasks; ideal for small n (≤20).",
+  "url": "https://leetcode.com/problemset/?search=Maximum%20Students%20Taking%20Exam"
+ },
+ {
+  "num": 371,
+  "title": "Stickers to Spell Word",
+  "difficulty": "Hard",
+  "section": "Dynamic Programming",
+  "subtopic": "Bitmask DP",
+  "pattern": "Bitmask DP",
+  "pattern_hint": "Bitmask DP — represent subsets as bitmasks; ideal for small n (≤20).",
+  "url": "https://leetcode.com/problemset/?search=Stickers%20to%20Spell%20Word"
+ },
+ {
+  "num": 372,
+  "title": "Shortest Path Visiting All Nodes (BFS + bitmask)",
+  "difficulty": "Hard",
+  "section": "Dynamic Programming",
+  "subtopic": "Bitmask DP",
+  "pattern": "Bitmask DP",
+  "pattern_hint": "Bitmask DP — represent subsets as bitmasks; ideal for small n (≤20).",
+  "url": "https://leetcode.com/problemset/?search=Shortest%20Path%20Visiting%20All%20Nodes"
+ },
+ {
+  "num": 373,
+  "title": "Number of Ways to Wear Different Hats to Each Other",
+  "difficulty": "Hard",
+  "section": "Dynamic Programming",
+  "subtopic": "Bitmask DP",
+  "pattern": "Bitmask DP",
+  "pattern_hint": "Bitmask DP — represent subsets as bitmasks; ideal for small n (≤20).",
+  "url": "https://leetcode.com/problemset/?search=Number%20of%20Ways%20to%20Wear%20Different%20Hats%20to%20Each%20Other"
+ },
+ {
+  "num": 374,
+  "title": "Count Ways to Distribute Candies",
+  "difficulty": "Hard",
+  "section": "Dynamic Programming",
+  "subtopic": "Bitmask DP",
+  "pattern": "Bitmask DP",
+  "pattern_hint": "Bitmask DP — represent subsets as bitmasks; ideal for small n (≤20).",
+  "url": "https://leetcode.com/problemset/?search=Count%20Ways%20to%20Distribute%20Candies"
+ },
+ {
+  "num": 375,
+  "title": "Maximize Score After N Operations",
+  "difficulty": "Hard",
+  "section": "Dynamic Programming",
+  "subtopic": "Bitmask DP",
+  "pattern": "Bitmask DP",
+  "pattern_hint": "Bitmask DP — represent subsets as bitmasks; ideal for small n (≤20).",
+  "url": "https://leetcode.com/problemset/?search=Maximize%20Score%20After%20N%20Operations"
+ },
+ {
+  "num": 376,
+  "title": "Find the Shortest Superstring (bitmask DP)",
+  "difficulty": "Hard",
+  "section": "Dynamic Programming",
+  "subtopic": "Bitmask DP",
+  "pattern": "Bitmask DP",
+  "pattern_hint": "Bitmask DP — represent subsets as bitmasks; ideal for small n (≤20).",
+  "url": "https://leetcode.com/problemset/?search=Find%20the%20Shortest%20Superstring"
+ },
+ {
+  "num": 377,
+  "title": "Diameter of N-ary Tree",
+  "difficulty": "Hard",
+  "section": "Dynamic Programming",
+  "subtopic": "DP on Trees & Graphs",
+  "pattern": "DP on Trees & Graphs",
+  "pattern_hint": "",
+  "url": "https://leetcode.com/problemset/?search=Diameter%20of%20N-ary%20Tree"
+ },
+ {
+  "num": 378,
+  "title": "Binary Tree Maximum Path Sum (revisited)",
+  "difficulty": "Hard",
+  "section": "Dynamic Programming",
+  "subtopic": "DP on Trees & Graphs",
+  "pattern": "DP on Trees & Graphs",
+  "pattern_hint": "",
+  "url": "https://leetcode.com/problemset/?search=Binary%20Tree%20Maximum%20Path%20Sum"
+ },
+ {
+  "num": 379,
+  "title": "Maximum Sum of 3 Non-Overlapping Subarrays",
+  "difficulty": "Hard",
+  "section": "Dynamic Programming",
+  "subtopic": "DP on Trees & Graphs",
+  "pattern": "DP on Trees & Graphs",
+  "pattern_hint": "",
+  "url": "https://leetcode.com/problemset/?search=Maximum%20Sum%20of%203%20Non-Overlapping%20Subarrays"
+ },
+ {
+  "num": 380,
+  "title": "Cherry Pickup",
+  "difficulty": "Hard",
+  "section": "Dynamic Programming",
+  "subtopic": "DP on Trees & Graphs",
+  "pattern": "DP on Trees & Graphs",
+  "pattern_hint": "",
+  "url": "https://leetcode.com/problemset/?search=Cherry%20Pickup"
+ },
+ {
+  "num": 381,
+  "title": "Cherry Pickup II (two robots)",
+  "difficulty": "Hard",
+  "section": "Dynamic Programming",
+  "subtopic": "DP on Trees & Graphs",
+  "pattern": "DP on Trees & Graphs",
+  "pattern_hint": "",
+  "url": "https://leetcode.com/problemset/?search=Cherry%20Pickup%20II"
+ },
+ {
+  "num": 382,
+  "title": "Minimum Difficulty of a Job Schedule",
+  "difficulty": "Hard",
+  "section": "Dynamic Programming",
+  "subtopic": "DP on Trees & Graphs",
+  "pattern": "DP on Trees & Graphs",
+  "pattern_hint": "",
+  "url": "https://leetcode.com/problemset/?search=Minimum%20Difficulty%20of%20a%20Job%20Schedule"
+ },
+ {
+  "num": 383,
+  "title": "Build Array Where You Can Find the Maximum Exactly K Comparisons",
+  "difficulty": "Hard",
+  "section": "Dynamic Programming",
+  "subtopic": "DP on Trees & Graphs",
+  "pattern": "DP on Trees & Graphs",
+  "pattern_hint": "",
+  "url": "https://leetcode.com/problemset/?search=Build%20Array%20Where%20You%20Can%20Find%20the%20Maximum%20Exactly%20K%20Comparisons"
+ },
+ {
+  "num": 384,
+  "title": "Number of Music Playlists",
+  "difficulty": "Hard",
+  "section": "Dynamic Programming",
+  "subtopic": "DP on Trees & Graphs",
+  "pattern": "DP on Trees & Graphs",
+  "pattern_hint": "",
+  "url": "https://leetcode.com/problemset/?search=Number%20of%20Music%20Playlists"
+ },
+ {
+  "num": 385,
+  "title": "Count V owels Permutation",
+  "difficulty": "Hard",
+  "section": "Dynamic Programming",
+  "subtopic": "DP on Trees & Graphs",
+  "pattern": "DP on Trees & Graphs",
+  "pattern_hint": "",
+  "url": "https://leetcode.com/problemset/?search=Count%20V%20owels%20Permutation"
+ },
+ {
+  "num": 386,
+  "title": "Minimum Cost to Cut a Stick",
+  "difficulty": "Hard",
+  "section": "Dynamic Programming",
+  "subtopic": "DP on Trees & Graphs",
+  "pattern": "DP on Trees & Graphs",
+  "pattern_hint": "",
+  "url": "https://leetcode.com/problemset/?search=Minimum%20Cost%20to%20Cut%20a%20Stick"
+ },
+ {
+  "num": 387,
+  "title": "Subsets",
+  "difficulty": "Medium",
+  "section": "Backtracking",
+  "subtopic": "Subsets & Combinations",
+  "pattern": "Backtracking",
+  "pattern_hint": "Backtracking — explore all choices recursively; prune branches that violate constraints.",
+  "url": "https://leetcode.com/problemset/?search=Subsets"
+ },
+ {
+  "num": 388,
+  "title": "Subsets II (with duplicates)",
+  "difficulty": "Medium",
+  "section": "Backtracking",
+  "subtopic": "Subsets & Combinations",
+  "pattern": "Backtracking",
+  "pattern_hint": "Backtracking — explore all choices recursively; prune branches that violate constraints.",
+  "url": "https://leetcode.com/problemset/?search=Subsets%20II"
+ },
+ {
+  "num": 389,
+  "title": "Combinations",
+  "difficulty": "Medium",
+  "section": "Backtracking",
+  "subtopic": "Subsets & Combinations",
+  "pattern": "Backtracking",
+  "pattern_hint": "Backtracking — explore all choices recursively; prune branches that violate constraints.",
+  "url": "https://leetcode.com/problemset/?search=Combinations"
+ },
+ {
+  "num": 390,
+  "title": "Combination Sum",
+  "difficulty": "Medium",
+  "section": "Backtracking",
+  "subtopic": "Subsets & Combinations",
+  "pattern": "Backtracking",
+  "pattern_hint": "Backtracking — explore all choices recursively; prune branches that violate constraints.",
+  "url": "https://leetcode.com/problemset/?search=Combination%20Sum"
+ },
+ {
+  "num": 391,
+  "title": "Combination Sum II (each number once)",
+  "difficulty": "Medium",
+  "section": "Backtracking",
+  "subtopic": "Subsets & Combinations",
+  "pattern": "Backtracking",
+  "pattern_hint": "Backtracking — explore all choices recursively; prune branches that violate constraints.",
+  "url": "https://leetcode.com/problemset/?search=Combination%20Sum%20II"
+ },
+ {
+  "num": 392,
+  "title": "Combination Sum III (exactly k numbers)",
+  "difficulty": "Medium",
+  "section": "Backtracking",
+  "subtopic": "Subsets & Combinations",
+  "pattern": "Backtracking",
+  "pattern_hint": "Backtracking — explore all choices recursively; prune branches that violate constraints.",
+  "url": "https://leetcode.com/problemset/?search=Combination%20Sum%20III"
+ },
+ {
+  "num": 393,
+  "title": "Letter Combinations of a Phone Number",
+  "difficulty": "Medium",
+  "section": "Backtracking",
+  "subtopic": "Subsets & Combinations",
+  "pattern": "Backtracking",
+  "pattern_hint": "Backtracking — explore all choices recursively; prune branches that violate constraints.",
+  "url": "https://leetcode.com/problemset/?search=Letter%20Combinations%20of%20a%20Phone%20Number"
+ },
+ {
+  "num": 394,
+  "title": "Generate Parentheses",
+  "difficulty": "Medium",
+  "section": "Backtracking",
+  "subtopic": "Subsets & Combinations",
+  "pattern": "Backtracking",
+  "pattern_hint": "Backtracking — explore all choices recursively; prune branches that violate constraints.",
+  "url": "https://leetcode.com/problemset/?search=Generate%20Parentheses"
+ },
+ {
+  "num": 395,
+  "title": "Count Numbers with Unique Digits",
+  "difficulty": "Medium",
+  "section": "Backtracking",
+  "subtopic": "Subsets & Combinations",
+  "pattern": "Backtracking",
+  "pattern_hint": "Backtracking — explore all choices recursively; prune branches that violate constraints.",
+  "url": "https://leetcode.com/problemset/?search=Count%20Numbers%20with%20Unique%20Digits"
+ },
+ {
+  "num": 396,
+  "title": "Beautiful Arrangement",
+  "difficulty": "Medium",
+  "section": "Backtracking",
+  "subtopic": "Subsets & Combinations",
+  "pattern": "Backtracking",
+  "pattern_hint": "Backtracking — explore all choices recursively; prune branches that violate constraints.",
+  "url": "https://leetcode.com/problemset/?search=Beautiful%20Arrangement"
+ },
+ {
+  "num": 397,
+  "title": "Permutations",
+  "difficulty": "Medium",
+  "section": "Backtracking",
+  "subtopic": "Permutations",
+  "pattern": "Permutation Backtracking",
+  "pattern_hint": "Permutation Backtracking — swap elements or use a visited array.",
+  "url": "https://leetcode.com/problemset/?search=Permutations"
+ },
+ {
+  "num": 398,
+  "title": "Permutations II (with duplicates)",
+  "difficulty": "Medium",
+  "section": "Backtracking",
+  "subtopic": "Permutations",
+  "pattern": "Permutation Backtracking",
+  "pattern_hint": "Permutation Backtracking — swap elements or use a visited array.",
+  "url": "https://leetcode.com/problemset/?search=Permutations%20II"
+ },
+ {
+  "num": 399,
+  "title": "Next Permutation",
+  "difficulty": "Medium",
+  "section": "Backtracking",
+  "subtopic": "Permutations",
+  "pattern": "Permutation Backtracking",
+  "pattern_hint": "Permutation Backtracking — swap elements or use a visited array.",
+  "url": "https://leetcode.com/problemset/?search=Next%20Permutation"
+ },
+ {
+  "num": 400,
+  "title": "Permutation Sequence (kth permutation)",
+  "difficulty": "Hard",
+  "section": "Backtracking",
+  "subtopic": "Permutations",
+  "pattern": "Permutation Backtracking",
+  "pattern_hint": "Permutation Backtracking — swap elements or use a visited array.",
+  "url": "https://leetcode.com/problemset/?search=Permutation%20Sequence"
+ },
+ {
+  "num": 401,
+  "title": "Palindrome Partitioning",
+  "difficulty": "Medium",
+  "section": "Backtracking",
+  "subtopic": "Permutations",
+  "pattern": "Permutation Backtracking",
+  "pattern_hint": "Permutation Backtracking — swap elements or use a visited array.",
+  "url": "https://leetcode.com/problemset/?search=Palindrome%20Partitioning"
+ },
+ {
+  "num": 402,
+  "title": "Word Search",
+  "difficulty": "Medium",
+  "section": "Backtracking",
+  "subtopic": "Permutations",
+  "pattern": "Permutation Backtracking",
+  "pattern_hint": "Permutation Backtracking — swap elements or use a visited array.",
+  "url": "https://leetcode.com/problemset/?search=Word%20Search"
+ },
+ {
+  "num": 403,
+  "title": "N-Queens",
+  "difficulty": "Hard",
+  "section": "Backtracking",
+  "subtopic": "Permutations",
+  "pattern": "Permutation Backtracking",
+  "pattern_hint": "Permutation Backtracking — swap elements or use a visited array.",
+  "url": "https://leetcode.com/problemset/?search=N-Queens"
+ },
+ {
+  "num": 404,
+  "title": "N-Queens II (count solutions)",
+  "difficulty": "Hard",
+  "section": "Backtracking",
+  "subtopic": "Permutations",
+  "pattern": "Permutation Backtracking",
+  "pattern_hint": "Permutation Backtracking — swap elements or use a visited array.",
+  "url": "https://leetcode.com/problemset/?search=N-Queens%20II"
+ },
+ {
+  "num": 405,
+  "title": "Sudoku Solver",
+  "difficulty": "Hard",
+  "section": "Backtracking",
+  "subtopic": "Permutations",
+  "pattern": "Permutation Backtracking",
+  "pattern_hint": "Permutation Backtracking — swap elements or use a visited array.",
+  "url": "https://leetcode.com/problemset/?search=Sudoku%20Solver"
+ },
+ {
+  "num": 406,
+  "title": "Remove Invalid Parentheses",
+  "difficulty": "Hard",
+  "section": "Backtracking",
+  "subtopic": "Permutations",
+  "pattern": "Permutation Backtracking",
+  "pattern_hint": "Permutation Backtracking — swap elements or use a visited array.",
+  "url": "https://leetcode.com/problemset/?search=Remove%20Invalid%20Parentheses"
+ },
+ {
+  "num": 407,
+  "title": "Expression Add Operators",
+  "difficulty": "Hard",
+  "section": "Backtracking",
+  "subtopic": "Advanced Backtracking",
+  "pattern": "Advanced Backtracking",
+  "pattern_hint": "",
+  "url": "https://leetcode.com/problemset/?search=Expression%20Add%20Operators"
+ },
+ {
+  "num": 408,
+  "title": "Restore IP Addresses",
+  "difficulty": "Medium",
+  "section": "Backtracking",
+  "subtopic": "Advanced Backtracking",
+  "pattern": "Advanced Backtracking",
+  "pattern_hint": "",
+  "url": "https://leetcode.com/problemset/?search=Restore%20IP%20Addresses"
+ },
+ {
+  "num": 409,
+  "title": "Letter Tile Possibilities",
+  "difficulty": "Medium",
+  "section": "Backtracking",
+  "subtopic": "Advanced Backtracking",
+  "pattern": "Advanced Backtracking",
+  "pattern_hint": "",
+  "url": "https://leetcode.com/problemset/?search=Letter%20Tile%20Possibilities"
+ },
+ {
+  "num": 410,
+  "title": "Splitting a String Into Descending Consecutive Values",
+  "difficulty": "Medium",
+  "section": "Backtracking",
+  "subtopic": "Advanced Backtracking",
+  "pattern": "Advanced Backtracking",
+  "pattern_hint": "",
+  "url": "https://leetcode.com/problemset/?search=Splitting%20a%20String%20Into%20Descending%20Consecutive%20Values"
+ },
+ {
+  "num": 411,
+  "title": "Number of Squareful Arrays",
+  "difficulty": "Hard",
+  "section": "Backtracking",
+  "subtopic": "Advanced Backtracking",
+  "pattern": "Advanced Backtracking",
+  "pattern_hint": "",
+  "url": "https://leetcode.com/problemset/?search=Number%20of%20Squareful%20Arrays"
+ },
+ {
+  "num": 412,
+  "title": "Maximum Length of a Concatenated String with Unique Characters",
+  "difficulty": "Medium",
+  "section": "Backtracking",
+  "subtopic": "Advanced Backtracking",
+  "pattern": "Advanced Backtracking",
+  "pattern_hint": "",
+  "url": "https://leetcode.com/problemset/?search=Maximum%20Length%20of%20a%20Concatenated%20String%20with%20Unique%20Characters"
+ },
+ {
+  "num": 413,
+  "title": "Tiling a Rectangle with the Fewest Squares",
+  "difficulty": "Hard",
+  "section": "Backtracking",
+  "subtopic": "Advanced Backtracking",
+  "pattern": "Advanced Backtracking",
+  "pattern_hint": "",
+  "url": "https://leetcode.com/problemset/?search=Tiling%20a%20Rectangle%20with%20the%20Fewest%20Squares"
+ },
+ {
+  "num": 414,
+  "title": "Coloring a Border",
+  "difficulty": "Medium",
+  "section": "Backtracking",
+  "subtopic": "Advanced Backtracking",
+  "pattern": "Advanced Backtracking",
+  "pattern_hint": "",
+  "url": "https://leetcode.com/problemset/?search=Coloring%20a%20Border"
+ },
+ {
+  "num": 415,
+  "title": "Factor Combinations",
+  "difficulty": "Medium",
+  "section": "Backtracking",
+  "subtopic": "Advanced Backtracking",
+  "pattern": "Advanced Backtracking",
+  "pattern_hint": "",
+  "url": "https://leetcode.com/problemset/?search=Factor%20Combinations"
+ },
+ {
+  "num": 416,
+  "title": "Construct the Lexicographically Largest Valid Sequence",
+  "difficulty": "Medium",
+  "section": "Backtracking",
+  "subtopic": "Advanced Backtracking",
+  "pattern": "Advanced Backtracking",
+  "pattern_hint": "",
+  "url": "https://leetcode.com/problemset/?search=Construct%20the%20Lexicographically%20Largest%20Valid%20Sequence"
+ },
+ {
+  "num": 417,
+  "title": "Activity Selection / Non-overlapping Intervals",
+  "difficulty": "Medium",
+  "section": "Greedy Algorithms",
+  "subtopic": "Interval & Scheduling Greedy",
+  "pattern": "Greedy Selection",
+  "pattern_hint": "Greedy Selection — always pick the locally optimal choice; prove exchange argument.",
+  "url": "https://leetcode.com/problemset/?search=Activity%20Selection%20/%20Non-overlapping%20Intervals"
+ },
+ {
+  "num": 418,
+  "title": "Minimum Number of Platforms Required",
+  "difficulty": "Medium",
+  "section": "Greedy Algorithms",
+  "subtopic": "Interval & Scheduling Greedy",
+  "pattern": "Greedy Selection",
+  "pattern_hint": "Greedy Selection — always pick the locally optimal choice; prove exchange argument.",
+  "url": "https://leetcode.com/problemset/?search=Minimum%20Number%20of%20Platforms%20Required"
+ },
+ {
+  "num": 419,
+  "title": "Job Sequencing Problem",
+  "difficulty": "Medium",
+  "section": "Greedy Algorithms",
+  "subtopic": "Interval & Scheduling Greedy",
+  "pattern": "Greedy Selection",
+  "pattern_hint": "Greedy Selection — always pick the locally optimal choice; prove exchange argument.",
+  "url": "https://leetcode.com/problemset/?search=Job%20Sequencing%20Problem"
+ },
+ {
+  "num": 420,
+  "title": "Fractional Knapsack",
+  "difficulty": "Easy",
+  "section": "Greedy Algorithms",
+  "subtopic": "Interval & Scheduling Greedy",
+  "pattern": "Greedy Selection",
+  "pattern_hint": "Greedy Selection — always pick the locally optimal choice; prove exchange argument.",
+  "url": "https://leetcode.com/problemset/?search=Fractional%20Knapsack"
+ },
+ {
+  "num": 421,
+  "title": "N meetings in one room",
+  "difficulty": "Easy",
+  "section": "Greedy Algorithms",
+  "subtopic": "Interval & Scheduling Greedy",
+  "pattern": "Greedy Selection",
+  "pattern_hint": "Greedy Selection — always pick the locally optimal choice; prove exchange argument.",
+  "url": "https://leetcode.com/problemset/?search=N%20meetings%20in%20one%20room"
+ },
+ {
+  "num": 422,
+  "title": "Assign Cookies",
+  "difficulty": "Easy",
+  "section": "Greedy Algorithms",
+  "subtopic": "Interval & Scheduling Greedy",
+  "pattern": "Greedy Selection",
+  "pattern_hint": "Greedy Selection — always pick the locally optimal choice; prove exchange argument.",
+  "url": "https://leetcode.com/problemset/?search=Assign%20Cookies"
+ },
+ {
+  "num": 423,
+  "title": "Lemonade Change",
+  "difficulty": "Easy",
+  "section": "Greedy Algorithms",
+  "subtopic": "Interval & Scheduling Greedy",
+  "pattern": "Greedy Selection",
+  "pattern_hint": "Greedy Selection — always pick the locally optimal choice; prove exchange argument.",
+  "url": "https://leetcode.com/problemset/?search=Lemonade%20Change"
+ },
+ {
+  "num": 424,
+  "title": "Queue Reconstruction by Height",
+  "difficulty": "Medium",
+  "section": "Greedy Algorithms",
+  "subtopic": "Interval & Scheduling Greedy",
+  "pattern": "Greedy Selection",
+  "pattern_hint": "Greedy Selection — always pick the locally optimal choice; prove exchange argument.",
+  "url": "https://leetcode.com/problemset/?search=Queue%20Reconstruction%20by%20Height"
+ },
+ {
+  "num": 425,
+  "title": "Two City Scheduling",
+  "difficulty": "Medium",
+  "section": "Greedy Algorithms",
+  "subtopic": "Interval & Scheduling Greedy",
+  "pattern": "Greedy Selection",
+  "pattern_hint": "Greedy Selection — always pick the locally optimal choice; prove exchange argument.",
+  "url": "https://leetcode.com/problemset/?search=Two%20City%20Scheduling"
+ },
+ {
+  "num": 426,
+  "title": "Minimum Cost to Move Chips to Same Position",
+  "difficulty": "Easy",
+  "section": "Greedy Algorithms",
+  "subtopic": "Interval & Scheduling Greedy",
+  "pattern": "Greedy Selection",
+  "pattern_hint": "Greedy Selection — always pick the locally optimal choice; prove exchange argument.",
+  "url": "https://leetcode.com/problemset/?search=Minimum%20Cost%20to%20Move%20Chips%20to%20Same%20Position"
+ },
+ {
+  "num": 427,
+  "title": "Remove K Digits (smallest number)",
+  "difficulty": "Medium",
+  "section": "Greedy Algorithms",
+  "subtopic": "String & Array Greedy",
+  "pattern": "String & Array Greedy",
+  "pattern_hint": "",
+  "url": "https://leetcode.com/problemset/?search=Remove%20K%20Digits"
+ },
+ {
+  "num": 428,
+  "title": "Largest Number After Removing k Digits (largest)",
+  "difficulty": "Medium",
+  "section": "Greedy Algorithms",
+  "subtopic": "String & Array Greedy",
+  "pattern": "String & Array Greedy",
+  "pattern_hint": "",
+  "url": "https://leetcode.com/problemset/?search=Largest%20Number%20After%20Removing%20k%20Digits"
+ },
+ {
+  "num": 429,
+  "title": "Maximum Units on a Truck",
+  "difficulty": "Easy",
+  "section": "Greedy Algorithms",
+  "subtopic": "String & Array Greedy",
+  "pattern": "String & Array Greedy",
+  "pattern_hint": "",
+  "url": "https://leetcode.com/problemset/?search=Maximum%20Units%20on%20a%20Truck"
+ },
+ {
+  "num": 430,
+  "title": "Minimum Deletions to Make Character Frequencies Unique",
+  "difficulty": "Medium",
+  "section": "Greedy Algorithms",
+  "subtopic": "String & Array Greedy",
+  "pattern": "String & Array Greedy",
+  "pattern_hint": "",
+  "url": "https://leetcode.com/problemset/?search=Minimum%20Deletions%20to%20Make%20Character%20Frequencies%20Unique"
+ },
+ {
+  "num": 431,
+  "title": "Minimum Number of Flips to Make Binary String Alternating",
+  "difficulty": "Medium",
+  "section": "Greedy Algorithms",
+  "subtopic": "String & Array Greedy",
+  "pattern": "String & Array Greedy",
+  "pattern_hint": "",
+  "url": "https://leetcode.com/problemset/?search=Minimum%20Number%20of%20Flips%20to%20Make%20Binary%20String%20Alternating"
+ },
+ {
+  "num": 432,
+  "title": "Minimum Swaps to Balance Parentheses",
+  "difficulty": "Medium",
+  "section": "Greedy Algorithms",
+  "subtopic": "String & Array Greedy",
+  "pattern": "String & Array Greedy",
+  "pattern_hint": "",
+  "url": "https://leetcode.com/problemset/?search=Minimum%20Swaps%20to%20Balance%20Parentheses"
+ },
+ {
+  "num": 433,
+  "title": "Maximum Score from Removing Substrings",
+  "difficulty": "Medium",
+  "section": "Greedy Algorithms",
+  "subtopic": "String & Array Greedy",
+  "pattern": "String & Array Greedy",
+  "pattern_hint": "",
+  "url": "https://leetcode.com/problemset/?search=Maximum%20Score%20from%20Removing%20Substrings"
+ },
+ {
+  "num": 434,
+  "title": "Wiggle Subsequence",
+  "difficulty": "Medium",
+  "section": "Greedy Algorithms",
+  "subtopic": "String & Array Greedy",
+  "pattern": "String & Array Greedy",
+  "pattern_hint": "",
+  "url": "https://leetcode.com/problemset/?search=Wiggle%20Subsequence"
+ },
+ {
+  "num": 435,
+  "title": "Dota2 Senate (greedy queue)",
+  "difficulty": "Medium",
+  "section": "Greedy Algorithms",
+  "subtopic": "String & Array Greedy",
+  "pattern": "String & Array Greedy",
+  "pattern_hint": "",
+  "url": "https://leetcode.com/problemset/?search=Dota2%20Senate"
+ },
+ {
+  "num": 436,
+  "title": "Minimum Time to Make Rope Colorful",
+  "difficulty": "Medium",
+  "section": "Greedy Algorithms",
+  "subtopic": "String & Array Greedy",
+  "pattern": "String & Array Greedy",
+  "pattern_hint": "",
+  "url": "https://leetcode.com/problemset/?search=Minimum%20Time%20to%20Make%20Rope%20Colorful"
+ },
+ {
+  "num": 437,
+  "title": "Boats to Save People",
+  "difficulty": "Medium",
+  "section": "Greedy Algorithms",
+  "subtopic": "String & Array Greedy",
+  "pattern": "String & Array Greedy",
+  "pattern_hint": "",
+  "url": "https://leetcode.com/problemset/?search=Boats%20to%20Save%20People"
+ },
+ {
+  "num": 438,
+  "title": "Advantage Shuffle",
+  "difficulty": "Medium",
+  "section": "Greedy Algorithms",
+  "subtopic": "String & Array Greedy",
+  "pattern": "String & Array Greedy",
+  "pattern_hint": "",
+  "url": "https://leetcode.com/problemset/?search=Advantage%20Shuffle"
+ },
+ {
+  "num": 439,
+  "title": "Maximum Performance of a Team",
+  "difficulty": "Hard",
+  "section": "Greedy Algorithms",
+  "subtopic": "String & Array Greedy",
+  "pattern": "String & Array Greedy",
+  "pattern_hint": "",
+  "url": "https://leetcode.com/problemset/?search=Maximum%20Performance%20of%20a%20Team"
+ },
+ {
+  "num": 440,
+  "title": "Minimize Maximum Pair Sum in Array",
+  "difficulty": "Medium",
+  "section": "Greedy Algorithms",
+  "subtopic": "String & Array Greedy",
+  "pattern": "String & Array Greedy",
+  "pattern_hint": "",
+  "url": "https://leetcode.com/problemset/?search=Minimize%20Maximum%20Pair%20Sum%20in%20Array"
+ },
+ {
+  "num": 441,
+  "title": "Earliest Deadline First Scheduling",
+  "difficulty": "Medium",
+  "section": "Greedy Algorithms",
+  "subtopic": "String & Array Greedy",
+  "pattern": "String & Array Greedy",
+  "pattern_hint": "",
+  "url": "https://leetcode.com/problemset/?search=Earliest%20Deadline%20First%20Scheduling"
+ },
+ {
+  "num": 442,
+  "title": "Two Sum (HashMap)",
+  "difficulty": "Easy",
+  "section": "Hashing, Math & Bit Manipulation",
+  "subtopic": "HashMap / HashSet Patterns",
+  "pattern": "HashMap",
+  "pattern_hint": "HashMap — O(1) lookups to avoid nested loops; track frequency, index, or pairs.",
+  "url": "https://leetcode.com/problemset/?search=Two%20Sum"
+ },
+ {
+  "num": 443,
+  "title": "Longest Consecutive Sequence",
+  "difficulty": "Medium",
+  "section": "Hashing, Math & Bit Manipulation",
+  "subtopic": "HashMap / HashSet Patterns",
+  "pattern": "HashMap",
+  "pattern_hint": "HashMap — O(1) lookups to avoid nested loops; track frequency, index, or pairs.",
+  "url": "https://leetcode.com/problemset/?search=Longest%20Consecutive%20Sequence"
+ },
+ {
+  "num": 444,
+  "title": "4Sum II (count tuples)",
+  "difficulty": "Medium",
+  "section": "Hashing, Math & Bit Manipulation",
+  "subtopic": "HashMap / HashSet Patterns",
+  "pattern": "HashMap",
+  "pattern_hint": "HashMap — O(1) lookups to avoid nested loops; track frequency, index, or pairs.",
+  "url": "https://leetcode.com/problemset/?search=4Sum%20II"
+ },
+ {
+  "num": 445,
+  "title": "Isomorphic Strings",
+  "difficulty": "Easy",
+  "section": "Hashing, Math & Bit Manipulation",
+  "subtopic": "HashMap / HashSet Patterns",
+  "pattern": "HashMap",
+  "pattern_hint": "HashMap — O(1) lookups to avoid nested loops; track frequency, index, or pairs.",
+  "url": "https://leetcode.com/problemset/?search=Isomorphic%20Strings"
+ },
+ {
+  "num": 446,
+  "title": "Word Pattern",
+  "difficulty": "Easy",
+  "section": "Hashing, Math & Bit Manipulation",
+  "subtopic": "HashMap / HashSet Patterns",
+  "pattern": "HashMap",
+  "pattern_hint": "HashMap — O(1) lookups to avoid nested loops; track frequency, index, or pairs.",
+  "url": "https://leetcode.com/problemset/?search=Word%20Pattern"
+ },
+ {
+  "num": 447,
+  "title": "Bulls and Cows",
+  "difficulty": "Medium",
+  "section": "Hashing, Math & Bit Manipulation",
+  "subtopic": "HashMap / HashSet Patterns",
+  "pattern": "HashMap",
+  "pattern_hint": "HashMap — O(1) lookups to avoid nested loops; track frequency, index, or pairs.",
+  "url": "https://leetcode.com/problemset/?search=Bulls%20and%20Cows"
+ },
+ {
+  "num": 448,
+  "title": "Brick Wall (maximum bricks not cut)",
+  "difficulty": "Medium",
+  "section": "Hashing, Math & Bit Manipulation",
+  "subtopic": "HashMap / HashSet Patterns",
+  "pattern": "HashMap",
+  "pattern_hint": "HashMap — O(1) lookups to avoid nested loops; track frequency, index, or pairs.",
+  "url": "https://leetcode.com/problemset/?search=Brick%20Wall"
+ },
+ {
+  "num": 449,
+  "title": "Subarray Sum Equals K (revisited with HashMap)",
+  "difficulty": "Medium",
+  "section": "Hashing, Math & Bit Manipulation",
+  "subtopic": "HashMap / HashSet Patterns",
+  "pattern": "HashMap",
+  "pattern_hint": "HashMap — O(1) lookups to avoid nested loops; track frequency, index, or pairs.",
+  "url": "https://leetcode.com/problemset/?search=Subarray%20Sum%20Equals%20K"
+ },
+ {
+  "num": 450,
+  "title": "Contiguous Array (equal 0s and 1s)",
+  "difficulty": "Medium",
+  "section": "Hashing, Math & Bit Manipulation",
+  "subtopic": "HashMap / HashSet Patterns",
+  "pattern": "HashMap",
+  "pattern_hint": "HashMap — O(1) lookups to avoid nested loops; track frequency, index, or pairs.",
+  "url": "https://leetcode.com/problemset/?search=Contiguous%20Array"
+ },
+ {
+  "num": 451,
+  "title": "Maximum Size Subarray Sum Equals k",
+  "difficulty": "Medium",
+  "section": "Hashing, Math & Bit Manipulation",
+  "subtopic": "HashMap / HashSet Patterns",
+  "pattern": "HashMap",
+  "pattern_hint": "HashMap — O(1) lookups to avoid nested loops; track frequency, index, or pairs.",
+  "url": "https://leetcode.com/problemset/?search=Maximum%20Size%20Subarray%20Sum%20Equals%20k"
+ },
+ {
+  "num": 452,
+  "title": "Count Primes (Sieve of Eratosthenes)",
+  "difficulty": "Medium",
+  "section": "Hashing, Math & Bit Manipulation",
+  "subtopic": "Math & Number Theory",
+  "pattern": "Number Theory",
+  "pattern_hint": "Number Theory — prime sieves, GCD/LCM, modular arithmetic, combinatorics.",
+  "url": "https://leetcode.com/problemset/?search=Count%20Primes"
+ },
+ {
+  "num": 453,
+  "title": "Power of Two / Three / Four",
+  "difficulty": "Easy",
+  "section": "Hashing, Math & Bit Manipulation",
+  "subtopic": "Math & Number Theory",
+  "pattern": "Number Theory",
+  "pattern_hint": "Number Theory — prime sieves, GCD/LCM, modular arithmetic, combinatorics.",
+  "url": "https://leetcode.com/problemset/?search=Power%20of%20Two%20/%20Three%20/%20Four"
+ },
+ {
+  "num": 454,
+  "title": "Excel Sheet Column Number",
+  "difficulty": "Easy",
+  "section": "Hashing, Math & Bit Manipulation",
+  "subtopic": "Math & Number Theory",
+  "pattern": "Number Theory",
+  "pattern_hint": "Number Theory — prime sieves, GCD/LCM, modular arithmetic, combinatorics.",
+  "url": "https://leetcode.com/problemset/?search=Excel%20Sheet%20Column%20Number"
+ },
+ {
+  "num": 455,
+  "title": "Happy Number (Floyd's cycle)",
+  "difficulty": "Easy",
+  "section": "Hashing, Math & Bit Manipulation",
+  "subtopic": "Math & Number Theory",
+  "pattern": "Number Theory",
+  "pattern_hint": "Number Theory — prime sieves, GCD/LCM, modular arithmetic, combinatorics.",
+  "url": "https://leetcode.com/problemset/?search=Happy%20Number"
+ },
+ {
+  "num": 456,
+  "title": "Ugly Number",
+  "difficulty": "Easy",
+  "section": "Hashing, Math & Bit Manipulation",
+  "subtopic": "Math & Number Theory",
+  "pattern": "Number Theory",
+  "pattern_hint": "Number Theory — prime sieves, GCD/LCM, modular arithmetic, combinatorics.",
+  "url": "https://leetcode.com/problemset/?search=Ugly%20Number"
+ },
+ {
+  "num": 457,
+  "title": "Reverse Integer",
+  "difficulty": "Medium",
+  "section": "Hashing, Math & Bit Manipulation",
+  "subtopic": "Math & Number Theory",
+  "pattern": "Number Theory",
+  "pattern_hint": "Number Theory — prime sieves, GCD/LCM, modular arithmetic, combinatorics.",
+  "url": "https://leetcode.com/problemset/?search=Reverse%20Integer"
+ },
+ {
+  "num": 458,
+  "title": "Palindrome Number",
+  "difficulty": "Easy",
+  "section": "Hashing, Math & Bit Manipulation",
+  "subtopic": "Math & Number Theory",
+  "pattern": "Number Theory",
+  "pattern_hint": "Number Theory — prime sieves, GCD/LCM, modular arithmetic, combinatorics.",
+  "url": "https://leetcode.com/problemset/?search=Palindrome%20Number"
+ },
+ {
+  "num": 459,
+  "title": "Factorial Trailing Zeroes",
+  "difficulty": "Medium",
+  "section": "Hashing, Math & Bit Manipulation",
+  "subtopic": "Math & Number Theory",
+  "pattern": "Number Theory",
+  "pattern_hint": "Number Theory — prime sieves, GCD/LCM, modular arithmetic, combinatorics.",
+  "url": "https://leetcode.com/problemset/?search=Factorial%20Trailing%20Zeroes"
+ },
+ {
+  "num": 460,
+  "title": "Nth Digit",
+  "difficulty": "Medium",
+  "section": "Hashing, Math & Bit Manipulation",
+  "subtopic": "Math & Number Theory",
+  "pattern": "Number Theory",
+  "pattern_hint": "Number Theory — prime sieves, GCD/LCM, modular arithmetic, combinatorics.",
+  "url": "https://leetcode.com/problemset/?search=Nth%20Digit"
+ },
+ {
+  "num": 461,
+  "title": "Super Power (modular exponentiation)",
+  "difficulty": "Medium",
+  "section": "Hashing, Math & Bit Manipulation",
+  "subtopic": "Math & Number Theory",
+  "pattern": "Number Theory",
+  "pattern_hint": "Number Theory — prime sieves, GCD/LCM, modular arithmetic, combinatorics.",
+  "url": "https://leetcode.com/problemset/?search=Super%20Power"
+ },
+ {
+  "num": 462,
+  "title": "Single Number",
+  "difficulty": "Easy",
+  "section": "Hashing, Math & Bit Manipulation",
+  "subtopic": "Bit Manipulation",
+  "pattern": "Bit Tricks",
+  "pattern_hint": "Bit Tricks — XOR, AND/OR masks, Brian Kernighan's algorithm for O(1) bit operations.",
+  "url": "https://leetcode.com/problemset/?search=Single%20Number"
+ },
+ {
+  "num": 463,
+  "title": "Single Number II (bit counting)",
+  "difficulty": "Medium",
+  "section": "Hashing, Math & Bit Manipulation",
+  "subtopic": "Bit Manipulation",
+  "pattern": "Bit Tricks",
+  "pattern_hint": "Bit Tricks — XOR, AND/OR masks, Brian Kernighan's algorithm for O(1) bit operations.",
+  "url": "https://leetcode.com/problemset/?search=Single%20Number%20II"
+ },
+ {
+  "num": 464,
+  "title": "Single Number III (two unique)",
+  "difficulty": "Medium",
+  "section": "Hashing, Math & Bit Manipulation",
+  "subtopic": "Bit Manipulation",
+  "pattern": "Bit Tricks",
+  "pattern_hint": "Bit Tricks — XOR, AND/OR masks, Brian Kernighan's algorithm for O(1) bit operations.",
+  "url": "https://leetcode.com/problemset/?search=Single%20Number%20III"
+ },
+ {
+  "num": 465,
+  "title": "Number of 1 Bits (Hamming Weight)",
+  "difficulty": "Easy",
+  "section": "Hashing, Math & Bit Manipulation",
+  "subtopic": "Bit Manipulation",
+  "pattern": "Bit Tricks",
+  "pattern_hint": "Bit Tricks — XOR, AND/OR masks, Brian Kernighan's algorithm for O(1) bit operations.",
+  "url": "https://leetcode.com/problemset/?search=Number%20of%201%20Bits"
+ },
+ {
+  "num": 466,
+  "title": "Counting Bits (0 to n)",
+  "difficulty": "Easy",
+  "section": "Hashing, Math & Bit Manipulation",
+  "subtopic": "Bit Manipulation",
+  "pattern": "Bit Tricks",
+  "pattern_hint": "Bit Tricks — XOR, AND/OR masks, Brian Kernighan's algorithm for O(1) bit operations.",
+  "url": "https://leetcode.com/problemset/?search=Counting%20Bits"
+ },
+ {
+  "num": 467,
+  "title": "Reverse Bits",
+  "difficulty": "Easy",
+  "section": "Hashing, Math & Bit Manipulation",
+  "subtopic": "Bit Manipulation",
+  "pattern": "Bit Tricks",
+  "pattern_hint": "Bit Tricks — XOR, AND/OR masks, Brian Kernighan's algorithm for O(1) bit operations.",
+  "url": "https://leetcode.com/problemset/?search=Reverse%20Bits"
+ },
+ {
+  "num": 468,
+  "title": "Missing Number",
+  "difficulty": "Easy",
+  "section": "Hashing, Math & Bit Manipulation",
+  "subtopic": "Bit Manipulation",
+  "pattern": "Bit Tricks",
+  "pattern_hint": "Bit Tricks — XOR, AND/OR masks, Brian Kernighan's algorithm for O(1) bit operations.",
+  "url": "https://leetcode.com/problemset/?search=Missing%20Number"
+ },
+ {
+  "num": 469,
+  "title": "Sum of Two Integers (without + operator)",
+  "difficulty": "Medium",
+  "section": "Hashing, Math & Bit Manipulation",
+  "subtopic": "Bit Manipulation",
+  "pattern": "Bit Tricks",
+  "pattern_hint": "Bit Tricks — XOR, AND/OR masks, Brian Kernighan's algorithm for O(1) bit operations.",
+  "url": "https://leetcode.com/problemset/?search=Sum%20of%20Two%20Integers"
+ },
+ {
+  "num": 470,
+  "title": "Maximum XOR of Two Numbers in Array",
+  "difficulty": "Medium",
+  "section": "Hashing, Math & Bit Manipulation",
+  "subtopic": "Bit Manipulation",
+  "pattern": "Bit Tricks",
+  "pattern_hint": "Bit Tricks — XOR, AND/OR masks, Brian Kernighan's algorithm for O(1) bit operations.",
+  "url": "https://leetcode.com/problemset/?search=Maximum%20XOR%20of%20Two%20Numbers%20in%20Array"
+ },
+ {
+  "num": 471,
+  "title": "UTF-8 Validation",
+  "difficulty": "Medium",
+  "section": "Hashing, Math & Bit Manipulation",
+  "subtopic": "Bit Manipulation",
+  "pattern": "Bit Tricks",
+  "pattern_hint": "Bit Tricks — XOR, AND/OR masks, Brian Kernighan's algorithm for O(1) bit operations.",
+  "url": "https://leetcode.com/problemset/?search=UTF-8%20Validation"
+ },
+ {
+  "num": 472,
+  "title": "Design LRU Cache",
+  "difficulty": "Medium",
+  "section": "System Design & Data Structure Design",
+  "subtopic": "Classic Design Problems",
+  "pattern": "OOP + Right Data Structures",
+  "pattern_hint": "OOP + Right Data Structures — combine hash maps, heaps, doubly linked lists for O(1) ops.",
+  "url": "https://leetcode.com/problemset/?search=Design%20LRU%20Cache"
+ },
+ {
+  "num": 473,
+  "title": "Design LFU Cache",
+  "difficulty": "Hard",
+  "section": "System Design & Data Structure Design",
+  "subtopic": "Classic Design Problems",
+  "pattern": "OOP + Right Data Structures",
+  "pattern_hint": "OOP + Right Data Structures — combine hash maps, heaps, doubly linked lists for O(1) ops.",
+  "url": "https://leetcode.com/problemset/?search=Design%20LFU%20Cache"
+ },
+ {
+  "num": 474,
+  "title": "Design Twitter (top 10 tweets feed)",
+  "difficulty": "Medium",
+  "section": "System Design & Data Structure Design",
+  "subtopic": "Classic Design Problems",
+  "pattern": "OOP + Right Data Structures",
+  "pattern_hint": "OOP + Right Data Structures — combine hash maps, heaps, doubly linked lists for O(1) ops.",
+  "url": "https://leetcode.com/problemset/?search=Design%20Twitter"
+ },
+ {
+  "num": 475,
+  "title": "Design a Hit Counter",
+  "difficulty": "Medium",
+  "section": "System Design & Data Structure Design",
+  "subtopic": "Classic Design Problems",
+  "pattern": "OOP + Right Data Structures",
+  "pattern_hint": "OOP + Right Data Structures — combine hash maps, heaps, doubly linked lists for O(1) ops.",
+  "url": "https://leetcode.com/problemset/?search=Design%20a%20Hit%20Counter"
+ },
+ {
+  "num": 476,
+  "title": "Design a Rate Limiter (token bucket)",
+  "difficulty": "Medium",
+  "section": "System Design & Data Structure Design",
+  "subtopic": "Classic Design Problems",
+  "pattern": "OOP + Right Data Structures",
+  "pattern_hint": "OOP + Right Data Structures — combine hash maps, heaps, doubly linked lists for O(1) ops.",
+  "url": "https://leetcode.com/problemset/?search=Design%20a%20Rate%20Limiter"
+ },
+ {
+  "num": 477,
+  "title": "Design In-Memory File System",
+  "difficulty": "Hard",
+  "section": "System Design & Data Structure Design",
+  "subtopic": "Classic Design Problems",
+  "pattern": "OOP + Right Data Structures",
+  "pattern_hint": "OOP + Right Data Structures — combine hash maps, heaps, doubly linked lists for O(1) ops.",
+  "url": "https://leetcode.com/problemset/?search=Design%20In-Memory%20File%20System"
+ },
+ {
+  "num": 478,
+  "title": "Design Search Autocomplete System (Trie + heap)",
+  "difficulty": "Hard",
+  "section": "System Design & Data Structure Design",
+  "subtopic": "Classic Design Problems",
+  "pattern": "OOP + Right Data Structures",
+  "pattern_hint": "OOP + Right Data Structures — combine hash maps, heaps, doubly linked lists for O(1) ops.",
+  "url": "https://leetcode.com/problemset/?search=Design%20Search%20Autocomplete%20System"
+ },
+ {
+  "num": 479,
+  "title": "Design a Phone Directory",
+  "difficulty": "Medium",
+  "section": "System Design & Data Structure Design",
+  "subtopic": "Classic Design Problems",
+  "pattern": "OOP + Right Data Structures",
+  "pattern_hint": "OOP + Right Data Structures — combine hash maps, heaps, doubly linked lists for O(1) ops.",
+  "url": "https://leetcode.com/problemset/?search=Design%20a%20Phone%20Directory"
+ },
+ {
+  "num": 480,
+  "title": "Implement Trie with Count",
+  "difficulty": "Medium",
+  "section": "System Design & Data Structure Design",
+  "subtopic": "Classic Design Problems",
+  "pattern": "OOP + Right Data Structures",
+  "pattern_hint": "OOP + Right Data Structures — combine hash maps, heaps, doubly linked lists for O(1) ops.",
+  "url": "https://leetcode.com/problemset/?search=Implement%20Trie%20with%20Count"
+ },
+ {
+  "num": 481,
+  "title": "Design Underground System (check-in/check-out)",
+  "difficulty": "Medium",
+  "section": "System Design & Data Structure Design",
+  "subtopic": "Classic Design Problems",
+  "pattern": "OOP + Right Data Structures",
+  "pattern_hint": "OOP + Right Data Structures — combine hash maps, heaps, doubly linked lists for O(1) ops.",
+  "url": "https://leetcode.com/problemset/?search=Design%20Underground%20System"
+ },
+ {
+  "num": 482,
+  "title": "Shuffle an Array",
+  "difficulty": "Medium",
+  "section": "System Design & Data Structure Design",
+  "subtopic": "Randomized & Probabilistic Structures",
+  "pattern": "Reservoir Sampling / Fisher-Yates",
+  "pattern_hint": "Reservoir Sampling / Fisher-Yates — uniform random sampling in O(1) space.",
+  "url": "https://leetcode.com/problemset/?search=Shuffle%20an%20Array"
+ },
+ {
+  "num": 483,
+  "title": "Random Pick Index (reservoir sampling)",
+  "difficulty": "Medium",
+  "section": "System Design & Data Structure Design",
+  "subtopic": "Randomized & Probabilistic Structures",
+  "pattern": "Reservoir Sampling / Fisher-Yates",
+  "pattern_hint": "Reservoir Sampling / Fisher-Yates — uniform random sampling in O(1) space.",
+  "url": "https://leetcode.com/problemset/?search=Random%20Pick%20Index"
+ },
+ {
+  "num": 484,
+  "title": "Linked List Random Node",
+  "difficulty": "Medium",
+  "section": "System Design & Data Structure Design",
+  "subtopic": "Randomized & Probabilistic Structures",
+  "pattern": "Reservoir Sampling / Fisher-Yates",
+  "pattern_hint": "Reservoir Sampling / Fisher-Yates — uniform random sampling in O(1) space.",
+  "url": "https://leetcode.com/problemset/?search=Linked%20List%20Random%20Node"
+ },
+ {
+  "num": 485,
+  "title": "Random Pick with Weight",
+  "difficulty": "Medium",
+  "section": "System Design & Data Structure Design",
+  "subtopic": "Randomized & Probabilistic Structures",
+  "pattern": "Reservoir Sampling / Fisher-Yates",
+  "pattern_hint": "Reservoir Sampling / Fisher-Yates — uniform random sampling in O(1) space.",
+  "url": "https://leetcode.com/problemset/?search=Random%20Pick%20with%20Weight"
+ },
+ {
+  "num": 486,
+  "title": "Insert Delete GetRandom O(1)",
+  "difficulty": "Medium",
+  "section": "System Design & Data Structure Design",
+  "subtopic": "Randomized & Probabilistic Structures",
+  "pattern": "Reservoir Sampling / Fisher-Yates",
+  "pattern_hint": "Reservoir Sampling / Fisher-Yates — uniform random sampling in O(1) space.",
+  "url": "https://leetcode.com/problemset/?search=Insert%20Delete%20GetRandom%20O"
+ },
+ {
+  "num": 487,
+  "title": "Insert Delete GetRandom O(1) — Duplicates Allowed",
+  "difficulty": "Hard",
+  "section": "System Design & Data Structure Design",
+  "subtopic": "Randomized & Probabilistic Structures",
+  "pattern": "Reservoir Sampling / Fisher-Yates",
+  "pattern_hint": "Reservoir Sampling / Fisher-Yates — uniform random sampling in O(1) space.",
+  "url": "https://leetcode.com/problemset/?search=Insert%20Delete%20GetRandom%20O%20%E2%80%94%20Duplicates%20Allowed"
+ },
+ {
+  "num": 488,
+  "title": "Moving Average from Data Stream",
+  "difficulty": "Easy",
+  "section": "System Design & Data Structure Design",
+  "subtopic": "Stream / Online Algorithms",
+  "pattern": "Online Algorithms",
+  "pattern_hint": "Online Algorithms — process data one element at a time without looking back.",
+  "url": "https://leetcode.com/problemset/?search=Moving%20Average%20from%20Data%20Stream"
+ },
+ {
+  "num": 489,
+  "title": "Find Median from Data Stream (revisited)",
+  "difficulty": "Hard",
+  "section": "System Design & Data Structure Design",
+  "subtopic": "Stream / Online Algorithms",
+  "pattern": "Online Algorithms",
+  "pattern_hint": "Online Algorithms — process data one element at a time without looking back.",
+  "url": "https://leetcode.com/problemset/?search=Find%20Median%20from%20Data%20Stream"
+ },
+ {
+  "num": 490,
+  "title": "Kth Largest Element in a Stream (revisited)",
+  "difficulty": "Easy",
+  "section": "System Design & Data Structure Design",
+  "subtopic": "Stream / Online Algorithms",
+  "pattern": "Online Algorithms",
+  "pattern_hint": "Online Algorithms — process data one element at a time without looking back.",
+  "url": "https://leetcode.com/problemset/?search=Kth%20Largest%20Element%20in%20a%20Stream"
+ },
+ {
+  "num": 491,
+  "title": "Design a Stack with Increment Operation",
+  "difficulty": "Medium",
+  "section": "System Design & Data Structure Design",
+  "subtopic": "Stream / Online Algorithms",
+  "pattern": "Online Algorithms",
+  "pattern_hint": "Online Algorithms — process data one element at a time without looking back.",
+  "url": "https://leetcode.com/problemset/?search=Design%20a%20Stack%20with%20Increment%20Operation"
+ },
+ {
+  "num": 492,
+  "title": "Design a Stack with getMin() / getMax()",
+  "difficulty": "Easy",
+  "section": "System Design & Data Structure Design",
+  "subtopic": "Stream / Online Algorithms",
+  "pattern": "Online Algorithms",
+  "pattern_hint": "Online Algorithms — process data one element at a time without looking back.",
+  "url": "https://leetcode.com/problemset/?search=Design%20a%20Stack%20with%20getMin%20/%20getMax"
+ },
+ {
+  "num": 493,
+  "title": "Time-Based Key-Value Store",
+  "difficulty": "Medium",
+  "section": "System Design & Data Structure Design",
+  "subtopic": "Stream / Online Algorithms",
+  "pattern": "Online Algorithms",
+  "pattern_hint": "Online Algorithms — process data one element at a time without looking back.",
+  "url": "https://leetcode.com/problemset/?search=Time-Based%20Key-Value%20Store"
+ },
+ {
+  "num": 494,
+  "title": "Design an Ordered Stream",
+  "difficulty": "Easy",
+  "section": "System Design & Data Structure Design",
+  "subtopic": "Stream / Online Algorithms",
+  "pattern": "Online Algorithms",
+  "pattern_hint": "Online Algorithms — process data one element at a time without looking back.",
+  "url": "https://leetcode.com/problemset/?search=Design%20an%20Ordered%20Stream"
+ },
+ {
+  "num": 495,
+  "title": "Snapshot Array",
+  "difficulty": "Medium",
+  "section": "System Design & Data Structure Design",
+  "subtopic": "Stream / Online Algorithms",
+  "pattern": "Online Algorithms",
+  "pattern_hint": "Online Algorithms — process data one element at a time without looking back.",
+  "url": "https://leetcode.com/problemset/?search=Snapshot%20Array"
+ },
+ {
+  "num": 496,
+  "title": "Design a Log Aggregation System",
+  "difficulty": "Medium",
+  "section": "System Design & Data Structure Design",
+  "subtopic": "Stream / Online Algorithms",
+  "pattern": "Online Algorithms",
+  "pattern_hint": "Online Algorithms — process data one element at a time without looking back.",
+  "url": "https://leetcode.com/problemset/?search=Design%20a%20Log%20Aggregation%20System"
+ },
+ {
+  "num": 497,
+  "title": "First Unique Number in Stream",
+  "difficulty": "Medium",
+  "section": "System Design & Data Structure Design",
+  "subtopic": "Stream / Online Algorithms",
+  "pattern": "Online Algorithms",
+  "pattern_hint": "Online Algorithms — process data one element at a time without looking back.",
+  "url": "https://leetcode.com/problemset/?search=First%20Unique%20Number%20in%20Stream"
+ },
+ {
+  "num": 498,
+  "title": "Word Filter (prefix + suffix search, Trie)",
+  "difficulty": "Hard",
+  "section": "System Design & Data Structure Design",
+  "subtopic": "Advanced Design Challenges",
+  "pattern": "Advanced Design Challenges",
+  "pattern_hint": "",
+  "url": "https://leetcode.com/problemset/?search=Word%20Filter"
+ },
+ {
+  "num": 499,
+  "title": "Exam Room (seat assignment)",
+  "difficulty": "Medium",
+  "section": "System Design & Data Structure Design",
+  "subtopic": "Advanced Design Challenges",
+  "pattern": "Advanced Design Challenges",
+  "pattern_hint": "",
+  "url": "https://leetcode.com/problemset/?search=Exam%20Room"
+ },
+ {
+  "num": 500,
+  "title": "My Calendar I / II / III",
+  "difficulty": "Medium",
+  "section": "System Design & Data Structure Design",
+  "subtopic": "Advanced Design Challenges",
+  "pattern": "Advanced Design Challenges",
+  "pattern_hint": "",
+  "url": "https://leetcode.com/problemset/?search=My%20Calendar%20I%20/%20II%20/%20III"
+ },
+ {
+  "num": 501,
+  "title": "Range Module (add/remove/query ranges)",
+  "difficulty": "Hard",
+  "section": "System Design & Data Structure Design",
+  "subtopic": "Advanced Design Challenges",
+  "pattern": "Advanced Design Challenges",
+  "pattern_hint": "",
+  "url": "https://leetcode.com/problemset/?search=Range%20Module"
+ },
+ {
+  "num": 502,
+  "title": "All O'one Data Structure (O(1) min/max string freq)",
+  "difficulty": "Hard",
+  "section": "System Design & Data Structure Design",
+  "subtopic": "Advanced Design Challenges",
+  "pattern": "Advanced Design Challenges",
+  "pattern_hint": "",
+  "url": "https://leetcode.com/problemset/?search=All%20O%27one%20Data%20Structure%20min/max%20string%20freq%29"
+ },
+ {
+  "num": 503,
+  "title": "Design a Food Rating System",
+  "difficulty": "Medium",
+  "section": "System Design & Data Structure Design",
+  "subtopic": "Advanced Design Challenges",
+  "pattern": "Advanced Design Challenges",
+  "pattern_hint": "",
+  "url": "https://leetcode.com/problemset/?search=Design%20a%20Food%20Rating%20System"
+ },
+ {
+  "num": 504,
+  "title": "Stock Price Fluctuation (max/min with updates)",
+  "difficulty": "Medium",
+  "section": "System Design & Data Structure Design",
+  "subtopic": "Advanced Design Challenges",
+  "pattern": "Advanced Design Challenges",
+  "pattern_hint": "",
+  "url": "https://leetcode.com/problemset/?search=Stock%20Price%20Fluctuation"
+ },
+ {
+  "num": 505,
+  "title": "Find Servers That Handled Most Requests",
+  "difficulty": "Hard",
+  "section": "System Design & Data Structure Design",
+  "subtopic": "Advanced Design Challenges",
+  "pattern": "Advanced Design Challenges",
+  "pattern_hint": "",
+  "url": "https://leetcode.com/problemset/?search=Find%20Servers%20That%20Handled%20Most%20Requests"
+ },
+ {
+  "num": 506,
+  "title": "Booking Concert Tickets in Groups",
+  "difficulty": "Hard",
+  "section": "System Design & Data Structure Design",
+  "subtopic": "Advanced Design Challenges",
+  "pattern": "Advanced Design Challenges",
+  "pattern_hint": "",
+  "url": "https://leetcode.com/problemset/?search=Booking%20Concert%20Tickets%20in%20Groups"
+ },
+ {
+  "num": 507,
+  "title": "Subrectangle Queries",
+  "difficulty": "Medium",
+  "section": "System Design & Data Structure Design",
+  "subtopic": "Advanced Design Challenges",
+  "pattern": "Advanced Design Challenges",
+  "pattern_hint": "",
+  "url": "https://leetcode.com/problemset/?search=Subrectangle%20Queries"
+ }
+]
