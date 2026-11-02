@@ -61,27 +61,65 @@ def has_ai_plan(conn, day: str) -> bool:
     return bool(row) and day in json.loads(row["days"])
 
 
-def contest_for(cfg, day: str):
-    """Return (title, detail, live) for a contest on this day, or None."""
+def _cached_contest(conn, kind: str, day: str):
+    """The synced LeetCode contest of this kind on this date (settings cache), or None."""
+    if conn is None:
+        return None
+    for c in db.get_setting(conn, "leetcode_contests", []) or []:
+        if c.get("kind") == kind and c.get("date") == day:
+            return c
+    return None
+
+
+def contest_mode(cfg, kind: str, day: str) -> str:
+    """How a Weekly/Biweekly on this date is handled for your week: live, virtual or none."""
+    c, wk = cfg["contests"], week_no(cfg, day)
+    if kind == "weekly":
+        if wk <= c["virtual_until_week"]:
+            return "virtual"
+        return "live" if wk >= c["weekly_live_from_week"] and c["weekly_live"] else "virtual"
+    return "live" if wk >= c["biweekly_live_from_week"] else "none"
+
+
+def contest_for(cfg, day: str, conn=None):
+    """Return (title, detail, live) for a contest on this day, or None.
+
+    With `conn`, the synced LeetCode schedule (settings `leetcode_contests`) supplies real names and times."""
     c, wk, wd = cfg["contests"], week_no(cfg, day), weekday_key(day)
     if wd == "sun":
+        weekly = _cached_contest(conn, "weekly", day)
         if wk <= c["virtual_until_week"]:
-            return ("Virtual contest (any past Weekly)", "90 min timer, no peeking. Log it in Contests.", False)
+            detail = "90 min timer, no peeking. Log it in Contests."
+            if weekly:
+                detail = f"Do {weekly['title']} as a virtual contest after it ends, or any past Weekly. 90 min timer."
+            return ("Virtual contest (any past Weekly)", detail, False)
         if wk >= c["weekly_live_from_week"]:
             if c["weekly_live"]:
-                return ("LeetCode Weekly — LIVE 8:00 AM IST", "Rated. Watch today's class recording after.", True)
+                title = f"{weekly['title']} — LIVE {weekly['time']} IST" if weekly else "LeetCode Weekly — LIVE 8:00 AM IST"
+                return (title, "Rated. Watch today's class recording after.", True)
             return ("Virtual Weekly (after class)", "Do this week's Weekly as a virtual contest.", False)
     if wd == "sat" and wk >= c["biweekly_live_from_week"]:
+        bi = _cached_contest(conn, "biweekly", day)
+        if bi:  # a cache entry beats the anchor arithmetic; LIVE stays in the title for carry-over
+            return (f"{bi['title']} — LIVE {bi['time']} IST", "Rated.", True)
         if (d(day) - d(c["biweekly_anchor"])).days % 14 == 0:
             return ("LeetCode Biweekly — LIVE 8:00 PM IST", "Rated.", True)
     return None
+
+
+def is_rest_day(cfg, day: str) -> bool:
+    """DSA-free day (default Sat/Sun): no new questions, reviews or carried dsa/review cards."""
+    return weekday_key(day) in cfg.get("dsa_rest_days", [])
 
 
 def _carry_over(conn, day, sprint):
     stale = db.rows(conn.execute(
         "SELECT * FROM tickets WHERE date<? AND status IN ('todo','doing')", (day,)
     ))
+    rest = is_rest_day(config.load(conn), day)
     for t in stale:
+        if rest and t["kind"] in ("dsa", "review"):
+            continue  # stays put; the next weekday carries it
         if t["kind"] == "contest" and "LIVE" in t["title"]:
             conn.execute("UPDATE tickets SET status='skipped', note=COALESCE(note,'missed') WHERE id=?", (t["id"],))
             continue
@@ -194,6 +232,32 @@ def _pick_mixed(conn, cfg, day, slots, budget=None, fill_from_open=True):
     return picks
 
 
+def _laid_at(conn, day):
+    row = conn.execute("SELECT dsa_laid_at FROM days WHERE date=?", (day,)).fetchone()
+    return row["dsa_laid_at"] if row else None
+
+
+def plan_week_dsa(conn, cfg, day: str) -> list[str]:
+    """Put the new-question mix of every non-rest weekday from `day` to Sunday on the board now,
+    in date order so the topic rotation flows Mon -> Fri. Days stay unplanned (planned_at untouched),
+    so plan_day still adds carry-over, reviews and the rest later. Returns the dates laid out."""
+    monday = d(day) - timedelta(days=d(day).weekday())
+    laid = []
+    for i in range(7):
+        dt = (monday + timedelta(days=i)).isoformat()
+        if dt < day or d(dt) < d(cfg["start_date"]) or is_rest_day(cfg, dt) or _laid_at(conn, dt):
+            continue
+        sprint = ensure_sprint(conn, cfg, dt)
+        for q in _pick_mixed(conn, cfg, dt, cfg["mix"]["day_mix"].get(weekday_key(dt), [])):
+            add_question_ticket(conn, cfg, dt, sprint, q)
+        conn.execute(
+            "INSERT INTO days(date,dsa_laid_at) VALUES(?,datetime('now','localtime')) "
+            "ON CONFLICT(date) DO UPDATE SET dsa_laid_at=excluded.dsa_laid_at", (dt,),
+        )
+        laid.append(dt)
+    return laid
+
+
 def plan_day(conn, day: str, force=False) -> None:
     cfg = config.load(conn)
     row = conn.execute("SELECT planned_at FROM days WHERE date=?", (day,)).fetchone()
@@ -204,10 +268,12 @@ def plan_day(conn, day: str, force=False) -> None:
     sprint = ensure_sprint(conn, cfg, day)
     wd = weekday_key(day)
     _carry_over(conn, day, sprint)
+    if cfg["mix"]["enabled"]:
+        plan_week_dsa(conn, cfg, day)  # lays out the rest of the week too
 
     existing = {t["title"] for t in db.rows(conn.execute("SELECT title FROM tickets WHERE date=?", (day,)))}
 
-    contest = contest_for(cfg, day)
+    contest = contest_for(cfg, day, conn)
     module = current_ai_module(conn)
     for item in [] if has_ai_plan(conn, day) else cfg["ai_template"].get(wd, []):
         title = item["title"]
@@ -227,12 +293,11 @@ def plan_day(conn, day: str, force=False) -> None:
         f"AND kind IN ({','.join('?' * len(DSA_KINDS))})", (day, *DSA_KINDS),
     ).fetchone()[0]
     mix = cfg["mix"]
-    if mix["enabled"]:
-        # Today's difficulty mix (e.g. Hard + Medium + Easy, three different topics), then reviews
-        # in what's left (at least one), then extra questions if there is still room.
-        for q in _pick_mixed(conn, cfg, day, mix["day_mix"].get(wd, [])):
-            add_question_ticket(conn, cfg, day, sprint, q)
-            budget -= cfg["est_minutes"][q["difficulty"]]
+    if is_rest_day(cfg, day):
+        pass  # weekend: no DSA at all
+    elif mix["enabled"]:
+        # The day's difficulty mix is laid out by plan_week_dsa (already counted in the budget above);
+        # reviews and extras adapt to what's left, so carried work crowds them out.
         budget = _add_reviews(conn, cfg, day, sprint, budget, minimum=1)
         for q in _pick_mixed(conn, cfg, day, ["Medium"] * 5, budget, fill_from_open=False):
             add_question_ticket(conn, cfg, day, sprint, q)
@@ -255,6 +320,8 @@ def plan_day(conn, day: str, force=False) -> None:
 def _add_reviews(conn, cfg, day, sprint, budget, minimum=None) -> int:
     """Add due reviews that fit the budget (or `minimum` of them regardless); return what's left."""
     rm = cfg["review_minutes"]
+    if is_rest_day(cfg, day):
+        return budget
     if weekday_key(day) == cfg["buffer_day"]:
         n = cfg["buffer_day_reviews"]
     elif minimum is not None:
@@ -271,7 +338,42 @@ def _add_reviews(conn, cfg, day, sprint, budget, minimum=None) -> int:
 def replan_day(conn, day: str) -> None:
     """Rebuild a day's fresh (non-carried, untouched) cards, e.g. after changing settings."""
     conn.execute("DELETE FROM tickets WHERE date=? AND status='todo' AND carried=0 AND kind!='custom'", (day,))
+    conn.execute("UPDATE days SET dsa_laid_at=NULL WHERE date=?", (day,))  # so it re-lays its mix
     plan_day(conn, day, force=True)
+
+
+def _dsa_cards(conn, dt, kinds):
+    return db.rows(conn.execute(
+        f"""SELECT t.id, t.kind, q.num, q.title, q.difficulty, q.section FROM tickets t
+            JOIN questions q ON q.num=t.question_num
+            WHERE t.date=? AND t.kind IN ({','.join('?' * len(kinds))}) ORDER BY t.position, t.id""",
+        (dt, *kinds)))
+
+
+def relayout_week(conn, from_day: str) -> dict:
+    """One-off re-plan of the DSA in the week from `from_day` to Sunday: drop untouched dsa cards
+    (and untouched reviews on rest days), then lay the week out again. Doesn't commit; the caller
+    commits or rolls back (the CLI's --dry-run). Days before `from_day` are never touched."""
+    cfg = config.load(conn)
+    monday = d(from_day) - timedelta(days=d(from_day).weekday())
+    dates = [(monday + timedelta(days=i)).isoformat() for i in range(7)]
+    dates = [dt for dt in dates if dt >= from_day]
+    untouched = "status='todo' AND carried=0 AND minutes_spent IS NULL AND done_at IS NULL"
+    summary = {dt: {"removed": [], "added": []} for dt in dates}
+    for dt in dates:
+        kinds = ("dsa", "review") if is_rest_day(cfg, dt) else ("dsa",)
+        gone = [c for c in _dsa_cards(conn, dt, kinds)
+                if conn.execute(f"SELECT 1 FROM tickets WHERE id=? AND {untouched}", (c["id"],)).fetchone()]
+        for c in gone:
+            conn.execute("DELETE FROM tickets WHERE id=?", (c["id"],))
+        summary[dt]["removed"] = [{k: c[k] for k in ("num", "title", "difficulty", "section")} for c in gone]
+        conn.execute("UPDATE days SET dsa_laid_at=NULL WHERE date=?", (dt,))
+    before = {dt: {c["id"] for c in _dsa_cards(conn, dt, ("dsa",))} for dt in dates}
+    plan_week_dsa(conn, cfg, from_day)
+    for dt in dates:
+        summary[dt]["added"] = [{k: c[k] for k in ("num", "title", "difficulty", "section")}
+                                for c in _dsa_cards(conn, dt, ("dsa",)) if c["id"] not in before[dt]]
+    return summary
 
 
 def pull_next(conn, day: str):

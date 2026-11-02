@@ -9,6 +9,7 @@ from email.message import EmailMessage
 
 from ..core import db
 from ..planning import planner, stats
+from . import leetcode
 
 load_env = db.load_env
 
@@ -38,6 +39,10 @@ def morning(conn) -> tuple[str, str]:
             lines.append(f"  - {t['title']}{diff} ~{t['est_minutes']}m{carried}")
             if t.get("url"):
                 lines.append(f"    {t['url']}")
+        if kind == "contest":
+            for c in leetcode.get_cache(conn):
+                if c["date"] == day:
+                    lines.append(f"  LeetCode: {c['title']} at {c['time']} IST ({c['minutes']} min)")
         lines.append("")
     lines += [
         f"Progress: {s['done']}/{s['total']} questions · streak {s['streak']}d · reviews due {s['reviews_due']}",

@@ -11,12 +11,15 @@ DEFAULTS = {
     "course_week_offset": 3,             # course week 4 is done in sprint 1 (homework/week4)
     "buffer_day": "sun",                 # no new questions; absorbs carry-over
     # Daily DSA budget in minutes (new questions + reviews + upsolves).
-    "dsa_minutes": {"mon": 120, "tue": 120, "wed": 120, "thu": 120, "fri": 120, "sat": 90, "sun": 0},
+    "dsa_minutes": {"mon": 120, "tue": 120, "wed": 120, "thu": 120, "fri": 120, "sat": 0, "sun": 0},
     # Time estimate per question used to fill the budget.
     "est_minutes": {"Easy": 20, "Medium": 35, "Hard": 55},
     "review_minutes": 10,                # outline the approach, code the key part
     "max_reviews_per_day": 3,
-    "buffer_day_reviews": 8,             # Sunday review blitz
+    # Weekend reviews roll to Monday on their own: due reviews are `next_review <= day`.
+    "buffer_day_reviews": 0,
+    # No DSA at all (new questions, reviews, carried dsa/review cards) on these weekdays.
+    "dsa_rest_days": ["sat", "sun"],
     # Days until the next review, by step. Past the last step a question is mastered.
     "review_intervals": [3, 7, 21, 45],
     # Confident first solves (4-5, no hints) get a single check after this many days, then mastered.
@@ -47,7 +50,8 @@ DEFAULTS = {
         "day_mix": {
             "mon": ["Hard", "Medium", "Easy"], "tue": ["Hard", "Medium", "Easy"],
             "wed": ["Hard", "Medium", "Easy"], "thu": ["Hard", "Medium", "Easy"],
-            "fri": ["Hard", "Medium", "Easy"], "sat": ["Medium", "Easy"], "sun": [],
+            "fri": ["Medium", "Easy"],  # lighter Friday: room for catch-up
+            "sat": [], "sun": [],
         },
         "rotation_weights": {"Graphs": 2, "Dynamic Programming": 2, "Trees": 2},  # others default to 1
     },

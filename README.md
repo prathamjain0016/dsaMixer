@@ -32,6 +32,7 @@ So `./run.sh tickets list` is exactly `.venv/bin/python -m dsamixer tickets list
 | `./run.sh` | Start the board (same as `./run.sh serve`). Stop it with Ctrl+C. |
 | `./run.sh serve --port 9000` | Start on another port (`--host` is also available). |
 | `./run.sh today` | Print today's plan in the terminal. It also plans today if that hasn't happened yet. |
+| `./run.sh plan week [FROM_DATE] [--dry-run]` | Re-lay the DSA from FROM_DATE (default tomorrow) to Sunday: untouched DSA cards are replaced with the new weekly layout. Prints JSON of cards removed and added per day; `--dry-run` previews and changes nothing. |
 
 ### Email and scheduling
 
@@ -40,6 +41,8 @@ So `./run.sh tickets list` is exactly `.venv/bin/python -m dsamixer tickets list
 | `./run.sh notify morning --dry-run` | Show the morning plan email without sending it. |
 | `./run.sh notify evening --dry-run` | Show the evening "close your day" reminder without sending it. |
 | `./run.sh notify morning` / `evening` | Send that email for real (needs `SMTP_*` and `MAIL_TO` in `.env`). |
+| `./run.sh contests sync` | Fetch LeetCode's upcoming Weekly/Biweekly (read-only public endpoint) into the cache, so contest cards show the real name and time. Also runs at server start and before the 8:00 email. |
+| `./run.sh contests upcoming` | Print the cached contest schedule. |
 | `./run.sh schedule install` | Install macOS launchd jobs: the board at login, the 8:00 email, the 22:00 reminder, and the homework sync at 14:00 and 21:30. |
 | `./run.sh schedule remove` | Remove all of those jobs. |
 
@@ -102,17 +105,16 @@ Scheduled jobs only run while the Mac is awake. Their output goes to `logs/`.
   - Wed–Thu: homework 2
   - Fri: recording rewatch
   - Sat and Sun: live class
-- **DSA budget** is minutes per weekday: 2h Mon–Fri, 1.5h Sat, 0 on Sunday (the buffer day). Questions are mixed across data structures:
-  - **Mon–Fri:** 1 Hard + 1 Medium + 1 Easy, each from a **different topic**.
-  - **Saturday:** 1 Medium + 1 Easy.
+- **DSA budget** is minutes per weekday: 2h Mon–Fri, none on Saturday or Sunday (no new questions or reviews; weekend reviews roll to Monday). The whole Mon–Fri week is laid out when the week's first weekday is planned, so the Week view shows it up front. Questions are mixed across data structures:
+  - **Mon–Thu:** 1 Hard + 1 Medium + 1 Easy, each from a **different topic**.
+  - **Friday:** 1 Medium + 1 Easy, leaving room to catch up on carried work.
   - Topics come from a weighted rotation over all 13 sections. Graphs, DP and Trees appear twice per cycle. Within a topic, each difficulty follows PDF order.
   - Once a topic runs out of a difficulty, that slot takes the next topic that still has one. Once all the Easy questions are done (around 4 months in), the Easy slot is filled with a harder question.
   - The day is filled in this order: carried-over cards (they count toward their difficulty slot), the day's mix, due reviews in whatever time is left (at least 1), then extra Medium questions if there's still room.
 - **Spaced repetition:** reviews are 10 min: outline the approach and code the key part.
   - A confident first solve (confidence 4–5) gets one check after 21 days, then counts as mastered.
   - Confidence 3, "needed hints" or confidence ≤2 brings the question back after 3 days, then 7, 21 and 45. "Couldn't solve" brings it back the next day.
-  - Sunday clears up to 8 reviews.
-- **Sprints** are Mon–Sun. Sunday is the buffer day: carry-over, reviews, the contest and the retro.
+- **Sprints** are Mon–Sun. Sunday is the buffer day: carry-over, the contest and the retro.
 - **Contests**, aimed at Knight:
   - Weeks 1–4: a virtual contest each Sunday
   - Week 5 onward: the live Weekly, Sunday 8:00 AM IST
@@ -189,6 +191,7 @@ dsaMixer/
 │   ├── integrations/       ← outside services and files
 │   │   ├── ai_planner.py   ← "Break down with AI" (OpenRouter / Anthropic)
 │   │   ├── notify.py       ← morning/evening emails (Gmail SMTP)
+│   │   ├── leetcode.py     ← sync the LeetCode contest calendar into the settings cache
 │   │   └── homework.py     ← homework folder helpers for the agents (nbscan, pdftext, apply)
 │   ├── web/                ← the board
 │   │   ├── server.py       ← JSON API under /api

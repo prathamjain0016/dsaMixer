@@ -83,7 +83,8 @@ CREATE TABLE IF NOT EXISTS days (
     closed_at  TEXT,
     energy     INTEGER,            -- 1..5
     ai_topics  TEXT,
-    notes      TEXT
+    notes      TEXT,
+    dsa_laid_at TEXT               -- set when the week layout put this day's DSA mix on the board
 );
 
 CREATE TABLE IF NOT EXISTS contests (
@@ -179,6 +180,9 @@ class PgConn:
     def commit(self):
         self._c.commit()
 
+    def rollback(self):
+        self._c.rollback()
+
     def close(self):
         self._c.close()
 
@@ -200,11 +204,14 @@ def connect():
 def init(conn) -> None:
     if getattr(conn, "is_pg", False):
         conn.executescript(PG_SCHEMA)
+        conn.execute("ALTER TABLE days ADD COLUMN IF NOT EXISTS dsa_laid_at TEXT")
     else:
         conn.executescript(SCHEMA)
         cols = {r["name"] for r in conn.execute("PRAGMA table_info(tickets)")}
         if "source" not in cols:  # added with the weekly AI planner
             conn.execute("ALTER TABLE tickets ADD COLUMN source TEXT")
+        if "dsa_laid_at" not in {r["name"] for r in conn.execute("PRAGMA table_info(days)")}:
+            conn.execute("ALTER TABLE days ADD COLUMN dsa_laid_at TEXT")  # added with the weekly DSA layout
     if conn.execute("SELECT COUNT(*) FROM questions").fetchone()[0] == 0:
         qs = json.loads(QUESTIONS_JSON.read_text())
         conn.executemany(

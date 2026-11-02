@@ -27,6 +27,7 @@ export async function render(root) {
         </div>
         <div class="cf-foot"><span class="faint small">Unsolved problems become an upsolve card on the next day's board.</span>${Button({ label: "Add contest", kind: "primary", type: "submit", icon: "plus" })}</div>
       </form>` })}
+    ${Widget({ id: "upcomingW", title: "Upcoming on LeetCode", span: 12, flush: true, actions: `<span class="faint small" id="syncedAt"></span>${Button({ label: "Sync now", icon: "pull", size: "sm", id: "syncNow" })}` })}
     ${Widget({ id: "historyW", title: "History", span: 12, flush: true })}
   </div>`;
   const f = $("#contestForm");
@@ -50,10 +51,42 @@ export async function render(root) {
     document.dispatchEvent(new Event("dsm:changed"));
     load();
   };
+  $("#syncNow").onclick = syncNow;
   await load();
 }
 
+const MODE = { live: ["Live", "accent"], virtual: ["Virtual", "neutral"], none: ["Not in your plan yet", "outline"] };
+
+function renderUpcoming(u) {
+  $("#syncedAt").textContent = u.synced_at ? `Last synced ${new Date(u.synced_at).toLocaleString([], { dateStyle: "medium", timeStyle: "short" })}` : "Never synced";
+  const upcoming = u.contests.filter((c) => c.date >= todayStr());
+  $("#wb-upcomingW").innerHTML = Table({
+    rows: upcoming,
+    empty: EmptyState({ icon: "calendar", title: "Nothing cached", hint: "Press Sync now to fetch the schedule from LeetCode." }),
+    columns: [
+      { label: "Contest", render: (c) => `<b class="strong">${esc(c.title)}</b>` },
+      { label: "Date (IST)", cls: "shrink", render: (c) => fmtDay(c.date, { weekday: "short", day: "numeric", month: "short" }) },
+      { label: "Time (IST)", cls: "num shrink", render: (c) => esc(c.time) },
+      { label: "Your week", cls: "shrink", render: (c) => Badge(...MODE[c.mode] || [esc(c.mode), "neutral"]) },
+    ],
+  });
+}
+
+async function syncNow() {
+  const b = $("#syncNow");
+  b.disabled = true;
+  try {
+    const r = await api("/contests/sync", { method: "POST" });
+    renderUpcoming(r);
+    toast(r.warnings?.length ? r.warnings[0] : `Synced ${r.fetched} contests`);
+  } catch { /* api() already toasted the error */
+  } finally {
+    b.disabled = false;
+  }
+}
+
 async function load() {
+  api("/contests/upcoming").then(renderUpcoming).catch(() => {});
   const [list, s] = await Promise.all([api("/contests"), api("/stats")]);
   const k = s.knight, BASE = 1500;
   const left = Math.max(0, Math.ceil((new Date(k.deadline) - new Date()) / 864e5));

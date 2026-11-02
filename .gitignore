@@ -3,3 +3,8 @@ __pycache__/
 dsamixer.db
 .env
 logs/
+.DS_Store
+# course material and personal homework stay local
+homework/*
+!homework/README.md
+data/*.pdf

@@ -1,5 +1,6 @@
 """FastAPI app: JSON API under /api, the board UI at /."""
 import json
+import threading
 from contextlib import contextmanager
 from datetime import timedelta
 from pathlib import Path
@@ -10,7 +11,7 @@ from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
 from ..core import config, db
-from ..integrations import ai_planner
+from ..integrations import ai_planner, leetcode
 from ..planning import planner, stats
 
 STATIC = Path(__file__).resolve().parent / "static"
@@ -31,6 +32,16 @@ def startup():
     with conn() as c:
         db.init(c)
         planner.plan_day(c, planner.today())
+    # Best-effort and off the startup path, so a dead network never blocks or crashes the board.
+    threading.Thread(target=_startup_contest_sync, daemon=True).start()
+
+
+def _startup_contest_sync():
+    try:
+        with conn() as c:
+            leetcode.sync_quietly(c)
+    except Exception:
+        leetcode.log.exception("startup contest sync crashed")
 
 
 # ---------- days & board ----------
@@ -223,6 +234,25 @@ def add_contest(body: Contest):
         c.commit()
         planner.add_upsolve(c, data)
     return list_contests()
+
+
+@app.get("/api/contests/upcoming")
+def upcoming_contests():
+    """The cached LeetCode schedule. Read-only: never fetches."""
+    with conn() as c:
+        cfg = config.load(c)
+        out = [{**x, "mode": planner.contest_mode(cfg, x["kind"], x["date"])} for x in leetcode.get_cache(c)]
+        return {"contests": out, "synced_at": db.get_setting(c, "leetcode_synced_at")}
+
+
+@app.post("/api/contests/sync")
+def sync_contests():
+    with conn() as c:
+        try:
+            res = leetcode.sync(c)
+        except leetcode.LeetCodeError as e:
+            raise HTTPException(502, str(e))
+    return {**res, **upcoming_contests()}
 
 
 @app.delete("/api/contests/{cid}")

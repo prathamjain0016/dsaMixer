@@ -6,6 +6,12 @@
   schedule install|remove  set up macOS launchd jobs (8:00 / 22:00 emails, 14:00 / 21:30
                            homework sync, board at login)
 
+  plan week [FROM_DATE] [--dry-run]   re-lay the DSA for FROM_DATE..Sunday (default tomorrow); JSON of cards removed/added
+                           (--dry-run rolls everything back)
+
+  contests sync            fetch LeetCode's upcoming Weekly/Biweekly into the cache (prints JSON)
+  contests upcoming        print the cached schedule
+
   db info                  which database is in use (Postgres via DATABASE_URL, or SQLite) + row counts
   db copy-from-sqlite [FILE] --yes   replace ALL Postgres data with a SQLite file (default dsamixer.db)
 
@@ -24,10 +30,11 @@ import plistlib
 import shutil
 import subprocess
 import sys
+from datetime import date, timedelta
 from pathlib import Path
 
 from .core import config, db
-from .integrations import homework, notify
+from .integrations import homework, leetcode, notify
 from .planning import planner
 
 AGENTS = Path.home() / "Library" / "LaunchAgents"
@@ -80,11 +87,18 @@ def main() -> None:
     n.add_argument("--dry-run", action="store_true")
     sc = sub.add_parser("schedule")
     sc.add_argument("action", choices=["install", "remove"])
+    pl = sub.add_parser("plan").add_subparsers(dest="plancmd", required=True)
+    pw = pl.add_parser("week")
+    pw.add_argument("from_date", nargs="?")
+    pw.add_argument("--dry-run", action="store_true")
     dbp = sub.add_parser("db").add_subparsers(dest="dbcmd", required=True)
     dbp.add_parser("info")
     dc = dbp.add_parser("copy-from-sqlite")
     dc.add_argument("file", nargs="?", default=str(db.ROOT / "dsamixer.db"))
     dc.add_argument("--yes", action="store_true", help="confirm: wipes the Postgres tables first")
+    ct = sub.add_parser("contests").add_subparsers(dest="ct", required=True)
+    ct.add_parser("sync")
+    ct.add_parser("upcoming")
     hw = sub.add_parser("homework").add_subparsers(dest="hw", required=True)
     hw.add_parser("week").add_argument("n", type=int, nargs="?")
     hw.add_parser("nbscan").add_argument("file")
@@ -135,6 +149,21 @@ def main() -> None:
         out({"backend": db.backend(),
              "counts": {t: conn.execute(f"SELECT COUNT(*) FROM {t}").fetchone()[0] for t in db.TABLES}})
         return
+    if args.cmd == "plan":
+        start = args.from_date or (date.today() + timedelta(days=1)).isoformat()
+        result = planner.relayout_week(conn, start)
+        (conn.rollback if args.dry_run else conn.commit)()
+        out({"from": start, "dry_run": args.dry_run, "days": result})
+        return
+    if args.cmd == "contests":
+        if args.ct == "sync":
+            try:
+                out(leetcode.sync(conn))
+            except leetcode.LeetCodeError as e:
+                raise SystemExit(f"contest sync failed: {e}")
+        else:
+            out({"synced_at": db.get_setting(conn, "leetcode_synced_at"), "contests": leetcode.get_cache(conn)})
+        return
     if args.cmd == "homework":
         cfg = config.load(conn)
         if args.hw == "week":
@@ -164,6 +193,8 @@ def main() -> None:
     elif args.cmd == "today":
         print(notify.morning(conn)[1])
     elif args.cmd == "notify":
+        if args.which == "morning":
+            leetcode.sync_quietly(conn)  # refresh the contest cache before today is planned
         subject, body = getattr(notify, args.which)(conn)
         if args.dry_run:
             print(f"Subject: {subject}\n\n{body}")

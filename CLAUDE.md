@@ -1,6 +1,6 @@
 # dsaMixer
 
-A local planner (FastAPI + SQLite + a plain-JS Kanban UI) that turns two study tracks into a daily board:
+A local planner (FastAPI, Postgres and a plain-JS Kanban UI; SQLite for tests) that turns two study tracks into a daily board:
 
 - **DSA:** 507 interview questions from `data/DSA_Questions_and_Patterns_500.pdf`, mixed across topics every day, with spaced repetition and LeetCode contests. The goal is the Knight badge (rating ~1850) by 2027-05-02.
 - **AI course:** about 20h a week. There's a live class Sat and Sun 8:00–11:30 IST (recordings available) and two homeworks a week of about 4h each.
@@ -16,6 +16,9 @@ The owner logs each day in the evening ("Close day"), and the app then plans the
 ./run.sh today                   # today's plan in the terminal
 ./run.sh notify morning --dry-run
 ./run.sh schedule install        # launchd: board at login, 8:00/22:00 emails, 14:00/21:30 homework sync
+./run.sh plan week [FROM] [--dry-run]  # re-lay the week's DSA (default from tomorrow); --dry-run rolls back
+./run.sh contests sync           # fetch LeetCode's upcoming Weekly/Biweekly into the cache (prints JSON)
+./run.sh contests upcoming       # print the cached schedule
 ./run.sh db info                 # which database is in use, with row counts
 ```
 
@@ -31,6 +34,7 @@ The owner logs each day in the evening ("Close day"), and the app then plans the
 | `dsamixer/planning/planner.py` | Day planning, carry-over, topic mix, spaced repetition, contests, `update_ticket()` (changing `date` also sets `sprint_id` and moves the card to the end of that day). |
 | `dsamixer/planning/stats.py` | Aggregates for the Stats and Sprint tabs, the week view (`week()`), and `build()` extras: `heatmap` (last 182 days: date, done, minutes) and `homework` (this week's `source='homework'` tickets grouped by goal: goal, done, total, minutes_left). |
 | `dsamixer/integrations/ai_planner.py` | In-app weekly AI planner: an LLM (OpenRouter `OPENROUTER_MODEL`, or Anthropic) turns goals into tasks; `distribute()` spreads them over the days. |
+| `dsamixer/integrations/leetcode.py` | `fetch_upcoming()` reads LeetCode's public GraphQL `upcomingContests` (stdlib urllib; `DSAMIXER_LEETCODE_URL` overrides the URL for tests). `sync(conn)` merges it into the settings cache `leetcode_contests` (keeps 21 days) and stores `leetcode_synced_at`. Runs best-effort at server startup and before `notify morning`. |
 | `dsamixer/integrations/homework.py` | Homework helpers for the agents: week dates, `nbscan`, `pdftext`, `apply_plan`. |
 | `dsamixer/integrations/notify.py` | Gmail SMTP morning/evening emails. |
 | `dsamixer/web/server.py` | JSON API under `/api`, plus the static UI. `GET /api/week/{date}` is read-only (never plans a day): Mon–Sun with per-day budget, AI capacity, planned minutes and cards. |
@@ -43,7 +47,7 @@ Imports go one way: `core` ← `planning` ← `integrations` ← `web`/`cli`. Do
 **Tables:**
 - `tickets`: one card per day. `kind` is dsa, review, ai, contest, upsolve, retro or custom; `status` is todo, doing, done or skipped; `source` is null, ai_plan or homework.
 - `progress`: per-question spaced-repetition state.
-- `days`: planned and closed state, plus the evening log.
+- `days`: planned and closed state, `dsa_laid_at` (week layout), plus the evening log.
 - `sprints`: one row per Mon–Sun week, with goal and retro.
 - `contests`, `ai_week_plans`, `ai_modules`, `settings`.
 
@@ -51,17 +55,20 @@ Imports go one way: `core` ← `planning` ← `integrations` ← `web`/`cli`. Do
 
 Planning is idempotent: a day is planned once (`days.planned_at`). Today is planned when it's viewed, and tomorrow when today is closed. The steps, in order:
 
-1. **Carry-over.** Every todo/doing card from earlier days moves to this day, and `carried` goes up by 1. A missed LIVE contest becomes `skipped` instead.
+1. **Carry-over.** Every todo/doing card from earlier days moves to this day, and `carried` goes up by 1. A missed LIVE contest becomes `skipped` instead. On a rest day (`dsa_rest_days`, default Sat+Sun) `dsa` and `review` cards aren't moved; they wait for the next weekday.
 2. **AI cards** come from `cfg.ai_template` for that weekday, unless an `ai_week_plans` row covers the day. In that case the planned tasks (weekly planner or homework agent) replace the generic cards. The Sat/Sun class cards always come from the template.
 3. **Contests:**
    - Weeks 1–4: a virtual contest on Sunday.
    - From week 5: the live Weekly, Sun 8:00 IST. It clashes with class, so the class card becomes "recording".
-   - From week 9: the live Biweekly, Sat 20:00, every 14 days from `biweekly_anchor`. That date isn't verified, so the owner should check it.
+   - From week 9: the live Biweekly, Sat 20:00, every 14 days from `biweekly_anchor`, unless the synced LeetCode cache (`leetcode_contests`) has a Biweekly on that date; a cache entry wins. With the cache, contest cards carry the real name and time ("Weekly Contest 531 — LIVE 08:00 IST"; `LIVE` stays in titles for carry-over), and virtual Sundays name the Weekly in the detail. With an empty cache nothing changes. The anchor 2026-11-07 was checked against LeetCode on 2026-11-02 (Biweekly Contest 195, Sat 20:00 IST).
 4. **Sprint retro** card on the buffer day (Sunday).
-5. **DSA**, filled against the weekday budget (`dsa_minutes`):
-   - **Daily mix:** `mix.day_mix` gives the difficulties (Mon–Fri Hard + Medium + Easy, Sat Medium + Easy, Sun none). Every slot comes from a **different topic**, picked from a weighted rotation over all 13 sections (Graphs, DP and Trees count double; `rotation_pos` in settings). Within a topic, each difficulty follows PDF order. Carried DSA cards fill their own difficulty slot.
-   - **Reviews:** next comes due spaced-repetition reviews in whatever time is left. There's at least 1 on weekdays, and up to 8 on Sunday (the "blitz").
-   - **Extra Mediums** from unused topics, if budget is still left.
+5. **DSA**, filled against the weekday budget (`dsa_minutes`, 2h Mon–Fri, 0 on Sat/Sun):
+   - **Week layout (`plan_week_dsa`):** right after carry-over, planning any weekday lays out the new-question mix for every non-rest weekday of that Mon–Sun week from that date on (date order, so the rotation flows Mon→Fri), so the Week view shows the whole week. `days.dsa_laid_at` marks a laid day; `planned_at` stays null until the day is planned normally. A laid day isn't re-mixed when it's planned, and carried cards don't add slots.
+   - **Daily mix:** `mix.day_mix` gives the difficulties (Mon–Thu Hard + Medium + Easy, **Fri Medium + Easy** as a lighter catch-up day, Sat/Sun none). Every slot comes from a **different topic**, picked from a weighted rotation over all 13 sections (Graphs, DP and Trees count double; `rotation_pos` in settings). Within a topic, each difficulty follows PDF order.
+   - **Rest days:** no DSA on Sat/Sun: no new questions, no reviews (`buffer_day_reviews` is 0; due reviews are `next_review <= day`, so weekend ones roll to Monday). Contests and upsolves are unchanged.
+   - **Reviews:** next comes due spaced-repetition reviews in whatever time is left (carried work is counted first). There's at least 1 on weekdays.
+   - **Extra Mediums** from unused topics, only if budget is still left, so they appear when there is no carry-over (typically Friday).
+   - `replan_day` clears `dsa_laid_at`. `relayout_week(conn, from_day)` / `./run.sh plan week [FROM] [--dry-run]` drops untouched dsa cards (and untouched reviews on rest days) from FROM to Sunday and lays the week out again.
 
 **Spaced repetition** (`apply_review`, which runs when a dsa or review card first moves to Done):
 - A confident first solve (confidence 4–5, no hints) gets one check after 21 days. If that passes, the question is mastered.
@@ -69,8 +76,8 @@ Planning is idempotent: a day is planned once (`days.planned_at`). Today is plan
 - After that, the intervals are `[3, 7, 21, 45]` days, and the question is mastered after the last one.
 
 **Known trade-offs the owner has accepted:**
-- The review backlog grows at roughly 17 new questions a week.
-- The 85 Easy questions run out about 4 months in, after which the Easy slot takes the next available difficulty.
+- DSA is Mon–Fri only (about 15 new questions a week); the review backlog grows with that.
+- The 84 Easy questions run out about 4 months in, after which the Easy slot takes the next available difficulty.
 - The projected finish date uses the last 14 days' pace once that much data exists.
 
 ## Homework workflow (agents)
@@ -164,3 +171,4 @@ Each step line ends with its ticket id (`#14`). The Log is append-only, with the
 - **Never test against the real database.** Without `DSAMIXER_DB`, the app talks to the owner's Postgres. Copy `dsamixer.db` to a scratch path and run with `DSAMIXER_DB=<copy>` (SQLite). Re-check Postgres-sensitive SQL by reading it against the rule above; only run against Postgres with the owner's go-ahead. To exercise planner changes, simulate weeks: loop over days with `plan_day`, mark cards done with `update_ticket`, then `close_day`.
 - `node --check` on each file in `dsamixer/web/static/js/` catches JS syntax errors (copy to `.mjs` if Node rejects the `import` lines). The UI can be screenshotted with headless Chrome: `--screenshot`, using URLs like `/?theme=dark#/stats` to open a route in a theme.
 - Before changing anything that affects what the owner sees or has logged (replanning today, deleting tickets, schema changes), say what will change and confirm with the owner first.
+- **Docs are Markdown files under `docs/`**, sorted by purpose: `architecture/` (how it works), `research/` (open investigations), `specs/` (build specs and agent briefs), and `BACKLOG.md` (parked ideas). List every new file in `docs/README.md`. If a claude.ai doc is also made for sharing, still write the `.md` and link the two.
