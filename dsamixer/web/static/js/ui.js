@@ -1,36 +1,18 @@
-// Shared UI pieces: icons, toast, tooltip, dialogs (modal / drawer / popover / confirm), small html builders.
-import { $, $$, esc, hm, KIND_LABEL } from "./util.js";
+// Shared UI plumbing: icons, tooltip, dialogs (modal / drawer / popover / confirm). Legacy html helpers re-export components.
+import { $, $$, esc } from "./util.js";
 
 import { icon } from "./icons.js";
 export { icon };
 
-// ---------- html builders ----------
-export const kindChip = (kind) => `<span class="chip kind k-${kind}">${KIND_LABEL[kind] || esc(kind)}</span>`;
-export const diffPill = (d) => (d ? `<span class="diff ${esc(d)}">${esc(d)}</span>` : "");
-
-export function seg(name, options, current) {
-  return `<div class="seg" role="radiogroup">${options.map(([v, l]) =>
-    `<label><input type="radio" name="${name}" value="${v}" ${String(current) === String(v) ? "checked" : ""}><span>${l}</span></label>`).join("")}</div>`;
-}
-
-/** A labelled usage bar. When used > cap the overage is stated in text, not just colour. */
-export function meterHtml({ label, used, cap, color = "var(--series-1)", unit = hm }) {
-  const over = cap ? Math.max(0, used - cap) : 0;
-  const pct = cap ? Math.min(100, (used / cap) * 100) : used ? 100 : 0;
-  return `<div class="meter ${over ? "over" : ""}" style="--k:${color}">
-    <div class="m-head"><span>${label}</span><span><b>${unit(used)}</b> / ${unit(cap)}${over ? ` <span class="over-note">${icon("alert")}+${unit(over)}<span class="over-word"> over</span></span>` : ""}</span></div>
-    <div class="bar" role="img" aria-label="${esc(label)} ${unit(used)} of ${unit(cap)}"><i style="width:${pct}%"></i></div></div>`;
-}
-
-// ---------- toast ----------
-let toastEl;
-export function toast(msg) {
-  toastEl ||= $("#toast");
-  toastEl.textContent = msg;
-  toastEl.hidden = false;
-  clearTimeout(toast._t);
-  toast._t = setTimeout(() => (toastEl.hidden = true), 2800);
-}
+// ---------- legacy names, now backed by the component layer ----------
+import { KindBadge, DiffPill, Segmented, Meter, Stat, HBar, toast } from "./components/index.js";
+export { toast };
+export const kindChip = KindBadge;
+export const diffPill = DiffPill;
+export const seg = (name, options, current) => Segmented(name, options, current);
+export const meterHtml = (o) => Meter(o);
+export const kpi = (label, value, sub = "") => Stat({ label, value, sub });
+export const hbar = (label, n, total) => HBar(label, n, total);
 
 // ---------- tooltip ----------
 const tip = () => $("#tooltip");
@@ -98,7 +80,7 @@ export function openDialog({ cls = "modal", html, onSubmit, anchor }) {
 /** Keep the popover off its card: below, else right, else left, else above; clamped to the viewport. */
 function placePopover(dlg, anchor) {
   if (matchMedia("(max-width: 600px)").matches) return; // bottom sheet on phones (CSS)
-  const box = anchor.closest?.(".card, .wcard") || anchor;
+  const box = anchor.closest?.(".card") || anchor;
   const r = box.getBoundingClientRect(), w = dlg.offsetWidth, h = dlg.offsetHeight, g = 8, m = 8;
   const clampX = (x) => Math.max(m, Math.min(x, innerWidth - w - m));
   const clampY = (y) => Math.max(m, Math.min(y, innerHeight - h - m));
@@ -119,7 +101,7 @@ export function openDrawer({ title, sub = "", body, submitLabel = "Save", onSubm
     cls: "drawer", onSubmit,
     html: `<div class="d-head"><h2>${title}</h2>${sub ? `<div class="muted small">${sub}</div>` : ""}</div>
       <div class="d-body">${body}</div>
-      <div class="btns"><button type="button" class="btn ghost" data-act="cancel">Cancel <kbd>Esc</kbd></button><button class="btn primary">${submitLabel}</button></div>`,
+      <div class="btns"><button type="button" class="btn btn-ghost btn-md" data-act="cancel">Cancel <kbd>Esc</kbd></button><button class="btn btn-primary btn-md">${submitLabel}</button></div>`,
   });
 }
 
@@ -127,17 +109,10 @@ export function confirmDialog(message, okLabel = "Delete") {
   return new Promise((resolve) => {
     let ok = false;
     const dlg = openDialog({
-      html: `<h2>${esc(message)}</h2><div class="btns"><button type="button" class="btn ghost" data-act="cancel">Cancel</button><button class="btn primary" autofocus>${esc(okLabel)}</button></div>`,
+      html: `<h2>${esc(message)}</h2><div class="btns"><button type="button" class="btn btn-ghost btn-md" data-act="cancel">Cancel</button><button class="btn btn-danger btn-md" autofocus>${esc(okLabel)}</button></div>`,
       onSubmit: () => { ok = true; },
     });
     dlg.addEventListener("close", () => resolve(ok));
   });
 }
 
-// ---------- shared small widgets ----------
-export const kpi = (label, value, sub = "") => `<div class="kpi"><div class="label">${label}</div><div class="value">${value}</div><div class="sub">${sub}</div></div>`;
-
-export function hbar(label, n, total, cls = "") {
-  const pct = total ? (n / total) * 100 : 0;
-  return `<div class="hbar ${cls}"><span>${label}</span><div class="track" role="img" aria-label="${n} of ${total}"><div class="fill" style="width:${pct}%"></div></div><span class="num">${n}/${total}</span></div>`;
-}

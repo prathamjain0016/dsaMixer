@@ -40,7 +40,7 @@ export const LANES = [
 export const laneOf = (kind) => LANES.find((l) => l.kinds.includes(kind)) || LANES[2];
 
 // State shared across views (kept out of the URL).
-export const shared = { contestPrefill: null };
+export const shared = { contestPrefill: null, pendingAction: null, questionSearch: null };
 
 export function parseHash() {
   const raw = location.hash.replace(/^#\/?/, "");

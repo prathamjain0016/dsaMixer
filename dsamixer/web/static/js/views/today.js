@@ -1,42 +1,55 @@
-// Today: focus card with timer, swimlane Kanban, right rail, quick log, close-day drawer.
-import { $, $$, esc, today as todayStr, addDays, fmtDay, hm, KIND_LABEL, LOGGABLE, STATUSES, STATUS_LABEL, LANES, laneOf, shared, lsGet, lsSet } from "../util.js";
+// Today: a customizable widget grid. Now (card + timer), day meters, swimlane board with inline composer,
+// Knight / progress / homework / heatmap widgets. Card detail and close day are slide-overs.
+import { $, $$, esc, today as todayStr, addDays, fmtDay, hm, LOGGABLE, STATUSES, STATUS_LABEL, LANES, shared, lsGet, lsSet } from "../util.js";
 import { api, patchTicket } from "../api.js";
-import { icon, kindChip, diffPill, seg, meterHtml, hbar, toast, openModal, openPopover, openDrawer, confirmDialog } from "../ui.js";
+import { icon, openModal, openPopover } from "../ui.js";
 import { setViewKeys } from "../keys.js";
 import * as timer from "../timer.js";
 import { sparkline, heatmap } from "../charts.js";
+import { createDashboard } from "../layout.js";
+import { openTicketPanel } from "../ticket-panel.js";
+import {
+  Toolbar, Button, IconButton, Badge, KindBadge, DiffPill, CarriedBadge, StatusPill, Segmented, Meter, ProgressRing, setRing,
+  HBar, EmptyState, Card, SlideOver, TrackDot, toast,
+} from "../components/index.js";
 
 let S = null; // per-render state
-const CELL_HINT = { todo: "Nothing queued", doing: "Drag a card here to start", done: "Finished cards land here", skipped: "Nothing skipped" };
+
+const DEFS = [
+  { id: "now", title: "Now", span: 8, sizes: [8, 12], fixed: true },
+  { id: "meters", title: "Today's load", span: 4, sizes: [4, 6, 12] },
+  { id: "board", title: "Board", span: 12, fixed: true, flush: true },
+  { id: "knight", title: "Knight tracker", span: 3, sizes: [3, 4, 6, 12], actions: `<a href="#/contests">Contests ${icon("arrow")}</a>` },
+  { id: "progress", title: "Progress", span: 3, sizes: [3, 4, 6, 12], actions: `<a href="#/questions">Questions ${icon("arrow")}</a>` },
+  { id: "homework", title: "This week's homework", span: 3, sizes: [3, 4, 6, 12], actions: `<a href="#/ai">AI course ${icon("arrow")}</a>` },
+  { id: "heatmap", title: "Last 12 weeks", span: 3, sizes: [3, 4, 6, 12], actions: `<a href="#/stats">Stats ${icon("arrow")}</a>` },
+];
 
 export async function render(root, arg) {
   S = {
     root, date: /^\d{4}-\d\d-\d\d$/.test(arg || "") ? arg : todayStr(), board: null, cap: 0, stats: null, contests: null,
     sel: null, skippedOpen: lsGet("dsm.skippedOpen") === "1", collapsed: new Set(), offs: [],
   };
-  root.innerHTML = `<div class="today-grid">
-    <div class="today-main">
-      <div class="page-head" id="head"></div>
-      <div class="meters" id="meters"></div>
-      <div id="banner"></div>
-      <div id="now"></div>
-      <div id="board"></div>
-    </div>
-    <aside class="rail" id="rail" aria-label="Progress"></aside>
-  </div>`;
-  bindBoard();
+  root.innerHTML = `<div id="tHead"></div><div id="tBanner"></div><div id="dash"></div>`;
+  S.dash = createDashboard({ page: "today", root: $("#dash", root), defs: DEFS, paint: paintAll, controls: () => $("#dashCtl") });
+  bindBoard($("#dash", root));
   S.offs.push(timer.onChange(() => { if (S?.board) { paintNow(); paintBoard(); } }));
   const tick = setInterval(tickClock, 1000);
   S.offs.push(() => clearInterval(tick));
+  const onAction = (e) => runAction(e.detail);
+  document.addEventListener("dsm:action", onAction);
+  S.offs.push(() => document.removeEventListener("dsm:action", onAction));
   setViewKeys(onKey);
   await load();
   loadRail();
+  if (shared.pendingAction) { const a = shared.pendingAction; shared.pendingAction = null; runAction(a); }
 }
 
 export function destroy() {
   S?.offs.forEach((f) => f());
   S = null;
 }
+export const currentDate = () => S?.date;
 
 const goDay = (d) => { location.hash = d === todayStr() ? "#/today" : `#/today/${d}`; };
 
@@ -44,9 +57,11 @@ async function load() {
   const date = S.date;
   const [board, week] = await Promise.all([api(`/day/${date}`), api(`/week/${date}`)]);
   if (!S || S.date !== date) return;
+  const first = !S.board;
   S.board = board;
   S.cap = week.days.find((d) => d.date === date)?.ai_capacity ?? 0;
-  paint();
+  paintHead(); paintBanner();
+  if (first) S.dash.render(); else paintAll();
 }
 
 async function loadRail() {
@@ -56,8 +71,9 @@ async function loadRail() {
   paintRail();
 }
 
-/** After any change: reload the day, refresh the rail and the top-bar streak. */
+/** After any change: reload the day, refresh the rail and the sidebar streak. */
 async function refresh() {
+  if (!S) return;
   await load();
   loadRail();
   document.dispatchEvent(new Event("dsm:changed"));
@@ -65,50 +81,66 @@ async function refresh() {
 
 const byId = (id) => S.board.tickets.find((t) => t.id === id);
 
+function runAction(a) {
+  if (!S?.board) return;
+  if (a === "newCard") addCard();
+  else if (a === "pull") pull();
+  else if (a === "closeDay") closeDay();
+  else if (a === "toggleTimer") { const t = byId(S.sel) || nowTicket(); if (t) toggleTimer(t); else toast("No open card to time"); }
+  else if (a && a.open) { if (byId(a.open)) { select(a.open); openTicket(a.open); } }
+}
+
 // ---------- painting ----------
-function paint() {
-  paintHead(); paintMeters(); paintBanner(); paintNow(); paintBoard();
+function paintAll() {
+  if (!S?.board) return;
+  paintNow(); paintMeters(); paintBoard();
+  if (S.stats) paintRail();
 }
 
 function paintHead() {
   const b = S.board, isToday = b.date === todayStr(), closed = b.day?.closed_at;
-  $("#head").innerHTML = `
-    <div class="head-left">
-      <button class="btn icon" id="prevDay" aria-label="Previous day" data-tip="Previous day  [">${icon("left")}</button>
-      <div class="head-title"><h1>${fmtDay(b.date)}${isToday ? ` <span class="chip accent">Today</span>` : ""}</h1>
-        <div class="head-sub"><span class="chip plain">Sprint ${b.sprint}</span>${b.is_buffer ? ` <span class="chip warn plain" data-tip="Catch-all day: no new questions, contest and retro">Buffer day</span>` : ""}</div></div>
-      <button class="btn icon" id="nextDay" aria-label="Next day" data-tip="Next day  ]">${icon("right")}</button>
-      <button class="btn" id="todayBtn" data-tip="Jump to today  .">Today</button>
-    </div>
-    <div class="head-actions">
-      <button class="btn" id="addCard" data-tip="New card  N">${icon("plus")}Card <kbd>N</kbd></button>
-      <button class="btn" id="pullBtn" data-tip="Finished early? Add the next question  P">${icon("pull")}Pull next question <kbd>P</kbd></button>
-      <button class="btn primary" id="closeDay" data-tip="Close day  C">${closed ? "Update day log" : "Close day"} <kbd>C</kbd></button>
-    </div>`;
+  const live = b.tickets.filter((t) => t.status !== "skipped");
+  const planned = live.reduce((s, t) => s + t.est_minutes, 0);
+  $("#tHead").innerHTML = Toolbar({
+    lead: IconButton({ icon: "left", label: "Previous day", tip: "Previous day  [", id: "prevDay", kind: "secondary" }) +
+      IconButton({ icon: "right", label: "Next day", tip: "Next day  ]", id: "nextDay", kind: "secondary" }),
+    title: `${fmtDay(b.date)}${isToday ? Badge("Today", "accent") : ""}`,
+    sub: `<span>Sprint ${b.sprint}</span><span class="faint">·</span><span>${b.tickets.length} card${b.tickets.length === 1 ? "" : "s"} · ${hm(planned)} planned</span>${b.is_buffer ? Badge("Buffer day", "warn", `data-tip="Catch-all day: no new questions, contest and retro"`) : ""}${closed ? Badge(`${icon("check")}Closed`, "ok") : ""}`,
+    actions: (isToday ? "" : Button({ label: "Today", kind: "ghost", id: "todayBtn", tip: "Jump to today  ." })) +
+      `<span id="dashCtl" class="btn-row"></span><span class="vsep"></span>` +
+      Button({ label: "Pull question", icon: "pull", id: "pullBtn", kbd: "P", tip: "Finished early? Add the next question" }) +
+      Button({ label: closed ? "Update day log" : "Close day", kind: "primary", id: "closeDay", kbd: "C" }),
+  });
   $("#prevDay").onclick = () => goDay(addDays(S.date, -1));
   $("#nextDay").onclick = () => goDay(addDays(S.date, 1));
-  $("#todayBtn").onclick = () => goDay(todayStr());
-  $("#addCard").onclick = addCard;
+  $("#todayBtn")?.addEventListener("click", () => goDay(todayStr()));
   $("#pullBtn").onclick = pull;
   $("#closeDay").onclick = closeDay;
+  S.dash.paintControls(); // the Customize buttons live in this header
 }
 
 function paintMeters() {
+  const el = $("#wb-meters");
+  if (!el) return;
   const ts = S.board.tickets.filter((t) => t.status !== "skipped");
   const sum = (f) => ts.filter(f).reduce((s, t) => s + t.est_minutes, 0);
-  const done = S.board.tickets.filter((t) => t.status === "done").length;
-  $("#meters").innerHTML =
-    meterHtml({ label: "DSA planned", used: sum((t) => LOGGABLE.includes(t.kind)), cap: S.board.dsa_budget, color: "var(--k-dsa)" }) +
-    meterHtml({ label: "AI planned", used: sum((t) => t.kind === "ai"), cap: S.cap, color: "var(--k-ai)" }) +
-    meterHtml({ label: "Done", used: done, cap: S.board.tickets.length, color: "var(--k-retro)", unit: (n) => n });
+  const done = S.board.tickets.filter((t) => t.status === "done").length, total = S.board.tickets.length;
+  const spent = S.board.tickets.reduce((s, t) => s + (t.minutes_spent || 0), 0);
+  el.innerHTML = `<div class="load-top">${ProgressRing({ value: done, max: total || 1, size: 52, stroke: 5, center: `<b class="ring-num">${total ? Math.round((done / total) * 100) : 0}%</b>`, label: `${done} of ${total} done` })}
+      <div><div class="load-big">${done}<span class="faint"> / ${total}</span></div><div class="muted small">cards done · ${hm(spent)} logged</div></div></div>
+    <div class="load-meters">
+      ${Meter({ label: "DSA", used: sum((t) => LOGGABLE.includes(t.kind)), cap: S.board.dsa_budget, color: "var(--k-dsa)" })}
+      ${Meter({ label: "AI course", used: sum((t) => t.kind === "ai"), cap: S.cap, color: "var(--k-ai)" })}
+      ${Meter({ label: "Done", used: done, cap: total, color: "var(--accent)", unit: (n) => n })}
+    </div>`;
 }
 
 function paintBanner() {
-  const b = S.board, closed = b.day?.closed_at, el = $("#banner");
+  const b = S.board, closed = b.day?.closed_at, el = $("#tBanner");
   if (!b.tickets.length && b.date > todayStr()) {
-    el.innerHTML = `<div class="banner info">${icon("calendar")}<span>This day isn't planned yet. Close ${b.date === addDays(todayStr(), 1) ? "today" : "the day before"} to generate it.</span></div>`;
+    el.innerHTML = `<div class="banner info t-banner">${icon("calendar")}<span>This day isn't planned yet. Close ${b.date === addDays(todayStr(), 1) ? "today" : "the day before"} to generate it.</span></div>`;
   } else if (closed) {
-    el.innerHTML = `<div class="banner ok">${icon("check")}<span>Day closed. Tomorrow's plan is ready.</span><button class="btn sm" id="goTomorrow">See tomorrow ${icon("right")}</button></div>`;
+    el.innerHTML = `<div class="banner ok t-banner">${icon("check")}<span>Day closed. Tomorrow's plan is ready.</span>${Button({ label: "See tomorrow", iconRight: "right", size: "sm", id: "goTomorrow" })}</div>`;
     $("#goTomorrow").onclick = () => goDay(addDays(b.date, 1));
   } else el.innerHTML = "";
 }
@@ -120,93 +152,118 @@ function nowTicket() {
 }
 
 function paintNow() {
-  const t = nowTicket(), el = $("#now");
+  const el = $("#wb-now");
+  if (!el) return;
+  const t = nowTicket();
   if (!t) {
     const any = S.board.tickets.length;
-    el.innerHTML = `<section class="now empty-now"><span class="empty-icon">${icon(any ? "sparkle" : "inbox")}</span><div><h2>${any ? "Everything on this board is handled" : "Nothing on this board"}</h2>
-      <p class="muted">${any ? "Pull another question if you have energy left, or close the day." : "Add a card or pull a question to get going."}</p></div></section>`;
+    el.innerHTML = EmptyState({
+      icon: any ? "sparkle" : "inbox",
+      title: any ? "Everything on this board is handled" : "Nothing on this board yet",
+      hint: any ? "Pull another question if you have energy left, or close the day." : "Add a card in the To do column or pull the next question.",
+      action: Button({ label: "Pull next question", icon: "pull", size: "sm", attrs: { "data-act": "pull" } }) + " " + (any ? Button({ label: "Close day", kind: "primary", size: "sm", attrs: { "data-act": "close" } }) : ""),
+    });
+    el.querySelector('[data-act="pull"]').onclick = pull;
+    el.querySelector('[data-act="close"]')?.addEventListener("click", closeDay);
     return;
   }
   const tm = timer.forTicket(t.id), running = timer.isRunning(t.id);
-  const spent = t.minutes_spent != null ? ` · ${hm(t.minutes_spent)} logged` : "";
-  el.innerHTML = `<section class="now k-${t.kind}" aria-label="Now" data-id="${t.id}">
+  const elapsedMin = (t.minutes_spent && !tm ? t.minutes_spent : (tm ? tm.baseMinutes : 0) + timer.elapsedMs(tm) / 6e4);
+  el.innerHTML = `<div class="now k-${t.kind}" data-id="${t.id}">
     <div class="now-main">
-      <div class="now-top"><span class="now-label">Now</span>${kindChip(t.kind)}${diffPill(t.difficulty)}<span class="id">#${t.id}</span>
-        ${t.carried ? `<span class="chip carried" data-tip="Rolled over ${t.carried} time${t.carried > 1 ? "s" : ""}">${icon("carried")}${t.carried}</span>` : ""}</div>
+      <div class="now-top">${KindBadge(t.kind)}<span class="c-id">#${t.id}</span>${DiffPill(t.difficulty)}${CarriedBadge(t.carried)}${StatusPill(t.status)}</div>
       <h2 class="now-title">${esc(t.title)}</h2>
       ${t.detail || t.pattern ? `<div class="now-detail">${t.detail ? esc(t.detail) : ""}${t.detail && t.pattern ? " · " : ""}${t.pattern ? `Pattern: ${esc(t.pattern)}` : ""}</div>` : ""}
-      <div class="now-meta">Estimate ${hm(t.est_minutes)}${spent}</div>
-      ${t.url ? `<a class="btn sm" href="${esc(t.url)}" target="_blank" rel="noopener">Open on LeetCode ${icon("ext")}</a>` : ""}
+      <div class="now-meta"><span>${icon("clock")}Estimate ${hm(t.est_minutes)}</span>${t.minutes_spent != null ? `<span>${hm(t.minutes_spent)} logged</span>` : ""}</div>
+      <div class="btn-row now-links">${t.url ? Button({ label: "Open on LeetCode", iconRight: "ext", size: "sm", href: t.url, attrs: { target: "_blank", rel: "noopener" } }) : ""}
+        ${Button({ label: "Details", size: "sm", kind: "ghost", id: "nowOpen", kbd: "↵" })}</div>
     </div>
     <div class="now-timer">
-      <div class="clock-label">${running ? "Running" : tm ? "Paused" : "Timer"}</div>
-      <div class="clock ${running ? "running" : ""}" id="nowClock" role="timer" aria-label="Elapsed time">${timer.clockText(tm)}</div>
+      ${ProgressRing({ value: elapsedMin, max: t.est_minutes || 1, size: 148, stroke: 6, id: "nowRing", color: running ? "var(--accent)" : "var(--faint)",
+        center: `<div><div class="clock ${running ? "running" : ""}" id="nowClock" role="timer" aria-label="Elapsed time">${timer.clockText(tm)}</div><div class="clock-label">${running ? "Running" : tm ? "Paused" : `of ${hm(t.est_minutes)}`}</div></div>`, label: "Time against estimate" })}
       <div class="timer-btns">
-        <button class="btn primary lg" id="nowToggle" data-tip="Start / pause  Space">${icon(running ? "pause" : "play")}${running ? "Pause" : tm ? "Resume" : "Start"}</button>
-        <button class="btn lg" id="nowDone" data-tip="Mark done  X">${icon("check")}Done</button>
-        <button class="btn lg subtle-btn" id="nowSkip" data-tip="Skip this card">${icon("skip")}Skip</button>
+        ${Button({ label: running ? "Pause" : tm ? "Resume" : "Start", icon: running ? "pause" : "play", kind: "primary", id: "nowToggle", tip: "Start / pause  Space" })}
+        ${Button({ label: "Done", icon: "check", id: "nowDone", tip: "Mark done  X" })}
+        ${IconButton({ icon: "skip", label: "Skip this card", id: "nowSkip", kind: "ghost" })}
       </div>
-    </div></section>`;
+    </div></div>`;
   $("#nowToggle").onclick = () => toggleTimer(t);
   $("#nowDone").onclick = (e) => setStatus(t, "done", e.currentTarget);
   $("#nowSkip").onclick = () => setStatus(t, "skipped");
+  $("#nowOpen").onclick = () => openTicket(t.id);
 }
 
 function tickClock() {
   const el = $("#nowClock");
-  if (!el) return;
+  if (!el || !S?.board) return;
   const t = nowTicket();
-  el.textContent = t ? timer.clockText(timer.forTicket(t.id)) : "00:00";
+  const tm = t && timer.forTicket(t.id);
+  el.textContent = t ? timer.clockText(tm) : "00:00";
+  if (tm) setRing($("#nowRing"), tm.baseMinutes + timer.elapsedMs(tm) / 6e4, t.est_minutes || 1);
 }
 
-function cardHtml(t) {
-  const conf = t.confidence ? `<span class="conf" role="img" aria-label="Confidence ${t.confidence} of 5" data-tip="Confidence ${t.confidence}/5">${[1, 2, 3, 4, 5].map((n) => `<i class="${n <= t.confidence ? "on" : ""}"></i>`).join("")}</span>` : "";
-  const mins = t.minutes_spent != null ? `${hm(t.minutes_spent)} spent` : `~${hm(t.est_minutes)}`;
-  const open = t.status === "todo" || t.status === "doing";
-  const running = timer.isRunning(t.id);
-  return `<div class="card k-${t.kind} st-${t.status} ${S.sel === t.id ? "selected" : ""}" draggable="true" tabindex="0" data-id="${t.id}">
-    <div class="card-top">${kindChip(t.kind)}<span class="id">#${t.id}</span>${diffPill(t.difficulty)}
-      ${t.carried ? `<span class="chip carried" data-tip="Rolled over ${t.carried} time${t.carried > 1 ? "s" : ""}">${icon("carried")}${t.carried}</span>` : ""}
-      ${open ? `<span class="quick">
-        <button type="button" class="btn sm icon ghost" data-q="done" aria-label="Mark done" data-tip="Mark done  X">${icon("check")}</button>
-        <button type="button" class="btn sm icon ghost" data-q="timer" aria-label="${running ? "Pause" : "Start"} timer" data-tip="${running ? "Pause" : "Start"} timer  Space">${icon(running ? "pause" : "play")}</button></span>` : ""}</div>
-    <div class="card-title">${esc(t.title)}</div>
-    <div class="card-foot"><span class="detail" ${t.detail || t.pattern ? `data-tip="${esc(t.detail || t.pattern)}"` : ""}>${esc(t.detail || t.pattern || "")}</span>
-      ${conf}<span class="mins">${mins}</span>
-      ${t.url ? `<a href="${esc(t.url)}" target="_blank" rel="noopener" aria-label="Open on LeetCode" data-tip="Open on LeetCode">${icon("ext")}</a>` : ""}</div>
-    ${t.note ? `<div class="note">“${esc(t.note)}”</div>` : ""}
-  </div>`;
-}
+const DROP_HINT = { todo: "Drop to queue", doing: "Drop to start", done: "Drop to finish", skipped: "Drop to skip" };
 
 function paintBoard() {
-  const ts = S.board.tickets, el = $("#board");
-  const cnt = (s, f = () => true) => ts.filter((t) => t.status === s && f(t)).length;
+  const el = $("#wb-board");
+  if (!el) return;
+  const ts = S.board.tickets;
+  const cnt = (s) => ts.filter((t) => t.status === s).length;
   const lanes = LANES.filter((l) => l.always || ts.some((t) => l.kinds.includes(t.kind)));
+  const focused = document.activeElement?.closest?.("#composer") ? { v: $("#cTitle")?.value || "" } : null;
   el.innerHTML = `<div class="board ${S.skippedOpen ? "skip-open" : "skip-closed"}">
-    <div class="b-head" role="row">
-      ${["todo", "doing", "done"].map((s) => `<div class="b-col">${STATUS_LABEL[s]} <span class="count">${cnt(s)}</span></div>`).join("")}
-      <button class="b-col skip-toggle" id="skipToggle" aria-expanded="${S.skippedOpen}" data-tip="${S.skippedOpen ? "Collapse" : "Expand"} skipped">
-        <span class="skip-label">${STATUS_LABEL.skipped}</span> <span class="count">${cnt("skipped")}</span></button>
+    <div class="b-head">
+      ${["todo", "doing", "done"].map((s) => `<div class="b-col">${StatusPill(s)}<span class="b-count">${cnt(s)}</span></div>`).join("")}
+      <button type="button" class="b-col skip-toggle" id="skipToggle" aria-expanded="${S.skippedOpen}" data-tip="${S.skippedOpen ? "Collapse" : "Expand"} skipped">${StatusPill("skipped")}<span class="b-count">${cnt("skipped")}</span>${icon(S.skippedOpen ? "left" : "right")}</button>
     </div>
+    <form class="composer" id="composer" autocomplete="off">
+      ${icon("plus")}<input id="cTitle" name="title" placeholder="Add a card to To do…" aria-label="New card title" required>
+      <select name="kind" aria-label="Type"><option value="custom">Task</option><option value="ai">AI</option><option value="dsa">DSA</option><option value="contest">Contest</option></select>
+      <input name="est_minutes" type="number" min="5" step="5" value="30" aria-label="Estimate in minutes"><span class="muted small c-unit">min</span>
+      <kbd class="c-enter">↵</kbd>
+    </form>
     ${lanes.map((l) => {
       const lt = ts.filter((t) => l.kinds.includes(t.kind)), mins = lt.filter((t) => t.status !== "skipped").reduce((s, t) => s + t.est_minutes, 0);
       const closed = S.collapsed.has(l.id);
       return `<section class="lane ${closed ? "collapsed" : ""}" data-lane="${l.id}">
-        <button class="lane-head" data-lane-toggle="${l.id}" aria-expanded="${!closed}"><span class="chev">${icon("chev")}</span><span class="lane-name">${l.name}</span>
-          <span class="count">${lt.length}</span><span class="lane-mins">${hm(mins)} planned</span></button>
-        ${closed ? "" : `<div class="cells">${STATUSES.map((s) => { const cs = lt.filter((t) => t.status === s); return `<div class="cell ${cs.length ? "" : "none"}" data-lane="${l.id}" data-status="${s}" data-label="${STATUS_LABEL[s]}">${cs.length ? cs.map(cardHtml).join("") : `<div class="cell-hint">${CELL_HINT[s]}</div>`}</div>`; }).join("")}</div>`}
+        <button type="button" class="lane-head" data-lane-toggle="${l.id}" aria-expanded="${!closed}"><span class="chev">${icon("chev")}</span>${TrackDot(l.kinds[0])}<span class="lane-name">${l.name}</span>
+          <span class="lane-count">${lt.length}</span><span class="lane-mins">${hm(mins)} planned</span></button>
+        ${closed ? "" : `<div class="cells">${STATUSES.map((s) => {
+          const cs = lt.filter((t) => t.status === s);
+          return `<div class="cell ${cs.length ? "" : "none"}" data-lane="${l.id}" data-status="${s}" data-label="${STATUS_LABEL[s]}">${s === "skipped" && !S.skippedOpen
+            ? (cs.length ? `<div class="skip-mini">${cs.length} skipped</div>` : "")
+            : cs.map((t) => Card(t, { selected: S.sel === t.id, running: timer.isRunning(t.id) })).join("")}<div class="drop-hint">${DROP_HINT[s]}</div></div>`;
+        }).join("")}</div>`}
       </section>`;
     }).join("")}
-    ${ts.length ? "" : `<div class="empty board-empty">No cards on this day yet.</div>`}
   </div>`;
+  if (focused) { const i = $("#cTitle"); i.value = focused.v; i.focus(); }
 }
 
-function bindBoard() {
-  const el = $("#board");
-  el.addEventListener("click", (e) => {
+function bindBoard(host) {
+  host.addEventListener("submit", async (e) => {
+    if (e.target.id !== "composer") return;
+    e.preventDefault();
+    const f = e.target, title = f.title.value.trim();
+    if (!title) return;
+    S.board = await api("/tickets", { method: "POST", body: { date: S.date, title, kind: f.kind.value, est_minutes: +f.est_minutes.value || 30 } });
+    paintAll(); paintHead();
+    const i = $("#cTitle"); if (i) i.focus();
+    toast("Card added");
+    refresh();
+  });
+  // The composer has several fields and no submit button, so Enter needs an explicit submit.
+  host.addEventListener("keydown", (e) => {
+    const f = e.target.closest?.("#composer");
+    if (f && e.key === "Enter" && !e.isComposing) { e.preventDefault(); f.requestSubmit(); }
+    if (f && e.key === "Escape") { e.target.blur(); }
+  });
+  host.addEventListener("click", (e) => {
+    if (!e.target.closest("#wb-board")) return;
     if (e.target.closest("#skipToggle")) { S.skippedOpen = !S.skippedOpen; lsSet("dsm.skippedOpen", S.skippedOpen ? "1" : "0"); return paintBoard(); }
     const lt = e.target.closest("[data-lane-toggle]");
     if (lt) { const id = lt.dataset.laneToggle; S.collapsed.has(id) ? S.collapsed.delete(id) : S.collapsed.add(id); return paintBoard(); }
+    if (e.target.closest(".skip-mini")) { S.skippedOpen = true; lsSet("dsm.skippedOpen", "1"); return paintBoard(); }
     const card = e.target.closest(".card");
     if (!card || e.target.closest("a")) return;
     const t = byId(+card.dataset.id);
@@ -215,69 +272,67 @@ function bindBoard() {
     select(t.id);
     openTicket(t.id);
   });
-  el.addEventListener("keydown", (e) => {
-    const card = e.target.closest(".card");
+  host.addEventListener("keydown", (e) => {
+    const card = e.target.closest?.(".card");
     if (card && e.target === card && e.key === "Enter") { e.preventDefault(); select(+card.dataset.id); openTicket(+card.dataset.id); }
   });
-  el.addEventListener("dragstart", (e) => { const c = e.target.closest(".card"); if (c) { c.classList.add("dragging"); e.dataTransfer.setData("text/plain", c.dataset.id); } });
-  el.addEventListener("dragend", (e) => e.target.closest?.(".card")?.classList.remove("dragging"));
-  el.addEventListener("dragover", (e) => { const c = e.target.closest(".cell"); if (c) { e.preventDefault(); c.classList.add("drag-over"); } });
-  el.addEventListener("dragleave", (e) => e.target.closest?.(".cell")?.classList.remove("drag-over"));
-  el.addEventListener("drop", async (e) => {
-    const cell = e.target.closest(".cell");
-    if (!cell) return;
+  const isCard = (e) => e.dataTransfer?.types?.includes("text/plain");
+  host.addEventListener("dragstart", (e) => { const c = e.target.closest?.(".card"); if (c) { c.classList.add("dragging"); e.dataTransfer.setData("text/plain", c.dataset.id); $(".board")?.classList.add("dragging-card"); } });
+  host.addEventListener("dragend", (e) => { e.target.closest?.(".card")?.classList.remove("dragging"); $(".board")?.classList.remove("dragging-card"); });
+  host.addEventListener("dragover", (e) => { const c = e.target.closest?.(".cell"); if (c && isCard(e)) { e.preventDefault(); $$(".cell.drag-over").forEach((x) => x !== c && x.classList.remove("drag-over")); c.classList.add("drag-over"); } });
+  host.addEventListener("dragleave", (e) => { const c = e.target.closest?.(".cell"); if (c && !c.contains(e.relatedTarget)) c.classList.remove("drag-over"); });
+  host.addEventListener("drop", async (e) => {
+    const cell = e.target.closest?.(".cell");
+    if (!cell || !isCard(e)) return;
     e.preventDefault();
     cell.classList.remove("drag-over");
+    $(".board")?.classList.remove("dragging-card");
     const t = byId(+e.dataTransfer.getData("text/plain"));
     if (t) setStatus(t, cell.dataset.status, cell);
   });
 }
 
-// ---------- rail ----------
+// ---------- side widgets ----------
 function paintRail() {
   const { stats: s, contests } = S, k = s.knight;
   const rated = contests.filter((c) => c.rating).reverse();
   const left = Math.max(0, Math.ceil((new Date(k.deadline) - new Date()) / 864e5));
   const order = ["Easy", "Medium", "Hard"];
   const diffs = [...s.by_difficulty].sort((a, b) => order.indexOf(a.difficulty) - order.indexOf(b.difficulty));
-  $("#rail").innerHTML = `
-    <section class="panel rail-panel"><h3>Knight tracker</h3>
-      ${k.rating ? `<div class="knight-top"><span class="big">${k.rating}</span><span class="muted">of ${k.target_rating} · ${Math.max(0, k.target_rating - k.rating)} to go</span></div>
-      <div class="chart" id="spark"></div>` : `<div class="rail-empty"><span class="empty-icon sm">${icon("trophy")}</span><div><div class="rail-empty-title">No rated contests yet</div>
-      <div class="muted small">${firstWeeklyText()}</div></div></div>
-      <div class="kv target-row"><span>Target rating</span><b>${k.target_rating}</b></div>`}
-      <div class="kv"><span>Contests</span><b>${k.contests}</b><span>Q3+ solve rate</span><b>${k.q3_rate != null ? Math.round(k.q3_rate * 100) + "%" : "—"}</b><span>Days to deadline</span><b>${left}</b></div>
-      ${k.rating ? `<div class="legend small mt-s"><span class="key"><i class="sw s1"></i>Rating</span><span class="key"><i class="sw ref"></i>Target ${k.target_rating}</span></div>` : ""}
-    </section>
-    <section class="panel rail-panel"><h3>Progress</h3>
-      <div class="knight-top"><span class="big">${s.done}<span class="of"> / ${s.total}</span></span><span class="muted">solved · ${s.mastered} mastered</span></div>
-      ${diffs.map((r) => hbar(diffPillText(r.difficulty), r.done || 0, r.total, "compact")).join("")}
-      <div class="kv"><span>Reviews due</span><b>${s.reviews_due}</b><span>Projected finish</span><b>${s.projected_finish ? fmtDay(s.projected_finish, { day: "numeric", month: "short", year: "numeric" }) : "—"}</b></div>
-      <div class="muted small">${esc(s.projected_finish_basis)}</div>
-    </section>
-    <section class="panel rail-panel"><div class="panel-head"><h3>This week's homework</h3><a class="link-arrow small" href="#/ai">AI course ${icon("arrow")}</a></div>
-      ${s.homework.length ? s.homework.map((g) => `<div class="hw"><div class="hw-head"><b>${esc(g.goal)}</b><span class="muted small">${g.done}/${g.total} done${g.minutes_left ? ` · ${hm(g.minutes_left)} left` : " · complete"}</span></div>
-        <div class="track" role="img" aria-label="${g.done} of ${g.total}"><div class="fill" style="width:${g.total ? (g.done / g.total) * 100 : 0}%;background:var(--k-ai)"></div></div></div>`).join("") : `<div class="muted small">No homework cards this week.</div>`}
-    </section>
-    <section class="panel rail-panel"><h3>Last 12 weeks</h3><div id="miniHm"></div></section>`;
-  if (k.rating) sparkline($("#spark"), rated, k.target_rating);
-  heatmap($("#miniHm"), s.heatmap, { weeks: 12, mini: true });
+  const kv = (rows) => `<dl class="kv">${rows.map(([a, b]) => `<dt>${a}</dt><dd>${b}</dd>`).join("")}</dl>`;
+  const set = (id, html) => { const el = $(`#wb-${id}`); if (el) el.innerHTML = html; return el; };
+
+  set("knight", (k.rating ? `<div class="big-row"><span class="big">${k.rating}</span><span class="muted small">of ${k.target_rating} · ${Math.max(0, k.target_rating - k.rating)} to go</span></div><div class="chart" id="spark"></div>`
+    : EmptyState({ icon: "trophy", title: "No rated contests yet", hint: firstWeeklyText(), compact: true })) +
+    kv([["Contests", k.contests], ["Q3+ solve rate", k.q3_rate != null ? Math.round(k.q3_rate * 100) + "%" : "—"], ["Days to deadline", left], ...(k.rating ? [] : [["Target rating", k.target_rating]])]));
+  if (k.rating && $("#spark")) sparkline($("#spark"), rated, k.target_rating);
+
+  set("progress", `<div class="big-row"><span class="big">${s.done}<span class="faint"> / ${s.total}</span></span><span class="muted small">solved · ${s.mastered} mastered</span></div>
+    <div class="hbars">${diffs.map((r) => HBar(DiffPill(r.difficulty), r.done || 0, r.total, { color: `var(--${r.difficulty.toLowerCase()})` })).join("")}</div>
+    ${kv([["Reviews due", s.reviews_due], ["Projected finish", s.projected_finish ? fmtDay(s.projected_finish, { day: "numeric", month: "short", year: "numeric" }) : "—"]])}
+    <div class="faint small">${esc(s.projected_finish_basis)}</div>`);
+
+  set("homework", s.homework.length ? s.homework.map((g) => `<div class="hw"><div class="hw-head"><b>${esc(g.goal)}</b><span class="muted small">${g.done}/${g.total}${g.minutes_left ? ` · ${hm(g.minutes_left)} left` : " · complete"}</span></div>
+      <div class="hb-track" role="img" aria-label="${g.done} of ${g.total}"><i style="width:${g.total ? (g.done / g.total) * 100 : 0}%;background:var(--k-ai)"></i></div></div>`).join("")
+    : EmptyState({ icon: "book", title: "No homework cards this week", hint: "Run /homework-plan or plan the week on the AI course page.", compact: true }));
+
+  const hm12 = set("heatmap", `<div class="chart" id="miniHm"></div>`);
+  if (hm12) heatmap($("#miniHm"), s.heatmap, { weeks: 12, mini: true });
 }
-const diffPillText = (d) => `<span class="diff ${d}">${d}</span>`;
 
 /** Date of the first live Weekly (Sunday of sprint `weekly_live_from_week`), from saved settings. */
 function firstWeeklyText() {
   const c = S.settings?.contests, start = S.settings?.start_date;
   if (!c || !start || !c.weekly_live) return "Log a live contest to start the rating line.";
   const d = addDays(start, (c.weekly_live_from_week - 1) * 7 + 6);
-  return d >= todayStr() ? `Your first live Weekly is ${fmtDay(d, { day: "numeric", month: "short" })}.` : "Log your next live Weekly on the Contests tab.";
+  return d >= todayStr() ? `Your first live Weekly is ${fmtDay(d, { day: "numeric", month: "short" })}.` : "Log your next live Weekly on the Contests page.";
 }
 
 // ---------- actions ----------
 function select(id) {
   S.sel = id;
   $$(".card.selected").forEach((c) => c.classList.remove("selected"));
-  const c = $(`.card[data-id="${id}"]`);
+  const c = $(`#wb-board .card[data-id="${id}"]`);
   c?.classList.add("selected");
   c?.scrollIntoView({ block: "nearest" });
 }
@@ -289,19 +344,23 @@ async function toggleTimer(t) {
   refresh();
 }
 
+const undoTo = (t, prev) => ({ label: "Undo", run: async () => { await patchTicket(t.id, { status: prev }); refresh(); } });
+
 /** Single entry point for status changes (buttons, drag, keys). Done opens the quick log. */
 async function setStatus(t, status, anchor) {
   if (status === t.status) return;
+  const prev = t.status;
   if (status === "done") {
     if (t.kind === "contest") { await patchTicket(t.id, { status: "done" }); await refresh(); return logContest(t); }
     if (LOGGABLE.includes(t.kind) || t.kind === "ai") return quickLog(t, anchor);
     const m = timer.totalMinutes(t);
     await patchTicket(t.id, { status: "done", ...(m != null ? { minutes_spent: m } : {}) });
     timer.clearFor(t.id);
-    toast("Marked done");
+    toast("Marked done", { action: undoTo(t, prev) });
   } else {
     await patchTicket(t.id, { status });
     if (status === "skipped") timer.clearFor(t.id);
+    toast(`Moved to ${STATUS_LABEL[status]}`, { action: undoTo(t, prev) });
   }
   refresh();
 }
@@ -312,23 +371,24 @@ function logContest(t) {
   toast("Log the contest result here");
 }
 
+/** The quick log for the drag-to-Done moment: result, minutes, confidence, note. Spaced repetition depends on it. */
 function quickLog(t, anchor) {
-  const loggable = LOGGABLE.includes(t.kind), ai = t.kind === "ai";
+  const loggable = LOGGABLE.includes(t.kind), ai = t.kind === "ai", prev = t.status;
   const mins = timer.totalMinutes(t) ?? t.minutes_spent ?? t.est_minutes;
-  openPopover(anchor || $("#now") || document.body, `
-    <h3 class="ql-title">Log · ${esc(t.title)}</h3>
-    ${loggable ? `<label class="field">Result ${seg("result", [["solved", "Solved"], ["hints", "Hints"], ["failed", "Couldn't"]], t.result || "solved")}</label>
-      <label class="field">Confidence ${seg("confidence", [1, 2, 3, 4, 5].map((n) => [n, n]), t.confidence || 3)}</label>` : ""}
-    <label class="field">Minutes<input type="number" name="minutes_spent" min="0" value="${mins}" autofocus></label>
-    <label class="field">${ai ? "What you covered" : "Key insight"}<input name="note" value="${esc(t.note || "")}" placeholder="${ai ? "e.g. backprop derivation, HW Q3" : "e.g. shrink window when count > k"}"></label>
-    ${loggable ? `<label class="field">Submission link<input name="link" value="${esc(t.link || "")}" placeholder="https://leetcode.com/submissions/…"></label>` : ""}
-    <div class="btns"><button type="button" class="btn ghost" data-act="cancel">Cancel <kbd>Esc</kbd></button><button class="btn primary">Save <kbd>↵</kbd></button></div>`,
+  openPopover(anchor || $("#wb-now") || document.body, `
+    <h3 class="ql-title">${icon("check")} Log · ${esc(t.title)}</h3>
+    ${loggable ? `<label class="field"><span class="f-label">Result</span>${Segmented("result", [["solved", "Solved"], ["hints", "Hints"], ["failed", "Couldn't"]], t.result || "solved")}</label>
+      <label class="field"><span class="f-label">Confidence</span>${Segmented("confidence", [1, 2, 3, 4, 5].map((n) => [n, n]), t.confidence || 3)}</label>` : ""}
+    <label class="field"><span class="f-label">Minutes</span><input type="number" name="minutes_spent" min="0" value="${mins}" autofocus></label>
+    <label class="field"><span class="f-label">${ai ? "What you covered" : "Key insight"}</span><input name="note" value="${esc(t.note || "")}" placeholder="${ai ? "e.g. backprop derivation, HW Q3" : "e.g. shrink window when count > k"}"></label>
+    ${loggable ? `<label class="field"><span class="f-label">Submission link</span><input name="link" value="${esc(t.link || "")}" placeholder="https://leetcode.com/submissions/…"></label>` : ""}
+    <div class="btns"><button type="button" class="btn btn-ghost btn-md" data-act="cancel">Cancel <kbd>Esc</kbd></button><button class="btn btn-primary btn-md">Save <kbd>↵</kbd></button></div>`,
   async (_, d) => {
     const body = { status: "done", minutes_spent: d.minutes_spent !== "" ? +d.minutes_spent : null, note: d.note || null };
     if (loggable) { body.result = d.result; body.confidence = +d.confidence; body.link = d.link || null; }
     await patchTicket(t.id, body);
     timer.clearFor(t.id);
-    toast("Marked done");
+    toast("Marked done", { action: undoTo(t, prev) });
     refresh();
   });
 }
@@ -336,85 +396,115 @@ function quickLog(t, anchor) {
 function openTicket(id) {
   const t = byId(id);
   if (!t) return;
-  const loggable = LOGGABLE.includes(t.kind), ai = t.kind === "ai";
-  openModal(`
-    <h2>${esc(t.title)}</h2>
-    <div class="muted small">${KIND_LABEL[t.kind]} · #${t.id}${t.difficulty ? " · " + t.difficulty : ""}${t.pattern ? " · " + esc(t.pattern) : ""}${t.detail ? " · " + esc(t.detail) : ""}</div>
-    ${t.url ? `<a class="link-arrow" href="${esc(t.url)}" target="_blank" rel="noopener">Open on LeetCode ${icon("ext")}</a>` : ""}
-    <label class="field">Status ${seg("status", [["todo", "To do"], ["doing", "In progress"], ["done", "Done"], ["skipped", "Skip"]], t.status)}</label>
-    ${loggable ? `<label class="field">Result ${seg("result", [["solved", "Solved alone"], ["hints", "Needed hints"], ["failed", "Couldn't solve"]], t.result || "solved")}</label>
-      <label class="field">Confidence (could you redo it cold?) ${seg("confidence", [1, 2, 3, 4, 5].map((n) => [n, n]), t.confidence || 3)}</label>` : ""}
-    <label class="field">Minutes spent<input type="number" name="minutes_spent" min="0" value="${t.minutes_spent ?? t.est_minutes}"></label>
-    ${loggable || ai ? `<label class="field">${ai ? "What you covered" : "Pattern / key insight"}<input name="note" value="${esc(t.note || "")}" placeholder="${ai ? "e.g. backprop derivation, HW Q3" : "e.g. shrink window when count > k"}"></label>` : ""}
-    ${loggable ? `<label class="field">Submission link<input name="link" value="${esc(t.link || "")}" placeholder="https://leetcode.com/submissions/…"></label>` : ""}
-    <div class="btns"><button type="button" class="btn ghost danger spacer" data-act="delete">Delete</button><button type="button" class="btn ghost" data-act="cancel">Cancel</button><button class="btn primary">Save</button></div>`,
-  async (action, data) => {
-    if (action === "delete") {
-      if (!(await confirmDialog("Delete this card?"))) return false;
-      await api(`/tickets/${id}`, { method: "DELETE" });
-      timer.clearFor(id);
-      S.sel = null;
-    } else {
-      const body = { status: data.status, minutes_spent: data.minutes_spent ? +data.minutes_spent : null };
-      if ("note" in data) body.note = data.note || null;
-      if ("link" in data) body.link = data.link || null;
-      if (loggable) { body.result = data.result; body.confidence = +data.confidence; }
-      await patchTicket(id, body);
-      if (data.status === "done" || data.status === "skipped") timer.clearFor(id);
-      if (data.status === "done" && t.status !== "done" && t.kind === "contest") { await refresh(); logContest(t); return; }
-    }
-    refresh();
-  });
+  openTicketPanel(t, { onChanged: refresh, onContestDone: logContest });
 }
 
+/** N: focus the inline composer (or a small modal if the board widget is hidden/collapsed). */
 function addCard() {
+  const i = $("#cTitle");
+  if (i) { i.scrollIntoView({ block: "center", behavior: "smooth" }); i.focus(); return; }
   openModal(`
     <h2>New card · ${fmtDay(S.date)}</h2>
-    <label class="field">Title<input name="title" required autofocus></label>
-    <label class="field">Type<select name="kind"><option value="custom">Task</option><option value="ai">AI</option><option value="dsa">DSA</option><option value="contest">Contest</option></select></label>
-    <label class="field">Estimate (minutes)<input type="number" name="est_minutes" value="30" min="5"></label>
-    <div class="btns"><button type="button" class="btn ghost" data-act="cancel">Cancel</button><button class="btn primary">Add</button></div>`,
+    <label class="field"><span class="f-label">Title</span><input name="title" required autofocus></label>
+    <label class="field"><span class="f-label">Type</span><select name="kind"><option value="custom">Task</option><option value="ai">AI</option><option value="dsa">DSA</option><option value="contest">Contest</option></select></label>
+    <label class="field"><span class="f-label">Estimate (minutes)</span><input type="number" name="est_minutes" value="30" min="5"></label>
+    <div class="btns"><button type="button" class="btn btn-ghost btn-md" data-act="cancel">Cancel</button><button class="btn btn-primary btn-md">Add</button></div>`,
   async (_, d) => {
     S.board = await api("/tickets", { method: "POST", body: { date: S.date, title: d.title, kind: d.kind, est_minutes: +d.est_minutes } });
-    paint();
+    paintAll();
     refresh();
   });
 }
 
 async function pull() {
   S.board = await api(`/day/${S.date}/pull`, { method: "POST" });
-  paint();
+  paintAll(); paintHead();
   toast("Pulled the next question");
   loadRail();
 }
 
+/** Close day as a guided slide-over: 1 summary, 2 evening log, 3 confirm, then "Tomorrow is planned". */
 function closeDay() {
   const b = S.board, closed = b.day?.closed_at, prev = b.day || {};
   const open = b.tickets.filter((t) => t.status === "todo" || t.status === "doing");
   const done = b.tickets.filter((t) => t.status === "done");
+  const skipped = b.tickets.filter((t) => t.status === "skipped");
   const aiNotes = b.tickets.filter((t) => t.kind === "ai" && t.note).map((t) => t.note).join("; ");
-  const li = (t) => `<li>${kindChip(t.kind)}<span>${esc(t.title)}</span></li>`;
-  openDrawer({
-    title: `End of day · ${fmtDay(b.date)}`,
-    sub: `${done.length} done · ${open.length} open`,
-    body: `<h3 class="mt">Done (${done.length})</h3>${done.length ? `<ul class="open-list">${done.map(li).join("")}</ul>` : `<div class="muted small">Nothing finished yet.</div>`}
-      <h3 class="mt">Still open (${open.length})</h3>${open.length ? `<div class="muted small">These roll over to tomorrow.</div><ul class="open-list">${open.map(li).join("")}</ul>` : `<div class="muted small">Nothing open. Clean slate.</div>`}
-      <label class="field">Energy today ${seg("energy", [1, 2, 3, 4, 5].map((n) => [n, n]), prev.energy || 3)}</label>
-      <label class="field">AI topics covered<input name="ai_topics" value="${esc(prev.ai_topics || aiNotes)}"></label>
-      <label class="field">Notes / blockers<textarea name="notes" rows="4">${esc(prev.notes || "")}</textarea></label>`,
-    submitLabel: closed ? "Update day log" : "Close day & plan tomorrow",
-    onSubmit: async (_, d) => {
-      const next = await api(`/day/${b.date}/close`, { method: "POST", body: { energy: +d.energy, ai_topics: d.ai_topics, notes: d.notes } });
-      toast("Tomorrow is planned");
-      document.dispatchEvent(new Event("dsm:changed"));
-      goDay(next.date);
-    },
-  });
+  const log = { energy: prev.energy || 3, ai_topics: prev.ai_topics || aiNotes, notes: prev.notes || "" };
+  const spent = done.reduce((s, t) => s + (t.minutes_spent || 0), 0);
+  let step = 1;
+  const li = (t) => `<li>${TrackDot(t.kind)}<span class="cl-title">${esc(t.title)}</span>${t.minutes_spent ? `<span class="muted small">${hm(t.minutes_spent)}</span>` : ""}</li>`;
+  const so = SlideOver({ width: 520, label: "Close day" });
+  const steps = ["Review", "Evening log", "Confirm"];
+
+  function head() {
+    so.setHead(`<div class="so-titles"><h2>${closed ? "Update day log" : "Close day"} · ${fmtDay(b.date, { weekday: "short", day: "numeric", month: "short" })}</h2>
+      <ol class="stepper">${steps.map((s, i) => `<li class="${i + 1 === step ? "on" : i + 1 < step ? "past" : ""}"><span>${i + 1 < step ? icon("check") : i + 1}</span>${s}</li>`).join("")}</ol></div>`);
+  }
+  function readLog() {
+    const f = $("#clForm", so.el);
+    if (!f) return;
+    const d = Object.fromEntries(new FormData(f));
+    Object.assign(log, { energy: +d.energy, ai_topics: d.ai_topics, notes: d.notes });
+  }
+  function paint() {
+    head();
+    if (step === 1) {
+      so.setBody(`<div class="cl-stats">
+          <div><b>${done.length}</b><span>done</span></div><div><b>${open.length}</b><span>still open</span></div><div><b>${skipped.length}</b><span>skipped</span></div><div><b>${hm(spent)}</b><span>logged</span></div></div>
+        <section class="so-section"><h3>Done (${done.length})</h3>${done.length ? `<ul class="cl-list">${done.map(li).join("")}</ul>` : `<div class="muted small">Nothing finished yet.</div>`}</section>
+        <section class="so-section"><h3>Will carry over to tomorrow (${open.length})</h3>${open.length ? `<ul class="cl-list carry">${open.map(li).join("")}</ul>` : `<div class="muted small">Nothing open. Clean slate.</div>`}</section>
+        ${skipped.length ? `<section class="so-section"><h3>Skipped (${skipped.length})</h3><ul class="cl-list skipped">${skipped.map(li).join("")}</ul></section>` : ""}`);
+      so.setFoot(`<span class="sp"></span>${Button({ label: "Cancel", kind: "ghost", id: "clCancel" })}${Button({ label: "Next", iconRight: "right", kind: "primary", id: "clNext" })}`);
+    } else if (step === 2) {
+      so.setBody(`<form id="clForm" autocomplete="off">
+        <label class="field"><span class="f-label">Energy today</span>${Segmented("energy", [1, 2, 3, 4, 5].map((n) => [n, n]), log.energy)}</label>
+        <label class="field"><span class="f-label">AI topics covered</span><input name="ai_topics" value="${esc(log.ai_topics)}" placeholder="e.g. attention, positional encodings"></label>
+        <label class="field"><span class="f-label">Notes / blockers</span><textarea name="notes" rows="5" placeholder="What got in the way? What went well?">${esc(log.notes)}</textarea></label></form>`);
+      so.setFoot(`${Button({ label: "Back", icon: "left", kind: "ghost", id: "clBack" })}<span class="sp"></span>${Button({ label: "Next", iconRight: "right", kind: "primary", id: "clNext" })}`);
+      $("#clForm", so.el).addEventListener("submit", (e) => { e.preventDefault(); readLog(); step = 3; paint(); });
+      $("[name=ai_topics]", so.el).focus();
+    } else if (step === 3) {
+      so.setBody(`<div class="cl-confirm">
+        <p>${closed ? "This updates the evening log for this day." : `Closing <b>${fmtDay(b.date)}</b> saves your evening log and plans tomorrow.`}</p>
+        <dl class="kv">
+          <dt>Done</dt><dd>${done.length} card${done.length === 1 ? "" : "s"}</dd>
+          <dt>Carries over</dt><dd>${open.length} card${open.length === 1 ? "" : "s"}</dd>
+          <dt>Energy</dt><dd>${log.energy} / 5</dd>
+          <dt>AI topics</dt><dd>${esc(log.ai_topics) || `<span class="faint">—</span>`}</dd>
+          <dt>Notes</dt><dd>${esc(log.notes) || `<span class="faint">—</span>`}</dd>
+        </dl></div>`);
+      so.setFoot(`${Button({ label: "Back", icon: "left", kind: "ghost", id: "clBack" })}<span class="sp"></span>${Button({ label: closed ? "Update day log" : "Close day & plan tomorrow", icon: "check", kind: "primary", id: "clGo" })}`);
+      $("#clGo", so.el).focus();
+    } else {
+      so.setBody(`<div class="cl-done">${ProgressRing({ value: 1, max: 1, size: 64, stroke: 5, color: "var(--ok)", center: icon("check") })}
+        <h2>Tomorrow is planned</h2><p class="muted">${S.nextDate ? fmtDay(S.nextDate) : "Your next day"} is ready${open.length ? `, with ${open.length} card${open.length === 1 ? "" : "s"} carried over` : ""}.</p>
+        <div class="btn-row">${Button({ label: "View tomorrow", iconRight: "right", kind: "primary", id: "clView" })}${Button({ label: "Stay here", kind: "ghost", id: "clStay" })}</div></div>`);
+      so.setFoot("");
+      $("#clView", so.el).focus();
+    }
+    $("#clCancel", so.el)?.addEventListener("click", so.close);
+    $("#clStay", so.el)?.addEventListener("click", so.close);
+    $("#clNext", so.el)?.addEventListener("click", () => { if (step === 2) readLog(); step++; paint(); });
+    $("#clBack", so.el)?.addEventListener("click", () => { if (step === 2) readLog(); step--; paint(); });
+    $("#clView", so.el)?.addEventListener("click", () => { const d = S?.nextDate; so.close(); goDay(d); });
+    $("#clGo", so.el)?.addEventListener("click", async (e) => {
+      e.currentTarget.disabled = true;
+      try {
+        const next = await api(`/day/${b.date}/close`, { method: "POST", body: { energy: log.energy, ai_topics: log.ai_topics, notes: log.notes } });
+        S.nextDate = next.date;
+        document.dispatchEvent(new Event("dsm:changed"));
+        step = 4; paint();
+        refresh();
+      } catch { e.currentTarget.disabled = false; }
+    });
+  }
+  paint();
 }
 
 // ---------- keyboard ----------
 function moveSel(delta) {
-  const ids = $$(".card", $("#board")).map((c) => +c.dataset.id);
+  const ids = $$("#wb-board .card").map((c) => +c.dataset.id);
   if (!ids.length) return;
   const i = ids.indexOf(S.sel);
   select(ids[i < 0 ? (delta > 0 ? 0 : ids.length - 1) : Math.min(ids.length - 1, Math.max(0, i + delta))]);
@@ -424,7 +514,7 @@ function shiftStatus(delta) {
   const t = byId(S.sel);
   if (!t) return false;
   const next = STATUSES[STATUSES.indexOf(t.status) + delta];
-  if (next) setStatus(t, next, $(`.card[data-id="${t.id}"]`));
+  if (next) setStatus(t, next, $(`#wb-board .card[data-id="${t.id}"]`));
   return true;
 }
 
@@ -436,7 +526,7 @@ function onKey(e) {
     case "h": case "ArrowLeft": return shiftStatus(-1);
     case "l": case "ArrowRight": return shiftStatus(1);
     case "Enter": if (!S.sel || !byId(S.sel)) return false; openTicket(S.sel); return true;
-    case "x": { const t = byId(S.sel); if (!t) return false; setStatus(t, "done", $(`.card[data-id="${t.id}"]`)); return true; }
+    case "x": { const t = byId(S.sel); if (!t) return false; setStatus(t, "done", $(`#wb-board .card[data-id="${t.id}"]`)); return true; }
     case " ": { const t = byId(S.sel) || nowTicket(); if (!t) return false; toggleTimer(t); return true; }
     case "n": addCard(); return true;
     case "p": pull(); return true;

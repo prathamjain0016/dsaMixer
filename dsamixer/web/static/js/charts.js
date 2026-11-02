@@ -2,6 +2,7 @@
 // Every chart sizes itself to its container (1 SVG unit = 1px) and redraws on resize.
 import { esc, fmtDay, hm, debounce } from "./util.js";
 import { bindTips } from "./ui.js";
+import { EmptyState } from "./components/index.js";
 
 function mount(el, draw) {
   const run = () => { el._w = el.clientWidth; draw(Math.max(el.clientWidth, 240)); };
@@ -21,7 +22,7 @@ function roundTop(x, y, w, h) {
 
 /** GitHub-style activity grid: columns are whole Mon-Sun weeks, cells stretch to fill the width. days = [{date, done, minutes}]. */
 export function heatmap(el, all, { weeks = 26, mini = false } = {}) {
-  if (!all.length) { el.innerHTML = `<div class="muted small">No activity yet.</div>`; return; }
+  if (!all.length) { el.innerHTML = EmptyState({ icon: "calendar", title: "No activity yet", compact: true }); return; }
   const lastDow = (new Date(all[all.length - 1].date + "T00:00:00").getDay() + 6) % 7;
   const days = all.slice(-((weeks - 1) * 7 + lastDow + 1)); // start on a Monday
   mount(el, (W) => {
@@ -53,7 +54,7 @@ export function heatmap(el, all, { weeks = 26, mini = false } = {}) {
 
 /** Tiny rating trend with a dashed target line. pts = [{rating, date, name}]. */
 export function sparkline(el, pts, target) {
-  if (!pts.length) { el.innerHTML = `<div class="muted small">No rated contest yet.</div>`; return; }
+  if (!pts.length) { el.innerHTML = EmptyState({ icon: "trophy", title: "No rated contest yet", compact: true }); return; }
   mount(el, (W) => {
     const H = 56, P = 6;
     const vals = pts.map((p) => p.rating).concat(target);
@@ -72,7 +73,7 @@ export function sparkline(el, pts, target) {
 
 /** Per-day grouped bars (DSA vs AI minutes), single y-axis. days = [{date, dsa, ai, questions}]. */
 export function groupedBars(el, days) {
-  if (!days.some((d) => d.dsa || d.ai)) { el.innerHTML = `<div class="empty">No completed cards in the last 28 days yet.</div>`; return; }
+  if (!days.some((d) => d.dsa || d.ai)) { el.innerHTML = EmptyState({ icon: "stats", title: "No completed cards in the last 28 days", hint: "Finish a card and its minutes show up here." }); return; }
   mount(el, (W) => {
     const H = 220, L = 44, B = 22, T = 8;
     const max = Math.max(60, ...days.map((d) => Math.max(d.dsa, d.ai)));
@@ -95,7 +96,7 @@ export function groupedBars(el, days) {
 
 /** Contest rating over time with a dashed target line. pts = contests with a rating, oldest first. */
 export function ratingLine(el, pts, target) {
-  if (!pts.length) { el.innerHTML = `<div class="empty">Log a rated (live) contest to start the rating line.</div>`; return; }
+  if (!pts.length) { el.innerHTML = EmptyState({ icon: "trophy", title: "No rated contests yet", hint: "Log a rated (live) contest to start the rating line." }); return; }
   mount(el, (W) => {
     const H = 260, L = 44, B = 22, T = 10, R = 10;
     const vals = pts.map((p) => p.rating).concat(target);
@@ -105,7 +106,10 @@ export function ratingLine(el, pts, target) {
     let svg = "";
     for (let v = lo; v <= hi; v += (hi - lo) / 4) svg += `<line class="gridline" x1="${L}" x2="${W - R}" y1="${y(v)}" y2="${y(v)}"/><text x="${L - 6}" y="${y(v) + 4}" text-anchor="end">${Math.round(v)}</text>`;
     svg += `<line x1="${L}" x2="${W - R}" y1="${y(target)}" y2="${y(target)}" stroke="var(--muted)" stroke-width="1.5" stroke-dasharray="5 4"/><text x="${W - R}" y="${y(target) - 6}" text-anchor="end">Knight ${target}</text>`;
-    svg += `<polyline fill="none" stroke="var(--series-1)" stroke-width="2" stroke-linejoin="round" points="${pts.map((p, i) => `${x(i)},${y(p.rating)}`).join(" ")}"/>`;
+    const line = pts.map((p, i) => `${x(i)},${y(p.rating)}`).join(" ");
+    svg += `<defs><linearGradient id="rlFill" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="var(--series-1)" stop-opacity=".18"/><stop offset="1" stop-color="var(--series-1)" stop-opacity="0"/></linearGradient></defs>`;
+    if (pts.length > 1) svg += `<polygon fill="url(#rlFill)" points="${x(0)},${y(lo)} ${line} ${x(pts.length - 1)},${y(lo)}"/>`;
+    svg += `<polyline fill="none" stroke="var(--series-1)" stroke-width="2" stroke-linejoin="round" points="${line}"/>`;
     pts.forEach((p, i) => (svg += `<circle cx="${x(i)}" cy="${y(p.rating)}" r="4" fill="var(--series-1)" stroke="var(--surface)" stroke-width="2"/>`));
     const slot = pts.length > 1 ? (W - L - R) / (pts.length - 1) : W - L - R;
     pts.forEach((_, i) => (svg += `<rect class="hit" x="${x(i) - slot / 2}" y="${T}" width="${slot}" height="${H - T - B}" data-i="${i}"/>`));
