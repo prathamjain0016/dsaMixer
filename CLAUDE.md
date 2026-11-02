@@ -28,13 +28,13 @@ The owner logs each day in the evening ("Close day"), and the app then plans the
 | `dsamixer/cli.py` | Every `./run.sh` command (`serve`, `today`, `notify`, `schedule`, `db`, `homework`, `tickets`). `__main__.py` just calls `cli.main()`. |
 | `dsamixer/core/db.py` | Schema, `connect()` (Postgres via `PgConn` when `DATABASE_URL` is set, else SQLite), `init()` (seeds questions, small migrations), `copy_sqlite_to_pg()`, `load_env()`. |
 | `dsamixer/core/config.py` | Every tunable default. Saved settings (`settings.config`) are merged over these. |
-| `dsamixer/planning/planner.py` | Day planning, carry-over, topic mix, spaced repetition, contests, `update_ticket()`. |
-| `dsamixer/planning/stats.py` | Aggregates for the Stats and Sprint tabs. |
+| `dsamixer/planning/planner.py` | Day planning, carry-over, topic mix, spaced repetition, contests, `update_ticket()` (changing `date` also sets `sprint_id` and moves the card to the end of that day). |
+| `dsamixer/planning/stats.py` | Aggregates for the Stats and Sprint tabs, the week view (`week()`), and `build()` extras: `heatmap` (last 182 days: date, done, minutes) and `homework` (this week's `source='homework'` tickets grouped by goal: goal, done, total, minutes_left). |
 | `dsamixer/integrations/ai_planner.py` | In-app weekly AI planner: an LLM (OpenRouter `OPENROUTER_MODEL`, or Anthropic) turns goals into tasks; `distribute()` spreads them over the days. |
 | `dsamixer/integrations/homework.py` | Homework helpers for the agents: week dates, `nbscan`, `pdftext`, `apply_plan`. |
 | `dsamixer/integrations/notify.py` | Gmail SMTP morning/evening emails. |
-| `dsamixer/web/server.py` | JSON API under `/api`, plus the static UI. |
-| `dsamixer/web/static/` | `index.html`, `app.js`, `style.css`: vanilla JS with no build step. |
+| `dsamixer/web/server.py` | JSON API under `/api`, plus the static UI. `GET /api/week/{date}` is read-only (never plans a day): Mon–Sun with per-day budget, AI capacity, planned minutes and cards. |
+| `dsamixer/web/static/` | The UI, vanilla ES modules with no build step: `index.html` (shell), `css/` (`tokens.css` light/dark tokens, `base`, `components`, `views`), `js/main.js` (hash router `#/today[/date]`, `#/week[/date]`, `#/sprint`, `#/stats`, `#/contests`, `#/questions`, `#/ai`, `#/settings`; theme; streak), `js/api.js`, `js/ui.js` (dialog/drawer/popover/toast/tooltip), `js/timer.js` (one timer, localStorage `dsm.timer`), `js/keys.js` (shortcuts), `js/charts.js` (hand-rolled SVG), `js/views/*.js` (one per route, each exports `render(root, arg)` and optionally `destroy()`). |
 | `dsamixer/data/questions.json` | The 507 questions parsed from `data/DSA_Questions_and_Patterns_500.pdf`. |
 | `notebooks/connection_check.ipynb` | Checks every external connection (PASS/FAIL/SKIP, no secrets printed). |
 
@@ -162,5 +162,5 @@ Each step line ends with its ticket id (`#14`). The Log is append-only, with the
 - **Write SQL once, in SQLite style,** and keep it portable to Postgres: `?` placeholders, `datetime('now','localtime')` (both translated by `PgConn`), `ON CONFLICT ... DO UPDATE/NOTHING` (not `INSERT OR IGNORE`), `RETURNING id` (not `lastrowid`), `SUM(CASE WHEN ... THEN 1 ELSE 0 END)` (not summed booleans), `AS` on every alias, and no aliases in `HAVING`. Postgres returns `ROUND`/`AVG` results as `Decimal`.
 - New settings go in `config.DEFAULTS` (and the Settings tab if the owner will tune them). Schema changes go in `db.SCHEMA`, plus an `ALTER TABLE` guard in `db.init()` for existing databases.
 - **Never test against the real database.** Without `DSAMIXER_DB`, the app talks to the owner's Postgres. Copy `dsamixer.db` to a scratch path and run with `DSAMIXER_DB=<copy>` (SQLite). Re-check Postgres-sensitive SQL by reading it against the rule above; only run against Postgres with the owner's go-ahead. To exercise planner changes, simulate weeks: loop over days with `plan_day`, mark cards done with `update_ticket`, then `close_day`.
-- `node --check dsamixer/web/static/app.js` catches JS syntax errors. The UI can be screenshotted with headless Chrome: `--screenshot`, using URLs like `/#stats` to open a tab.
+- `node --check` on each file in `dsamixer/web/static/js/` catches JS syntax errors (copy to `.mjs` if Node rejects the `import` lines). The UI can be screenshotted with headless Chrome: `--screenshot`, using URLs like `/?theme=dark#/stats` to open a route in a theme.
 - Before changing anything that affects what the owner sees or has logged (replanning today, deleting tickets, schema changes), say what will change and confirm with the owner first.

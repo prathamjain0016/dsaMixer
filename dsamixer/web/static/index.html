@@ -4,176 +4,43 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>dsaMixer</title>
-  <link rel="stylesheet" href="/static/style.css">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230c66e4'/%3E%3Ctext x='16' y='22' font-size='16' font-weight='800' text-anchor='middle' fill='white' font-family='sans-serif'%3Ed%3C/text%3E%3C/svg%3E">
+  <script>
+    // Apply the saved theme before first paint. ?theme=dark|light overrides for this page load only.
+    (function () {
+      var t = null;
+      try { t = new URLSearchParams(location.search).get("theme") || localStorage.getItem("theme"); } catch (e) {}
+      if (t === "dark" || t === "light") document.documentElement.dataset.theme = t;
+    })();
+  </script>
+  <link rel="stylesheet" href="/static/css/tokens.css">
+  <link rel="stylesheet" href="/static/css/base.css">
+  <link rel="stylesheet" href="/static/css/components.css">
+  <link rel="stylesheet" href="/static/css/views.css">
 </head>
 <body>
   <header class="topbar">
-    <div class="brand">dsa<span>Mixer</span></div>
-    <nav id="tabs">
-      <button data-tab="board" class="active">Board</button>
-      <button data-tab="sprint">Sprint</button>
-      <button data-tab="stats">Stats</button>
-      <button data-tab="contests">Contests</button>
-      <button data-tab="questions">Questions</button>
-      <button data-tab="ai">AI course</button>
-      <button data-tab="settings">Settings</button>
+    <a class="brand" href="#/today" aria-label="dsaMixer home"><span class="logo" aria-hidden="true">d</span><span class="wordmark">dsa<span class="accent">Mixer</span></span></a>
+    <nav class="nav" id="nav" aria-label="Main">
+      <a href="#/today" data-route="today">Today</a>
+      <a href="#/week" data-route="week">Week</a>
+      <a href="#/sprint" data-route="sprint">Sprint</a>
+      <a href="#/stats" data-route="stats">Stats</a>
+      <a href="#/contests" data-route="contests">Contests</a>
+      <a href="#/questions" data-route="questions">Questions</a>
+      <a href="#/ai" data-route="ai">AI course</a>
+      <a href="#/settings" data-route="settings">Settings</a>
     </nav>
+    <div class="topbar-right">
+      <a id="timerInd" class="timer-ind" href="#/today" hidden><span class="dot" aria-hidden="true"></span><span id="timerClock"></span><span id="timerTitle" class="timer-title"></span></a>
+      <span id="streak" class="streak" data-tip="Consecutive days with at least one card done"><span id="streakIcon" aria-hidden="true"></span><b id="streakN">–</b> <span id="streakWord">days</span></span>
+      <button class="btn icon ghost" id="themeBtn" aria-label="Toggle dark mode" data-tip="Toggle theme"></button>
+      <button class="btn icon ghost" id="helpBtn" aria-label="Keyboard shortcuts" data-tip="Keyboard shortcuts  ?"></button>
+    </div>
   </header>
-
-  <main>
-    <!-- BOARD -->
-    <section id="tab-board" class="tab active">
-      <div class="toolbar">
-        <div class="datenav">
-          <button class="icon" id="prevDay" title="Previous day">‹</button>
-          <div>
-            <div id="dayTitle" class="day-title"></div>
-            <div id="daySub" class="muted small"></div>
-          </div>
-          <button class="icon" id="nextDay" title="Next day">›</button>
-          <button class="ghost" id="todayBtn">Today</button>
-        </div>
-        <div class="actions">
-          <button class="ghost" id="addCardBtn">+ Card</button>
-          <button class="ghost" id="pullBtn" title="Finished early? Add the next question">Pull next question</button>
-          <button class="primary" id="closeDayBtn">Close day</button>
-        </div>
-      </div>
-      <div id="budgetBar" class="budget"></div>
-      <div id="dayBanner"></div>
-      <div class="board">
-        <div class="col" data-status="todo"><h3>To do <span class="count"></span></h3><div class="cards"></div></div>
-        <div class="col" data-status="doing"><h3>In progress <span class="count"></span></h3><div class="cards"></div></div>
-        <div class="col" data-status="done"><h3>Done <span class="count"></span></h3><div class="cards"></div></div>
-        <div class="col narrow" data-status="skipped"><h3>Skipped <span class="count"></span></h3><div class="cards"></div></div>
-      </div>
-    </section>
-
-    <!-- SPRINT -->
-    <section id="tab-sprint" class="tab">
-      <div class="toolbar">
-        <div class="datenav">
-          <button class="icon" id="prevSprint">‹</button>
-          <div><div id="sprintTitle" class="day-title"></div><div id="sprintSub" class="muted small"></div></div>
-          <button class="icon" id="nextSprint">›</button>
-        </div>
-      </div>
-      <div id="sprintKpis" class="kpis"></div>
-      <div id="sprintDays" class="sprint-days"></div>
-      <div class="two">
-        <label class="field">Sprint goal<textarea id="sprintGoal" rows="3" placeholder="e.g. Finish Arrays two-pointer + sliding window; first virtual contest"></textarea></label>
-        <label class="field">Retro (what worked, what to change)<textarea id="sprintRetro" rows="3"></textarea></label>
-      </div>
-      <button class="primary" id="saveSprint">Save</button>
-    </section>
-
-    <!-- STATS -->
-    <section id="tab-stats" class="tab">
-      <div id="statKpis" class="kpis"></div>
-      <div class="panel">
-        <div class="panel-head"><h3>Last 28 days · minutes</h3><div class="legend" id="dailyLegend"></div></div>
-        <div id="dailyChart" class="chart"></div>
-      </div>
-      <div class="two">
-        <div class="panel"><h3>By difficulty</h3><div id="diffBars"></div></div>
-        <div class="panel"><h3>Solve quality</h3><div id="quality"></div><h3 class="mt">Weakest patterns</h3><div id="weak"></div></div>
-      </div>
-      <div class="panel"><h3>By section</h3><div id="sectionBars" class="grid-bars"></div></div>
-    </section>
-
-    <!-- CONTESTS -->
-    <section id="tab-contests" class="tab">
-      <div id="knightKpis" class="kpis"></div>
-      <div class="panel">
-        <div class="panel-head"><h3>Rating</h3><div class="legend"><span class="key"><i class="sw s1"></i>Rating</span><span class="key"><i class="sw ref"></i>Knight target</span></div></div>
-        <div id="ratingChart" class="chart"></div>
-      </div>
-      <div class="panel">
-        <h3>Log a contest</h3>
-        <form id="contestForm" class="form-row">
-          <input type="date" name="date" required>
-          <input name="name" placeholder="Weekly Contest 480" required>
-          <select name="kind"><option value="virtual">Virtual</option><option value="weekly">Weekly (live)</option><option value="biweekly">Biweekly (live)</option></select>
-          <span class="qchecks">Solved:
-            <label><input type="checkbox" name="q0">Q1</label><label><input type="checkbox" name="q1">Q2</label>
-            <label><input type="checkbox" name="q2">Q3</label><label><input type="checkbox" name="q3">Q4</label></span>
-          <input type="number" name="rank" placeholder="Rank">
-          <input type="number" name="rating" placeholder="Rating after">
-          <input name="notes" placeholder="Notes">
-          <button class="primary">Add</button>
-        </form>
-        <p class="muted small">Unsolved problems become an upsolve card on the next day's board.</p>
-      </div>
-      <div class="panel"><table class="table" id="contestTable"></table></div>
-    </section>
-
-    <!-- QUESTIONS -->
-    <section id="tab-questions" class="tab">
-      <div class="toolbar">
-        <input id="qSearch" placeholder="Search title or pattern…">
-        <select id="qSection"><option value="">All sections</option></select>
-        <select id="qStatus"><option value="">Any status</option><option>new</option><option>learning</option><option>mastered</option></select>
-      </div>
-      <div class="panel"><table class="table" id="qTable"></table></div>
-    </section>
-
-    <!-- AI COURSE -->
-    <section id="tab-ai" class="tab">
-      <div class="panel">
-        <div class="panel-head"><h3>Plan this week's AI work</h3><span class="muted small" id="weekInfo"></span></div>
-        <p class="muted small">Describe everything you need to get done this week: homework, lectures to rewatch, topics to revise. The more detail, the better the tasks. Claude breaks it into 30–90 min tasks and spreads each goal across the week. You review before anything is added.</p>
-        <div id="weekKeyWarn"></div>
-        <textarea id="weekGoals" rows="7" placeholder="HW1: implement a transformer encoder block from scratch in PyTorch, test on toy data, write up results (due Friday)&#10;HW2: fine-tune DistilBERT for sentiment on IMDB, compare 2 learning rates&#10;Rewatch Sunday's lecture on attention, the part about positional encodings&#10;Revise backprop through softmax"></textarea>
-        <div class="row-buttons"><button class="primary" id="breakdownBtn">Break down with AI</button></div>
-        <div id="weekPreview"></div>
-      </div>
-      <div class="two">
-        <div class="panel">
-          <h3>Syllabus</h3>
-          <p class="muted small">The first unfinished module is shown on your AI cards. Mark one “in progress” to pin it.</p>
-          <div id="modules"></div>
-        </div>
-        <div class="panel">
-          <h3>Import modules</h3>
-          <p class="muted small">Paste one module per line.</p>
-          <textarea id="moduleImport" rows="10" placeholder="Module 1: Python for ML&#10;Module 2: Linear algebra refresher&#10;…"></textarea>
-          <button class="primary" id="importModules">Import</button>
-        </div>
-      </div>
-    </section>
-
-    <!-- SETTINGS -->
-    <section id="tab-settings" class="tab">
-      <div class="panel">
-        <h3>Daily DSA budget (minutes)</h3>
-        <div id="budgetInputs" class="form-row"></div>
-        <h3 class="mt">Estimate per question (minutes)</h3>
-        <div id="estInputs" class="form-row"></div>
-        <h3 class="mt">Contests</h3>
-        <div class="form-row">
-          <label class="check"><input type="checkbox" id="weeklyLive"> Do Sunday's Weekly contest live (clashes with class; watch the recording after)</label>
-        </div>
-        <div class="form-row">
-          <label>Biweekly anchor Saturday <input type="date" id="biweeklyAnchor"></label>
-          <span class="muted small">Pick any Saturday that has a Biweekly contest (check leetcode.com/contest).</span>
-        </div>
-        <div class="row-buttons">
-          <button class="primary" id="saveSettings">Save</button>
-          <button class="ghost" id="replanBtn" title="Rebuild today's untouched cards with the new settings">Replan today</button>
-        </div>
-      </div>
-      <details class="panel">
-        <summary>Advanced: full config (JSON)</summary>
-        <p class="muted small">AI weekly template, review intervals, start date, Knight target and more.</p>
-        <textarea id="rawConfig" rows="24" class="mono"></textarea>
-        <button class="primary" id="saveRaw">Save JSON</button>
-      </details>
-    </section>
-  </main>
-
-  <dialog id="modal"><form method="dialog" id="modalForm"></form></dialog>
-  <div id="tooltip" class="tooltip" hidden></div>
-  <div id="toast" class="toast" hidden></div>
-  <script src="/static/app.js"></script>
+  <main id="view"></main>
+  <div id="tooltip" class="tooltip" role="tooltip" hidden></div>
+  <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+  <script type="module" src="/static/js/main.js"></script>
 </body>
 </html>

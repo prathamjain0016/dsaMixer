@@ -85,7 +85,7 @@ Scheduled jobs only run while the Mac is awake. Their output goes to `logs/`.
 | Command | What it does |
 |---|---|
 | `cp dsamixer.db /tmp/t.db && DSAMIXER_DB=/tmp/t.db ./run.sh today` | Try anything on a scratch SQLite copy instead of your real data. |
-| `node --check dsamixer/web/static/app.js` | Syntax-check the UI JavaScript. |
+| `for f in dsamixer/web/static/js/*.js dsamixer/web/static/js/views/*.js; do node --check $f; done` | Syntax-check the UI JavaScript (copy to `.mjs` first if Node rejects the `import` lines). |
 | open `notebooks/connection_check.ipynb`, Run All | Check every external connection: Postgres, Gmail SMTP, OpenRouter, Anthropic, the board server, the Claude CLI and the launchd jobs. Prints PASS/FAIL/SKIP, never secrets. Use the `.venv` kernel. |
 | `./run.sh --help`, `./run.sh tickets update --help` | Built-in help for any command. |
 
@@ -147,6 +147,25 @@ Drop each week's homework into `homework/weekN/`, where N is the **course week**
 
 Copy `.env.example` to `.env`, then fill in a personal Gmail address and an [App Password](https://support.google.com/accounts/answer/185833) (`SMTP_USER`, `SMTP_PASSWORD`, `MAIL_TO`). Preview with `./run.sh notify morning --dry-run`, and use `./run.sh schedule install` to send the emails automatically. Commands are in the reference above.
 
+## Keyboard shortcuts
+
+Ignored while typing in a field. `?` opens the same list in the app; `Esc` closes any dialog or drawer.
+
+| Key | Where | Action |
+|---|---|---|
+| `1`–`8` | everywhere | Today, Week, Sprint, Stats, Contests, Questions, AI course, Settings |
+| `j` / `k` or `↓` / `↑` | Today | select next / previous card (lane by lane, column by column) |
+| `h` / `l` or `←` / `→` | Today | move the selected card to the previous / next column |
+| `Enter` | Today | open the selected card (edit) |
+| `x` | Today | mark the selected card done (quick log) |
+| `Space` | Today | start / pause the timer on the selected card, else the Now card |
+| `n` / `p` / `c` | Today | new card / pull next question / close day |
+| `[` `]` | Today, Week | previous / next day (Today) or week (Week) |
+| `.` | Today, Week | jump to today / this week |
+| `/` | Questions | focus search |
+
+The URL is `#/today`, `#/today/2026-11-05`, `#/week`, `#/week/2026-11-02`, `#/stats` … (old `#stats` links still work). `?theme=dark|light` forces a theme for that page load; the top-bar toggle remembers your choice.
+
 ## Where is what
 
 ```
@@ -173,7 +192,12 @@ dsaMixer/
 │   │   └── homework.py     ← homework folder helpers for the agents (nbscan, pdftext, apply)
 │   ├── web/                ← the board
 │   │   ├── server.py       ← JSON API under /api
-│   │   └── static/         ← index.html, app.js, style.css (the Kanban UI)
+│   │   └── static/         ← the UI (vanilla ES modules, no build step)
+│   │       ├── index.html  ← shell: top bar + <script type="module" src="/static/js/main.js">
+│   │       ├── css/        ← tokens.css (light/dark), base.css, components.css, views.css
+│   │       └── js/         ← main.js (hash router, theme, streak), api.js, ui.js (dialogs, tooltip, toast),
+│   │                         timer.js, keys.js, charts.js (SVG), util.js, views/{today,week,sprint,
+│   │                         stats,contests,questions,ai,settings}.js
 │   └── data/
 │       └── questions.json  ← the 507 questions parsed from the PDF
 │
