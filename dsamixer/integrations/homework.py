@@ -122,7 +122,7 @@ def apply_plan(conn, week: int, plan: dict) -> list[dict]:
     untouched = {ref_of(t): t for t in existing if t["status"] == "todo" and not t["carried"]}
     started = {ref_of(t) for t in existing if ref_of(t) not in untouched}
 
-    template_titles = {i["title"] for items in cfg["ai_template"].values() for i in items}
+    template_titles = {i["title"] for items in config.ai_template(cfg).values() for i in items}
     for day in days:  # generic AI homework cards make way for the real tasks
         for t in db.rows(conn.execute(
             "SELECT id,title FROM tickets WHERE date=? AND kind='ai' AND status='todo' AND carried=0", (day,)

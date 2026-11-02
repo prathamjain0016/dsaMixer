@@ -4,13 +4,22 @@
   today                    print today's plan in the terminal
   notify morning|evening   send the email (--dry-run prints it instead)
   schedule install|remove  set up macOS launchd jobs (8:00 / 22:00 emails, 14:00 / 21:30
-                           homework sync, board at login)
+                           homework sync, board at login). macOS only; docs/guides/integrations.md has a cron example
+
+  setup status             JSON: setup_done, backend, env_file, which integrations are configured
+                           (true/false from variable names only; never prints a value), python, os, board_running
+  config export [FILE]     write the effective config as JSON (to stdout without FILE)
+  config import FILE       validate FILE (all keys or only some), merge it over your current config
+                           (the defaults on a fresh install) and save it; marks setup as done
 
   plan week [FROM_DATE] [--dry-run]   re-lay the DSA for FROM_DATE..Sunday (default tomorrow); JSON of cards removed/added
                            (--dry-run rolls everything back)
 
   contests sync            fetch LeetCode's upcoming Weekly/Biweekly into the cache (prints JSON)
   contests upcoming        print the cached schedule
+  leetcode sync            fetch your profile (leetcode.username): caches it, auto-logs new contests,
+                           refreshes "already solved" suggestions (prints JSON)
+  leetcode profile USER    print any user's profile as JSON without storing anything
 
   db info                  which database is in use (Postgres via DATABASE_URL, or SQLite) + row counts
   db copy-from-sqlite [FILE] --yes   replace ALL Postgres data with a SQLite file (default dsamixer.db)
@@ -26,10 +35,13 @@ Used by the homework agents (all print JSON):
 """
 import argparse
 import json
+import os
+import platform
 import plistlib
 import shutil
 import subprocess
 import sys
+import urllib.request
 from datetime import date, timedelta
 from pathlib import Path
 
@@ -60,6 +72,9 @@ def _jobs():
 
 
 def schedule(action: str) -> None:
+    if sys.platform != "darwin":
+        raise SystemExit("`schedule` installs macOS launchd jobs, so it only works on macOS.\n"
+                         "On Linux, use cron instead: see 'Scheduling the emails' in docs/guides/integrations.md.")
     LOGS.mkdir(exist_ok=True)
     for label, job in _jobs().items():
         path = AGENTS / f"{label}.plist"
@@ -73,6 +88,52 @@ def schedule(action: str) -> None:
         path.write_bytes(plistlib.dumps(plist))
         subprocess.run(["launchctl", "load", str(path)], check=True)
         print(f"installed {label} -> {path}")
+
+
+# Which .env variable names switch each optional integration on (values are never read out).
+INTEGRATION_VARS = {
+    "ai_planner": [["OPENROUTER_API_KEY"], ["ANTHROPIC_API_KEY"], ["ANTHROPIC_AUTH_TOKEN"]],  # any one of these
+    "email": [["SMTP_USER", "SMTP_PASSWORD", "MAIL_TO"]],                                     # all of these
+    "postgres": [["DATABASE_URL"]],
+}
+
+
+def _board_running(port: int = 8765) -> bool:
+    try:
+        with urllib.request.urlopen(f"http://127.0.0.1:{port}/", timeout=1.5) as r:
+            return r.status == 200
+    except Exception:
+        return False
+
+
+def setup_status() -> dict:
+    """Machine and setup state for /setup. Works before setup and without a .env; prints no secret."""
+    db.load_env()
+    status = {"setup_done": None, "backend": db.backend(), "env_file": db.ENV_PATH.exists(),
+              "integrations": {name: any(all(os.environ.get(v) for v in group) for group in groups)
+                               for name, groups in INTEGRATION_VARS.items()},
+              "python": platform.python_version(), "os": platform.system(),
+              "schedule_supported": sys.platform == "darwin", "board_running": _board_running()}
+    try:
+        conn = db.connect()
+        db.init(conn)
+        status["setup_done"] = bool(db.get_setting(conn, "setup_done"))
+        conn.close()
+    except Exception as e:  # e.g. Postgres configured but not running; say which kind, not the URL
+        status["db_error"] = type(e).__name__
+    return status
+
+
+def import_config(conn, imported: dict) -> dict:
+    """Merge a (partial) config over the current one. `ai_template` describes a whole week, so it is
+    replaced as a unit: a weekday left out of it gets no course cards."""
+    merged = config._merge(config._merge(config.DEFAULTS, db.get_setting(conn, "config", {})), imported)
+    if "ai_template" in imported:
+        merged["ai_template"] = {d: imported["ai_template"].get(d, []) for d in config.WEEKDAYS}
+    config.save(conn, merged)
+    config.mark_setup(conn)
+    conn.commit()
+    return merged
 
 
 def main() -> None:
@@ -96,9 +157,16 @@ def main() -> None:
     dc = dbp.add_parser("copy-from-sqlite")
     dc.add_argument("file", nargs="?", default=str(db.ROOT / "dsamixer.db"))
     dc.add_argument("--yes", action="store_true", help="confirm: wipes the Postgres tables first")
+    sub.add_parser("setup").add_subparsers(dest="setupcmd", required=True).add_parser("status")
+    cf = sub.add_parser("config").add_subparsers(dest="cfgcmd", required=True)
+    cf.add_parser("export").add_argument("file", nargs="?")
+    cf.add_parser("import").add_argument("file")
     ct = sub.add_parser("contests").add_subparsers(dest="ct", required=True)
     ct.add_parser("sync")
     ct.add_parser("upcoming")
+    lc = sub.add_parser("leetcode").add_subparsers(dest="lc", required=True)
+    lc.add_parser("sync")
+    lc.add_parser("profile").add_argument("user")
     hw = sub.add_parser("homework").add_subparsers(dest="hw", required=True)
     hw.add_parser("week").add_argument("n", type=int, nargs="?")
     hw.add_parser("nbscan").add_argument("file")
@@ -133,8 +201,17 @@ def main() -> None:
     if args.cmd == "schedule":
         schedule(args.action)
         return
+    if args.cmd == "setup":
+        print(json.dumps(setup_status(), indent=1))
+        return
 
     out = lambda obj: print(json.dumps(obj, indent=1, default=str))
+    if args.cmd == "leetcode" and args.lc == "profile":  # read-only: no database needed
+        try:
+            out(leetcode.fetch_profile(args.user))
+        except leetcode.LeetCodeError as e:
+            raise SystemExit(f"profile fetch failed: {e}")
+        return
     if args.cmd == "db" and args.dbcmd == "copy-from-sqlite":
         if db.backend() != "postgres":
             raise SystemExit("DATABASE_URL isn't set, so there's no Postgres to copy into.")
@@ -149,6 +226,28 @@ def main() -> None:
         out({"backend": db.backend(),
              "counts": {t: conn.execute(f"SELECT COUNT(*) FROM {t}").fetchone()[0] for t in db.TABLES}})
         return
+    if args.cmd == "config":
+        if args.cfgcmd == "export":
+            text = json.dumps(config.load(conn), indent=2, ensure_ascii=False) + "\n"
+            if args.file:
+                Path(args.file).write_text(text)
+                print(f"wrote {args.file}")
+            else:
+                print(text, end="")
+        else:
+            try:
+                imported = json.loads(Path(args.file).read_text())
+            except (OSError, ValueError) as e:
+                raise SystemExit(f"can't read {args.file}: {e}")
+            errs = config.validate(imported)
+            if errs:
+                raise SystemExit("config not imported:\n  " + "\n  ".join(errs))
+            import_config(conn, imported)
+            print(f"imported {args.file} ({len(imported)} top-level keys merged over your config); setup marked as done")
+        return
+    if args.cmd in ("plan", "today", "notify") and not db.get_setting(conn, "setup_done"):
+        raise SystemExit("Setup isn't done yet. Run ./run.sh and finish the setup wizard in the browser, "
+                         "or run ./run.sh config import config.example.json.")
     if args.cmd == "plan":
         start = args.from_date or (date.today() + timedelta(days=1)).isoformat()
         result = planner.relayout_week(conn, start)
@@ -163,6 +262,15 @@ def main() -> None:
                 raise SystemExit(f"contest sync failed: {e}")
         else:
             out({"synced_at": db.get_setting(conn, "leetcode_synced_at"), "contests": leetcode.get_cache(conn)})
+        return
+    if args.cmd == "leetcode":
+        if not leetcode.username(conn):
+            raise SystemExit("No LeetCode username set: add leetcode.username in Settings > LeetCode "
+                             "or with ./run.sh config import.")
+        try:
+            out(leetcode.sync_profile(conn))
+        except leetcode.LeetCodeError as e:
+            raise SystemExit(f"LeetCode sync failed: {e}")
         return
     if args.cmd == "homework":
         cfg = config.load(conn)
@@ -195,6 +303,7 @@ def main() -> None:
     elif args.cmd == "notify":
         if args.which == "morning":
             leetcode.sync_quietly(conn)  # refresh the contest cache before today is planned
+            leetcode.sync_profile_quietly(conn)  # then your profile: rating, auto-logged contests
         subject, body = getattr(notify, args.which)(conn)
         if args.dry_run:
             print(f"Subject: {subject}\n\n{body}")

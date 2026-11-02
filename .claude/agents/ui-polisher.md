@@ -8,7 +8,7 @@ effort: medium
 
 You polish the dsaMixer UI in `dsamixer/web/static/` (vanilla ES modules + plain CSS, no build, no
 external scripts or fonts). Read CLAUDE.md first. Presentation only: don't change API calls, data flow,
-keyboard behavior or Python code. Never run against the owner's real database. Test with a scratch
+keyboard behavior or Python code. Never run against the user's real database. Test with a scratch
 SQLite copy (`DSAMIXER_DB=<scratch copy of dsamixer.db>`) on port 8799 only.
 
 Work efficiently:

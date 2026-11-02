@@ -51,7 +51,7 @@ Add `./run.sh plan week [FROM_DATE] [--dry-run]`, which calls `relayout_week`. I
 Update CLAUDE.md's "How a day is planned" section with the weekly layout, rest days, Friday catch-up and the `dsa_laid_at` column. Update the config summary if one exists.
 
 ## Testing (required, and never against the real DB)
-- Copy `dsamixer.db` to the scratchpad (`/private/tmp/claude-501/-Users-prathamjain-Desktop-dsaMixer/87f9181f-6db8-4f7b-a6a7-db4f7d257b41/scratchpad/weekdsa.db`) and run everything with `DSAMIXER_DB=<that copy>`.
+- Copy `dsamixer.db` to the scratchpad (`<scratchpad>/weekdsa.db`) and run everything with `DSAMIXER_DB=<that copy>`.
 - **Simulate 3 weeks from 2026-11-02:** for each day, `plan_day`, then mark cards done with `update_ticket` (result "solved", confidence 3). On some weekdays deliberately leave 1–2 DSA cards undone, then `close_day`. Assert:
   - Monday's planning lays out Mon–Fri. After that, Tue–Fri have dsa cards with `dsa_laid_at` set, and Mon–Thu each have Hard + Medium + Easy from 3 different sections.
   - Friday's laid mix is Medium + Easy.

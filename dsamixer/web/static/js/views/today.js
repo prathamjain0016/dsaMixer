@@ -1,5 +1,5 @@
 // Today: a customizable widget grid. Now (card + timer), day meters, swimlane board with inline composer,
-// Knight / progress / homework / heatmap widgets. Card detail and close day are slide-overs.
+// badge tracker / LeetCode profile / progress / homework / heatmap widgets. Card detail and close day are slide-overs.
 import { $, $$, esc, today as todayStr, addDays, fmtDay, hm, LOGGABLE, STATUSES, STATUS_LABEL, LANES, shared, lsGet, lsSet } from "../util.js";
 import { api, patchTicket } from "../api.js";
 import { icon, openModal, openPopover } from "../ui.js";
@@ -8,6 +8,7 @@ import * as timer from "../timer.js";
 import { sparkline, heatmap } from "../charts.js";
 import { createDashboard } from "../layout.js";
 import { openTicketPanel } from "../ticket-panel.js";
+import { loadProfile, paintProfileCard, paintSuggestionsBanner, targetText } from "../leetcode.js";
 import {
   Toolbar, Button, IconButton, Badge, KindBadge, DiffPill, CarriedBadge, StatusPill, Segmented, Meter, ProgressRing, setRing,
   HBar, EmptyState, Card, SlideOver, TrackDot, toast,
@@ -19,7 +20,8 @@ const DEFS = [
   { id: "now", title: "Now", span: 8, sizes: [8, 12], fixed: true },
   { id: "meters", title: "Today's load", span: 4, sizes: [4, 6, 12] },
   { id: "board", title: "Board", span: 12, fixed: true, flush: true },
-  { id: "knight", title: "Knight tracker", span: 3, sizes: [3, 4, 6, 12], actions: `<a href="#/contests">Contests ${icon("arrow")}</a>` },
+  { id: "knight", title: "Badge tracker", span: 3, sizes: [3, 4, 6, 12], actions: `<a href="#/contests">Contests ${icon("arrow")}</a>` },
+  { id: "leetcode", title: "LeetCode", span: 3, sizes: [3, 4, 6, 12] },
   { id: "progress", title: "Progress", span: 3, sizes: [3, 4, 6, 12], actions: `<a href="#/questions">Questions ${icon("arrow")}</a>` },
   { id: "homework", title: "This week's homework", span: 3, sizes: [3, 4, 6, 12], actions: `<a href="#/ai">AI course ${icon("arrow")}</a>` },
   { id: "heatmap", title: "Last 12 weeks", span: 3, sizes: [3, 4, 6, 12], actions: `<a href="#/stats">Stats ${icon("arrow")}</a>` },
@@ -30,7 +32,7 @@ export async function render(root, arg) {
     root, date: /^\d{4}-\d\d-\d\d$/.test(arg || "") ? arg : todayStr(), board: null, cap: 0, stats: null, contests: null,
     sel: null, skippedOpen: lsGet("dsm.skippedOpen") === "1", collapsed: new Set(), offs: [],
   };
-  root.innerHTML = `<div id="tHead"></div><div id="tBanner"></div><div id="dash"></div>`;
+  root.innerHTML = `<div id="tHead"></div><div id="tBanner"></div><div id="lcBanner"></div><div id="dash"></div>`;
   S.dash = createDashboard({ page: "today", root: $("#dash", root), defs: DEFS, paint: paintAll, controls: () => $("#dashCtl") });
   bindBoard($("#dash", root));
   S.offs.push(timer.onChange(() => { if (S?.board) { paintNow(); paintBoard(); } }));
@@ -65,9 +67,10 @@ async function load() {
 }
 
 async function loadRail() {
-  const [stats, contests, settings] = await Promise.all([api("/stats"), api("/contests"), S.settings || api("/settings").catch(() => null)]);
+  const [stats, contests, settings, lc] = await Promise.all([api("/stats"), api("/contests"), S.settings || api("/settings").catch(() => null),
+    loadProfile().catch(() => null)]);
   if (!S) return;
-  S.stats = stats; S.contests = contests; S.settings = settings;
+  S.stats = stats; S.contests = contests; S.settings = settings; S.lc = lc;
   paintRail();
 }
 
@@ -302,10 +305,19 @@ function paintRail() {
   const kv = (rows) => `<dl class="kv">${rows.map(([a, b]) => `<dt>${a}</dt><dd>${b}</dd>`).join("")}</dl>`;
   const set = (id, html) => { const el = $(`#wb-${id}`); if (el) el.innerHTML = html; return el; };
 
+  const kt = $("#w-knight .w-title");
+  if (kt) kt.textContent = `${k.label} tracker`;
   set("knight", (k.rating ? `<div class="big-row"><span class="big">${k.rating}</span><span class="muted small">of ${k.target_rating} · ${Math.max(0, k.target_rating - k.rating)} to go</span></div><div class="chart" id="spark"></div>`
     : EmptyState({ icon: "trophy", title: "No rated contests yet", hint: firstWeeklyText(), compact: true })) +
-    kv([["Contests", k.contests], ["Q3+ solve rate", k.q3_rate != null ? Math.round(k.q3_rate * 100) + "%" : "—"], ["Days to deadline", left], ...(k.rating ? [] : [["Target rating", k.target_rating]])]));
+    kv([["Contests", k.contests], ["Q3+ solve rate", k.q3_rate != null ? Math.round(k.q3_rate * 100) + "%" : "—"], ["Target", targetText(k)], ["Deadline", `${fmtDay(k.deadline, { day: "numeric", month: "short", year: "numeric" })} · ${left}d`],
+      ...(k.earned_badge ? [["Badge earned", Badge(esc(k.earned_badge), "ok")]] : [])]));
   if (k.rating && $("#spark")) sparkline($("#spark"), rated, k.target_rating);
+
+  if (S.lc) {
+    const onLc = (d) => { if (S) { S.lc = d; loadRail(); } };
+    paintProfileCard($("#wb-leetcode"), S.lc, onLc);
+    paintSuggestionsBanner($("#lcBanner"), S.lc, onLc);
+  }
 
   set("progress", `<div class="big-row"><span class="big">${s.done}<span class="faint"> / ${s.total}</span></span><span class="muted small">solved · ${s.mastered} mastered</span></div>
     <div class="hbars">${diffs.map((r) => HBar(DiffPill(r.difficulty), r.done || 0, r.total, { color: `var(--${r.difficulty.toLowerCase()})` })).join("")}</div>

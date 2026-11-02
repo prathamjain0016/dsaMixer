@@ -4,11 +4,12 @@ import { api } from "../api.js";
 import { icon } from "../ui.js";
 import { setViewKeys } from "../keys.js";
 import { Toolbar, Widget, Table, DiffPill, StatusPill, Segmented, EmptyState, Kbd } from "../components/index.js";
+import { loadProfile, paintSuggestionsBanner, openSuggestions } from "../leetcode.js";
 
 let questions = null;
 
-export async function render(root) {
-  root.innerHTML = Toolbar({ title: "Questions", sub: `<span id="qCount">Loading…</span>` }) + `<div class="grid">
+export async function render(root, arg) {
+  root.innerHTML = Toolbar({ title: "Questions", sub: `<span id="qCount">Loading…</span>` }) + `<div id="lcBanner"></div><div class="grid">
     ${Widget({ id: "qList", span: 12, flush: true, body: `
       <div class="filter-bar">
         <label class="search-field">${icon("search")}<input id="qSearch" type="search" placeholder="Search title or pattern…" aria-label="Search questions"><span class="sf-kbd">${Kbd("/")}</span></label>
@@ -18,6 +19,11 @@ export async function render(root) {
       <div id="qTable"></div>` })}
   </div>`;
   setViewKeys((e) => { if (e.key === "/") { $("#qSearch").focus(); return true; } return false; });
+  const onLc = async () => { questions = await api("/questions"); draw(); };
+  loadProfile().then((d) => {
+    paintSuggestionsBanner($("#lcBanner"), d, onLc);
+    if (arg === "solved" && d.suggestions.length) openSuggestions(d, (x) => { paintSuggestionsBanner($("#lcBanner"), x, onLc); onLc(); });
+  }).catch(() => {});
   questions = await api("/questions");
   const secs = [...new Set(questions.map((q) => q.section))];
   $("#qSection").innerHTML += secs.map((s) => `<option>${esc(s)}</option>`).join("");

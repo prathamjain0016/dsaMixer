@@ -1,6 +1,6 @@
 # dsaMixer deployment research
 
-As of 2026-11-02. The live version, with comments, is the [claude.ai doc](https://claude.ai/artifact/N1vRn8nYTntNQYPyaimSA9). Goal: share a link so that **other people each get their own copy, with their own data**, writing as little code as possible.
+As of 2026-11-02. Goal: share a link so that **other people each get their own copy, with their own data**, writing as little code as possible.
 
 ## Summary
 

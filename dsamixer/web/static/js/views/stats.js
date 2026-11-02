@@ -5,6 +5,7 @@ import { api } from "../api.js";
 import { icon } from "../ui.js";
 import { heatmap, groupedBars, ratingLine, legend } from "../charts.js";
 import { createDashboard } from "../layout.js";
+import { loadProfile, paintProfileCard } from "../leetcode.js";
 import { Toolbar, Stat, HBar, DiffPill, EmptyState } from "../components/index.js";
 
 const DEFS = [
@@ -13,6 +14,7 @@ const DEFS = [
   { id: "daily", title: "Time per day · last 28 days", span: 8, sizes: [6, 8, 12] },
   { id: "difficulty", title: "By difficulty", span: 4, sizes: [4, 6, 12] },
   { id: "rating", title: "Contest rating", span: 6, sizes: [6, 12], actions: `<a href="#/contests">Contests ${icon("arrow")}</a>` },
+  { id: "leetcode", title: "LeetCode profile", span: 6, sizes: [4, 6, 12] },
   { id: "quality", title: "Solve quality", span: 6, sizes: [6, 12] },
   { id: "topics", title: "Progress by topic", span: 12, sizes: [6, 12] },
 ];
@@ -22,8 +24,8 @@ let S = null;
 export async function render(root) {
   root.innerHTML = Toolbar({ title: "Stats", sub: "Everything you've logged, at a glance", actions: `<span id="dashCtl" class="btn-row"></span>` }) + `<div id="dash"></div>`;
   S = { data: null };
-  const [s, contests] = await Promise.all([api("/stats"), api("/contests")]);
-  S.data = { s, contests };
+  const [s, contests, lc] = await Promise.all([api("/stats"), api("/contests"), loadProfile().catch(() => null)]);
+  S.data = { s, contests, lc };
   S.dash = createDashboard({ page: "stats", root: $("#dash"), defs: DEFS, paint, controls: () => $("#dashCtl") });
   S.dash.render();
 }
@@ -32,7 +34,7 @@ export function destroy() { S = null; }
 
 function paint() {
   if (!S?.data) return;
-  const { s, contests } = S.data, k = s.knight;
+  const { s, contests, lc } = S.data, k = s.knight;
   const set = (id, html) => { const el = $(`#wb-${id}`); if (el) el.innerHTML = html; return el; };
 
   set("kpis", `<div class="stats-row">${[
@@ -41,12 +43,16 @@ function paint() {
     Stat({ label: "Reviews due", value: s.reviews_due, sub: "spaced repetition queue", accent: "var(--k-review)" }),
     Stat({ label: "Projected finish", value: s.projected_finish ? `${fmtDay(s.projected_finish, { day: "numeric", month: "short" })}<small>${s.projected_finish.slice(0, 4)}</small>` : "—", sub: esc(s.projected_finish_basis) }),
     Stat({ label: "AI this week", value: `${s.ai_hours_week}<small>h</small>`, sub: `target ${s.ai_weekly_target_hours}h`, trend: s.ai_hours_week >= s.ai_weekly_target_hours ? { dir: "up", text: "on target" } : null }),
-    Stat({ label: "Contest rating", value: k.rating ?? "—", sub: `target ${k.target_rating}`, accent: "var(--k-contest)" }),
+    Stat({ label: "Contest rating", value: k.rating ?? "—", sub: `${k.label === "Rating" ? "target" : esc(k.label)} ${k.target_rating}${k.rating_source === "leetcode" ? " · from LeetCode" : ""}`, accent: "var(--k-contest)" }),
   ].join("")}</div>`);
 
   if (set("heat", `<div class="w-sub">${s.heatmap.reduce((n, d) => n + d.done, 0)} cards done</div><div id="heat" class="chart"></div>`)) heatmap($("#heat"), s.heatmap, { weeks: 26 });
   if (set("daily", `<div class="legend w-legend">${legend([["s1", "DSA"], ["s2", "AI"]])}</div><div id="dailyChart" class="chart"></div>`)) groupedBars($("#dailyChart"), s.daily);
-  if (set("rating", `<div class="legend w-legend">${legend([["s1", "Rating"], ["ref", "Knight target"]])}</div><div id="ratingChart" class="chart"></div>`)) ratingLine($("#ratingChart"), contests.filter((c) => c.rating).reverse(), k.target_rating);
+  if (set("rating", `<div class="legend w-legend">${legend([["s1", "Rating"], ["ref", `${esc(k.label)} target`]])}</div><div id="ratingChart" class="chart"></div>`)) ratingLine($("#ratingChart"), contests.filter((c) => c.rating).reverse(), k.target_rating, k.label);
+  if (lc) {
+    const onLc = (d) => { if (S?.data) { S.data.lc = d; paint(); } };
+    paintProfileCard($("#wb-leetcode"), lc, onLc);
+  }
 
   const order = ["Easy", "Medium", "Hard"];
   set("difficulty", `<div class="hbars">${[...s.by_difficulty].sort((a, b) => order.indexOf(a.difficulty) - order.indexOf(b.difficulty))

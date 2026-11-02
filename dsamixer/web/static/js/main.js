@@ -7,6 +7,7 @@ import { initKeys, openHelp, setViewKeys } from "./keys.js";
 import { openPalette, setCommands } from "./palette.js";
 import { toast } from "./components/index.js";
 import * as timer from "./timer.js";
+import { runWizard } from "./setup.js";
 
 const VIEWS = {
   today: () => import("./views/today.js"), week: () => import("./views/week.js"), sprint: () => import("./views/sprint.js"),
@@ -135,6 +136,16 @@ setCommands(() => [
   { label: "Keyboard shortcuts", icon: "help", kbd: "?", run: openHelp },
 ]);
 
+// ---------- first-run setup ----------
+/** Hide the AI course navigation when the course is switched off in setup. */
+async function applyCourseVisibility() {
+  try {
+    const on = (await api("/settings")).ai_enabled !== false;
+    $$("[data-course]").forEach((el) => (el.style.display = on ? "" : "none"));
+  } catch { /* keep the nav as it is */ }
+}
+document.addEventListener("dsm:setup", () => { applyCourseVisibility(); refreshStreak(); route(); });
+
 // ---------- boot ----------
 $$("[data-icon]").forEach((el) => (el.outerHTML = icon(el.dataset.icon)));
 $("#helpBtn").innerHTML = icon("help");
@@ -148,5 +159,10 @@ $("#helpBtn").onclick = openHelp;
 $("#searchBtn").onclick = openPalette;
 $("#sbSearch").onclick = openPalette;
 window.addEventListener("hashchange", route);
+try {
+  const setup = await api("/setup");
+  if (setup.needed) await runWizard(setup.defaults);
+} catch { /* the board still loads; Settings can re-run setup */ }
+applyCourseVisibility();
 refreshStreak();
 route();

@@ -95,7 +95,7 @@ export function groupedBars(el, days) {
 }
 
 /** Contest rating over time with a dashed target line. pts = contests with a rating, oldest first. */
-export function ratingLine(el, pts, target) {
+export function ratingLine(el, pts, target, label = "Target") {
   if (!pts.length) { el.innerHTML = EmptyState({ icon: "trophy", title: "No rated contests yet", hint: "Log a rated (live) contest to start the rating line." }); return; }
   mount(el, (W) => {
     const H = 260, L = 44, B = 22, T = 10, R = 10;
@@ -105,7 +105,7 @@ export function ratingLine(el, pts, target) {
     const y = (v) => T + (H - T - B) * (1 - (v - lo) / (hi - lo));
     let svg = "";
     for (let v = lo; v <= hi; v += (hi - lo) / 4) svg += `<line class="gridline" x1="${L}" x2="${W - R}" y1="${y(v)}" y2="${y(v)}"/><text x="${L - 6}" y="${y(v) + 4}" text-anchor="end">${Math.round(v)}</text>`;
-    svg += `<line x1="${L}" x2="${W - R}" y1="${y(target)}" y2="${y(target)}" stroke="var(--muted)" stroke-width="1.5" stroke-dasharray="5 4"/><text x="${W - R}" y="${y(target) - 6}" text-anchor="end">Knight ${target}</text>`;
+    svg += `<line x1="${L}" x2="${W - R}" y1="${y(target)}" y2="${y(target)}" stroke="var(--muted)" stroke-width="1.5" stroke-dasharray="5 4"/><text x="${W - R}" y="${y(target) - 6}" text-anchor="end">${esc(label)} ${target}</text>`;
     const line = pts.map((p, i) => `${x(i)},${y(p.rating)}`).join(" ");
     svg += `<defs><linearGradient id="rlFill" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="var(--series-1)" stop-opacity=".18"/><stop offset="1" stop-color="var(--series-1)" stop-opacity="0"/></linearGradient></defs>`;
     if (pts.length > 1) svg += `<polygon fill="url(#rlFill)" points="${x(0)},${y(lo)} ${line} ${x(pts.length - 1)},${y(lo)}"/>`;

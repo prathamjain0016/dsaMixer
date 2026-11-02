@@ -2,6 +2,11 @@
 # One-command entry point: sets up .venv when needed, then runs `python -m dsamixer <args>`.
 set -e
 cd "$(dirname "$0")"
+# Needs Python 3.10+ (macOS or Linux; on Windows use WSL).
+if ! command -v python3 >/dev/null 2>&1 || ! python3 -c 'import sys; sys.exit(sys.version_info < (3, 10))'; then
+  echo "dsaMixer needs Python 3.10 or newer (python3 not found or too old)." >&2
+  exit 1
+fi
 if [ ! -d .venv ]; then
   python3 -m venv .venv
 fi

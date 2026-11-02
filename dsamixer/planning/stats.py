@@ -88,12 +88,25 @@ def build(conn) -> dict:
         "projected_finish_basis": "at your last-14-day pace" if (conn.execute(
             "SELECT MIN(date) FROM tickets WHERE status='done'").fetchone()[0] or "9999") <= (
             date.today() - timedelta(days=14)).isoformat() else "at current budget (pace kicks in after 2 weeks)",
-        "knight": {
-            **cfg["knight"],
-            "rating": rated[-1]["rating"] if rated else None,
-            "contests": len(contests),
-            "q3_rate": round(sum(1 for c in contests if c["solved"] >= 3) / len(contests), 2) if contests else None,
-        },
+        "knight": knight(conn, cfg, rated, contests),
+    }
+
+
+def knight(conn, cfg, rated, contests) -> dict:
+    """The badge tracker. Current rating: your synced LeetCode profile when there is one, else the
+    latest logged contest with a rating."""
+    profile = db.get_setting(conn, "leetcode_profile") or {}
+    user = ((cfg.get("leetcode") or {}).get("username") or "").lower()
+    pc = (profile.get("contest") or {}) if user and profile.get("username", "").lower() == user else {}
+    from_profile = pc.get("rating") is not None
+    return {
+        **cfg["knight"],
+        "label": config.badge_label(cfg["knight"]),
+        "rating": pc["rating"] if from_profile else (rated[-1]["rating"] if rated else None),
+        "rating_source": "leetcode" if from_profile else ("contests" if rated else None),
+        "earned_badge": pc.get("badge"),
+        "contests": len(contests),
+        "q3_rate": round(sum(1 for c in contests if c["solved"] >= 3) / len(contests), 2) if contests else None,
     }
 
 

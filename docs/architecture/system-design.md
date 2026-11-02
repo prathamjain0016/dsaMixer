@@ -1,12 +1,12 @@
 # dsaMixer system documentation
 
-As of 2026-11-02. The live version, with drawn diagrams, is the [claude.ai doc](https://claude.ai/artifact/1T8R9JF52qWwindZtu3uxC). For the conventions to follow when changing code, see `CLAUDE.md`.
+As of 2026-11-02. For the conventions to follow when changing code, see `CLAUDE.md`.
 
 ## Overview
 
 dsaMixer turns two study tracks into one daily Kanban board. Every night it re-plans from what you actually finished.
 
-- **DSA:** 507 interview questions parsed from a PDF (84 Easy, 294 Medium, 129 Hard, in 13 sections), with spaced repetition and LeetCode contests. The goal is the Knight badge (rating 1850) by 2 May 2027.
+- **DSA:** 507 interview questions parsed from a PDF (84 Easy, 294 Medium, 129 Hard, in 13 sections), with spaced repetition and LeetCode contests. The default goal is the Knight badge (rating ~1850) 26 weeks after the start date; the badge target (Knight, Guardian or a custom rating) and deadline are set in the setup wizard or Settings.
 - **AI course:** about 20 hours a week: a live class Sat and Sun 8:00–11:30 IST, plus two homeworks of about 4 hours each.
 
 The stack is FastAPI, Postgres (SQLite for tests) and a vanilla-JS UI. It runs as a single-user app on one Mac.
@@ -53,6 +53,7 @@ The backend is plain Python with raw SQL and no ORM. The planner makes every sch
 | Sprint and stats | `GET`/`PATCH /api/sprint/{n}` · `GET /api/stats` |
 | Practice | `GET /api/questions` · `GET`/`POST`/`DELETE /api/contests` (logging a contest adds upsolve cards) |
 | Contest calendar | `GET /api/contests/upcoming` (cache only, never fetches) · `POST /api/contests/sync` (502 if LeetCode is unreachable) |
+| LeetCode profile | `GET /api/leetcode/profile` (cache only, with open suggestions) · `POST /api/leetcode/sync` (404 unknown user, 502 unreachable) · `GET /api/leetcode/friends[?refresh=1]` (6-hour cache) · `POST /api/leetcode/suggestions/{num}/accept`, `/{num}/dismiss`, `/accept-all` |
 | AI course | `/api/ai-modules` (syllabus) · `GET /api/ai-week` · `POST .../preview` · `POST .../apply` |
 | Settings | `GET`/`PUT /api/settings` |
 
@@ -71,16 +72,16 @@ New SQL has to stay portable:
 | `tickets` | One card per day. `kind`: dsa, review, ai, contest, upsolve, retro or custom. `status`: todo, doing, done or skipped. `source`: none, ai_plan or homework |
 | `days` | When the day was planned, laid out (`dsa_laid_at`) and closed, plus the evening log |
 | `sprints` | One per Mon–Sun week, with goal and retro |
-| `contests` | Q1–Q4 solved, rank and rating |
+| `contests` | Q1–Q4 solved, rank and rating. Rows auto-logged from your LeetCode profile have notes starting "auto-logged from LeetCode" |
 | `ai_week_plans`, `ai_modules` | Weekly AI plans and the syllabus |
 | `settings` | Saved config (merged over the defaults) and the topic-rotation position |
 
 **Planning a day** (`plan_day`, which runs once per day):
 
 1. Carry over unfinished cards.
-2. Lay out the week's DSA mix if that hasn't been done yet.
+2. Lay out the week's DSA mix if that hasn't been done yet, then the week's contest cards (`plan_week_contests`): like the mix, contests are laid out for the whole week up front, so the Week view shows them early.
 3. Add AI cards, from the weekly plan or the template.
-4. Add contest and retro cards.
+4. Add the retro card.
 5. Fill the remaining DSA budget with due reviews, then extra Mediums.
 
 Spaced repetition runs when a DSA or review card first reaches Done.
@@ -90,7 +91,7 @@ The stats module computes:
 - a 182-day heatmap and the streak
 - AI hours against the 20-hour target
 - homework progress
-- the Knight tracker
+- the badge tracker (Knight, Guardian or a custom rating; the current rating comes from the synced LeetCode profile when there is one, else the latest logged contest)
 - the projected finish date
 
 ## Frontend
@@ -114,6 +115,15 @@ AI is used in two places: an LLM inside the app breaks weekly goals into tasks, 
 **LeetCode contest sync** (`integrations/leetcode.py`)
 
 `sync()` calls LeetCode's public, read-only GraphQL `upcomingContests` and merges the result into the `leetcode_contests` setting (21 days kept). The planner only reads that setting, so `planning` never imports `integrations`. It runs in a background thread at server start, before `notify morning` (the 8:00 launchd job), from `./run.sh contests sync` and from the Contests page. A failure is logged and never blocks startup.
+
+**LeetCode profile** (`integrations/leetcode.py`)
+
+With `leetcode.username` set, `sync_profile()` fetches your public profile from the same endpoint (one GraphQL query: profile, solved counts, badges, streak, contest ranking and history, the ~20 most recent accepted submissions) and:
+1. caches it in the `leetcode_profile` setting (the profile card and the badge tracker read it);
+2. logs each attended Weekly/Biweekly on or after `start_date` that isn't in `contests` yet (matched by name), assuming the solved problems were Q1, Q2, … in order, and adds an upsolve card through `planner.add_upsolve` when not all were solved;
+3. matches recent accepted titles to the question list (lowercase, parentheticals and punctuation removed; `difflib` ratio ≥ 0.9 as a fallback) and stores the matches in `leetcode_suggestions`, minus questions that aren't `new` and ones in `leetcode_dismissed`. Accepting one marks a dsa ticket done today through `planner.update_ticket` (confidence 4, no hints), so spaced repetition schedules the single 21-day check.
+
+It runs best-effort right after the contest sync (server start thread, `notify morning`), and from `./run.sh leetcode sync` and the profile card's Refresh. `fetch_friends()` fetches `leetcode.friends` one at a time into `leetcode_friends_cache` (6 hours per username; a failing username becomes an error row). `integrations` imports `planning` here, never the other way round.
 
 **In-app weekly planner** (`integrations/ai_planner.py`)
 
@@ -194,8 +204,10 @@ Everything starts with `./run.sh`. Tests never touch the real database; they run
 | --- | --- |
 | `./run.sh` | Board at `127.0.0.1:8765`. The first run creates `.venv` |
 | `./run.sh today` | Prints today's plan |
-| `./run.sh plan week [FROM] [--dry-run]` | Re-lays the week's DSA; `--dry-run` previews and rolls back |
+| `./run.sh plan week [FROM] [--dry-run]` | Re-lays the week's DSA and any missing contest cards; `--dry-run` previews and rolls back |
 | `./run.sh notify morning --dry-run` | Previews an email without sending it |
+| `./run.sh leetcode sync` | Syncs your LeetCode profile: rating, auto-logged contests, "already solved" suggestions |
+| `./run.sh leetcode profile USER` | Prints any user's profile as JSON without storing it |
 | `./run.sh db info` | Shows which database is in use and its row counts |
 | `./run.sh schedule install` / `remove` | launchd jobs: server at login, emails at 8:00 and 22:00, homework sync at 14:00 and 21:30 |
 | `./run.sh homework …`, `./run.sh tickets …` | The JSON commands the agents use |

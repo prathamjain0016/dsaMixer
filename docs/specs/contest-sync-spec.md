@@ -54,7 +54,7 @@ Update:
 - `docs/architecture/system-design.md`: the contests rule row and the components.
 
 ## Testing (never the real DB)
-- **Scratch DB:** copy `dsamixer.db` to the scratchpad (`/private/tmp/claude-501/-Users-prathamjain-Desktop-dsaMixer/87f9181f-6db8-4f7b-a6a7-db4f7d257b41/scratchpad/contests.db`) and use `DSAMIXER_DB`.
+- **Scratch DB:** copy `dsamixer.db` to the scratchpad (`<scratchpad>/contests.db`) and use `DSAMIXER_DB`.
 - **Unit-style checks:**
   - Monkeypatch `fetch_upcoming` with the two contests in the table above, plus a synthetic Weekly in week 5 (Sunday 2026-12-06) and a Biweekly in week 9 (Saturday 2027-01-02).
   - Assert `contest_for` titles and details for: a virtual Sunday, a live Weekly, a live Biweekly from the cache, a Biweekly from the anchor fallback with an empty cache, and a non-cycle cache date producing a warning.

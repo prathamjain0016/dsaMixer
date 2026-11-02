@@ -8,3 +8,5 @@ logs/
 homework/*
 !homework/README.md
 data/*.pdf
+# your personal config from /setup or config import
+config.local.json

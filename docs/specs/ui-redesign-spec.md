@@ -111,7 +111,7 @@ Hidden widgets are listed in an "Add widget" menu. The layout is saved to localS
    - `polish.db` to `redesign.db` (seeded data)
    - `fresh.db` to `fresh2.db` (new user)
 
-   Both are in `/private/tmp/claude-501/-Users-prathamjain-Desktop-dsaMixer/87f9181f-6db8-4f7b-a6a7-db4f7d257b41/scratchpad`. Serve with `DSAMIXER_DB=<copy> .venv/bin/python -m dsamixer serve --port 8799`. Never use the real database or port 8765.
+   Both are in `<scratchpad>`. Serve with `DSAMIXER_DB=<copy> .venv/bin/python -m dsamixer serve --port 8799`. Never use the real database or port 8765.
 2. Build in this order: tokens, then components, then shell and palette, then Today, Week, Stats, then the remaining pages, then the flows.
 3. Screenshot-check with headless Chrome (see CLAUDE.md) at 1440x900, light and dark, for Today, Week, Stats, and one of Contests/AI/Settings. Check 390px mobile with the CDP device-emulation script already in the scratchpad (`cdp.mjs`). Use at most 3 review rounds. Read each screenshot and fix what's off.
 4. **Functional smoke test against the scratch server.** Drive these with CDP or by calling the API the UI uses, and confirm each change in `GET /api/day/...`:

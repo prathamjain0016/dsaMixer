@@ -220,7 +220,21 @@ def init(conn) -> None:
               q["pattern_hint"], q["url"]) for q in qs],
         )
         conn.executemany("INSERT INTO progress(num) VALUES (?)", [(q["num"],) for q in qs])
+    _mark_existing_setup(conn)
     conn.commit()
+
+
+def _mark_existing_setup(conn) -> None:
+    """A database that already has a saved config (or planned sprints) predates the setup wizard:
+    treat setup as done so its owner never sees it, and pin the start date it was using."""
+    if get_setting(conn, "setup_done") is not None:
+        return
+    first_sprint = conn.execute("SELECT MIN(start_date) FROM sprints").fetchone()[0]
+    if get_setting(conn, "config") is None and first_sprint is None:
+        return
+    if get_setting(conn, "setup") is None and first_sprint:
+        set_setting(conn, "setup", {"started_on": first_sprint})
+    set_setting(conn, "setup_done", True)
 
 
 # Tables in foreign-key order, for copying SQLite -> Postgres.

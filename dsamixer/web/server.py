@@ -31,7 +31,8 @@ def conn():
 def startup():
     with conn() as c:
         db.init(c)
-        planner.plan_day(c, planner.today())
+        if db.get_setting(c, "setup_done"):  # a fresh install is planned by the setup wizard instead
+            planner.plan_day(c, planner.today())
     # Best-effort and off the startup path, so a dead network never blocks or crashes the board.
     threading.Thread(target=_startup_contest_sync, daemon=True).start()
 
@@ -40,8 +41,74 @@ def _startup_contest_sync():
     try:
         with conn() as c:
             leetcode.sync_quietly(c)
+            leetcode.sync_profile_quietly(c)
     except Exception:
-        leetcode.log.exception("startup contest sync crashed")
+        leetcode.log.exception("startup LeetCode sync crashed")
+
+
+# ---------- first-run setup ----------
+
+class SetupClass(BaseModel):
+    day: str
+    start: str = "08:00"
+    minutes: int
+
+
+class SetupAI(BaseModel):
+    enabled: bool
+    timezone: str | None = None
+    classes: list[SetupClass] = []
+    homework_hours: float = 0
+
+
+class SetupKnight(BaseModel):
+    badge: str = "Knight"
+    target_rating: int | None = None  # None = the badge preset
+    deadline: str | None = None
+
+
+class SetupLeetCode(BaseModel):
+    username: str | None = None
+
+
+class SetupContests(BaseModel):
+    live_from_week: int = 5
+
+
+class SetupBody(BaseModel):
+    start_date: str
+    dsa_minutes: int
+    rest_days: list[str]
+    mix: str  # "hme" (Hard+Medium+Easy) or "me" (Medium+Easy)
+    ai: SetupAI
+    knight: SetupKnight
+    contests: SetupContests
+    leetcode: SetupLeetCode | None = None
+
+
+@app.get("/api/setup")
+def get_setup():
+    """`needed` is true until the wizard has run; `defaults` are the prefilled answers
+    (the current config's values, so re-running setup starts from what you have)."""
+    with conn() as c:
+        saved = db.get_setting(c, "config", {}) or {}
+        return {"needed": not db.get_setting(c, "setup_done"), "defaults": config.setup_answers(config.load(c), saved)}
+
+
+@app.post("/api/setup")
+def post_setup(body: SetupBody):
+    if body.mix not in ("hme", "me"):
+        raise HTTPException(400, "mix must be 'hme' or 'me'")
+    with conn() as c:
+        try:
+            cfg = config.from_setup(db.get_setting(c, "config", {}) or {}, body.model_dump())
+        except (ValueError, KeyError, TypeError) as e:
+            raise HTTPException(400, f"Invalid setup: {e}")
+        db.set_setting(c, "config", cfg)
+        config.mark_setup(c, planner.today())
+        c.commit()
+        planner.plan_day(c, planner.today())
+    return {"ok": True, "today": planner.today()}
 
 
 # ---------- days & board ----------
@@ -52,7 +119,9 @@ def get_day(day: str):
         # Only today and tomorrow get planned on view; planning further out would
         # lock in questions before you've logged the days in between.
         tomorrow = (planner.d(planner.today()) + timedelta(days=1)).isoformat()
-        if day == planner.today():
+        if not db.get_setting(c, "setup_done"):
+            pass  # the setup wizard plans the first day with your answers
+        elif day == planner.today():
             planner.plan_day(c, day)
         elif day == tomorrow and c.execute(
             "SELECT 1 FROM days WHERE date=? AND closed_at IS NOT NULL", (planner.today(),)
@@ -263,6 +332,74 @@ def delete_contest(cid: int):
     return list_contests()
 
 
+# ---------- LeetCode profile, suggestions, friends ----------
+
+def _lc_error(e: "leetcode.LeetCodeError"):
+    return HTTPException(404 if isinstance(e, leetcode.UserNotFound) else 502, str(e))
+
+
+def _profile_payload(c) -> dict:
+    user = leetcode.username(c)
+    p = leetcode.get_profile(c)
+    if p and (not user or p.get("username", "").lower() != user.lower()):
+        p = None  # cached for a username that is no longer configured
+    return {"username": user, "profile": p, "suggestions": leetcode.get_suggestions(c)}
+
+
+@app.get("/api/leetcode/profile")
+def lc_profile():
+    """Cached. Never fetches."""
+    with conn() as c:
+        return _profile_payload(c)
+
+
+@app.post("/api/leetcode/sync")
+def lc_sync():
+    with conn() as c:
+        if not leetcode.username(c):
+            raise HTTPException(400, "No LeetCode username set. Add one in Settings > LeetCode.")
+        try:
+            res = leetcode.sync_profile(c)
+        except leetcode.LeetCodeError as e:
+            raise _lc_error(e)
+        return {**_profile_payload(c), "contests_added": res["contests_added"]}
+
+
+@app.get("/api/leetcode/friends")
+def lc_friends(refresh: int = 0):
+    """Your friends (6-hour cache; ?refresh=1 re-fetches) plus your own row from your synced profile."""
+    with conn() as c:
+        friends = leetcode.fetch_friends(c, force=bool(refresh))
+        me = _profile_payload(c)["profile"]
+        rows = ([{**leetcode._summary(me), "me": True, "error": None}] if me else []) + friends
+        return {"username": leetcode.username(c), "rows": rows}
+
+
+@app.post("/api/leetcode/suggestions/accept-all")
+def lc_accept_all():
+    with conn() as c:
+        nums = [s["num"] for s in leetcode.get_suggestions(c)]
+        for n in nums:
+            leetcode.accept_suggestion(c, n)
+        return {**_profile_payload(c), "accepted": nums}
+
+
+@app.post("/api/leetcode/suggestions/{num}/accept")
+def lc_accept(num: int):
+    with conn() as c:
+        if num not in {s["num"] for s in leetcode.get_suggestions(c)}:
+            raise HTTPException(404, f"Q{num} isn't an open suggestion")
+        ticket = leetcode.accept_suggestion(c, num)
+        return {**_profile_payload(c), "ticket": ticket}
+
+
+@app.post("/api/leetcode/suggestions/{num}/dismiss")
+def lc_dismiss(num: int):
+    with conn() as c:
+        leetcode.dismiss_suggestion(c, num)
+        return _profile_payload(c)
+
+
 # ---------- AI syllabus ----------
 
 @app.get("/api/ai-modules")
@@ -377,14 +514,29 @@ def get_settings():
 
 @app.put("/api/settings")
 def put_settings(cfg: dict):
+    if isinstance(cfg.get("leetcode"), dict):
+        cfg["leetcode"] = config.clean_leetcode(cfg["leetcode"])
+    errs = config.validate({k: cfg[k] for k in ("knight", "leetcode") if k in cfg})
+    if errs:
+        raise HTTPException(400, "; ".join(errs))
     with conn() as c:
         config.save(c, cfg)
         return config.load(c)
 
 
-app.mount("/static", StaticFiles(directory=STATIC), name="static")
+class _RevalidatedStatic(StaticFiles):
+    """Make browsers re-check the UI files on every load (a cheap 304 when unchanged), so an update
+    shows up on a normal refresh instead of running stale cached JS modules."""
+
+    async def get_response(self, path, scope):
+        res = await super().get_response(path, scope)
+        res.headers["Cache-Control"] = "no-cache"
+        return res
+
+
+app.mount("/static", _RevalidatedStatic(directory=STATIC), name="static")
 
 
 @app.get("/")
 def index():
-    return FileResponse(STATIC / "index.html")
+    return FileResponse(STATIC / "index.html", headers={"Cache-Control": "no-cache"})

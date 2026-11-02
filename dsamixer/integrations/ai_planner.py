@@ -58,7 +58,7 @@ def plan_days(cfg, today: date | None = None) -> list[str]:
 
 def capacity(cfg, days: list[str]) -> dict[str, int]:
     """Daily AI minutes, taken from the weekday template (the generic cards it replaces)."""
-    return {d: sum(i["minutes"] for i in cfg["ai_template"].get(planner.weekday_key(d), [])) for d in days}
+    return {d: sum(i["minutes"] for i in config.ai_template(cfg).get(planner.weekday_key(d), [])) for d in days}
 
 
 class PlannerError(Exception):
@@ -280,7 +280,7 @@ def apply(conn, goals: str, summary: str, tasks: list[dict]) -> int:
     cfg = config.load(conn)
     days = sorted({t["date"] for t in tasks} | set(plan_days(cfg)))
     week_start = (planner.d(days[0]) - timedelta(days=planner.d(days[0]).weekday())).isoformat()
-    template_titles = {i["title"] for items in cfg["ai_template"].values() for i in items}
+    template_titles = {i["title"] for items in config.ai_template(cfg).values() for i in items}
     for day in days:
         for t in db.rows(conn.execute(
             "SELECT id,title,source FROM tickets WHERE date=? AND kind='ai' AND status='todo' AND carried=0", (day,)

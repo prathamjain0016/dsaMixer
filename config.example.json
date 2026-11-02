@@ -1,0 +1,140 @@
+{
+  "start_date": null,
+  "course_week_offset": 0,
+  "timezone": "Asia/Kolkata",
+  "buffer_day": "sun",
+  "dsa_minutes": {
+    "mon": 120,
+    "tue": 120,
+    "wed": 120,
+    "thu": 120,
+    "fri": 120,
+    "sat": 0,
+    "sun": 0
+  },
+  "est_minutes": {
+    "Easy": 20,
+    "Medium": 35,
+    "Hard": 55
+  },
+  "review_minutes": 10,
+  "max_reviews_per_day": 3,
+  "buffer_day_reviews": 0,
+  "dsa_rest_days": [
+    "sat",
+    "sun"
+  ],
+  "review_intervals": [
+    3,
+    7,
+    21,
+    45
+  ],
+  "confident_check_days": 21,
+  "ai_enabled": true,
+  "ai_template": {
+    "mon": [
+      {
+        "title": "AI homework 1 (part 1/2)",
+        "minutes": 120
+      }
+    ],
+    "tue": [
+      {
+        "title": "AI homework 1 (part 2/2)",
+        "minutes": 120
+      }
+    ],
+    "wed": [
+      {
+        "title": "AI homework 2 (part 1/2)",
+        "minutes": 120
+      }
+    ],
+    "thu": [
+      {
+        "title": "AI homework 2 (part 2/2)",
+        "minutes": 120
+      }
+    ],
+    "fri": [
+      {
+        "title": "AI recording rewatch + notes",
+        "minutes": 150
+      }
+    ],
+    "sat": [
+      {
+        "title": "AI live class 8:00–11:30",
+        "minutes": 210
+      }
+    ],
+    "sun": [
+      {
+        "title": "AI live class 8:00–11:30",
+        "minutes": 210
+      }
+    ]
+  },
+  "contests": {
+    "virtual_until_week": 4,
+    "weekly_live_from_week": 5,
+    "weekly_live": true,
+    "biweekly_live_from_week": 9,
+    "biweekly_anchor": null,
+    "minutes": 90,
+    "upsolve_minutes": 45
+  },
+  "mix": {
+    "enabled": true,
+    "day_mix": {
+      "mon": [
+        "Hard",
+        "Medium",
+        "Easy"
+      ],
+      "tue": [
+        "Hard",
+        "Medium",
+        "Easy"
+      ],
+      "wed": [
+        "Hard",
+        "Medium",
+        "Easy"
+      ],
+      "thu": [
+        "Hard",
+        "Medium",
+        "Easy"
+      ],
+      "fri": [
+        "Medium",
+        "Easy"
+      ],
+      "sat": [],
+      "sun": []
+    },
+    "rotation_weights": {
+      "Graphs": 2,
+      "Dynamic Programming": 2,
+      "Trees": 2
+    }
+  },
+  "ai_planner": {
+    "provider": "auto",
+    "openrouter_model": "anthropic/claude-opus-5.5",
+    "model": "claude-opus-5-5",
+    "effort": "medium"
+  },
+  "knight": {
+    "badge": "Knight",
+    "target_rating": 1850,
+    "deadline": null
+  },
+  "leetcode": {
+    "username": null,
+    "friends": []
+  },
+  "ai_weekly_target_hours": 20
+}

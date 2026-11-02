@@ -258,6 +258,27 @@ def plan_week_dsa(conn, cfg, day: str) -> list[str]:
     return laid
 
 
+def _has_contest_card(conn, day) -> bool:
+    return conn.execute("SELECT 1 FROM tickets WHERE date=? AND kind='contest' AND carried=0", (day,)).fetchone() is not None
+
+
+def plan_week_contests(conn, cfg, day: str) -> list[str]:
+    """Put this week's contest cards (from `day` to Sunday) on the board now, so the Week view shows
+    them before those days are planned. One contest card per day at most. Returns the dates added."""
+    monday = d(day) - timedelta(days=d(day).weekday())
+    added = []
+    for i in range(7):
+        dt = (monday + timedelta(days=i)).isoformat()
+        if dt < day or d(dt) < d(cfg["start_date"]) or _has_contest_card(conn, dt):
+            continue
+        contest = contest_for(cfg, dt, conn)
+        if contest:
+            _add(conn, dt, ensure_sprint(conn, cfg, dt), "contest", contest[0], cfg["contests"]["minutes"],
+                 detail=contest[1])
+            added.append(dt)
+    return added
+
+
 def plan_day(conn, day: str, force=False) -> None:
     cfg = config.load(conn)
     row = conn.execute("SELECT planned_at FROM days WHERE date=?", (day,)).fetchone()
@@ -270,19 +291,18 @@ def plan_day(conn, day: str, force=False) -> None:
     _carry_over(conn, day, sprint)
     if cfg["mix"]["enabled"]:
         plan_week_dsa(conn, cfg, day)  # lays out the rest of the week too
+    plan_week_contests(conn, cfg, day)  # contest cards for the rest of the week, today's included
 
     existing = {t["title"] for t in db.rows(conn.execute("SELECT title FROM tickets WHERE date=?", (day,)))}
 
     contest = contest_for(cfg, day, conn)
     module = current_ai_module(conn)
-    for item in [] if has_ai_plan(conn, day) else cfg["ai_template"].get(wd, []):
+    for item in [] if has_ai_plan(conn, day) else config.ai_template(cfg).get(wd, []):
         title = item["title"]
         if contest and contest[2] and wd == "sun" and "class" in title.lower():
             title += " (recording — contest clash)"
         if title not in existing:
             _add(conn, day, sprint, "ai", title, item["minutes"], detail=module["title"] if module else None)
-    if contest and contest[0] not in existing:
-        _add(conn, day, sprint, "contest", contest[0], cfg["contests"]["minutes"], detail=contest[1])
     if wd == cfg["buffer_day"] and "Sprint retro" not in existing:
         _add(conn, day, sprint, "retro", "Sprint retro", 15, detail="Review the sprint tab, note what to change.")
 
@@ -370,9 +390,13 @@ def relayout_week(conn, from_day: str) -> dict:
         conn.execute("UPDATE days SET dsa_laid_at=NULL WHERE date=?", (dt,))
     before = {dt: {c["id"] for c in _dsa_cards(conn, dt, ("dsa",))} for dt in dates}
     plan_week_dsa(conn, cfg, from_day)
+    contest_days = plan_week_contests(conn, cfg, from_day)
     for dt in dates:
         summary[dt]["added"] = [{k: c[k] for k in ("num", "title", "difficulty", "section")}
                                 for c in _dsa_cards(conn, dt, ("dsa",)) if c["id"] not in before[dt]]
+        if dt in contest_days:
+            summary[dt]["contest"] = conn.execute(
+                "SELECT title FROM tickets WHERE date=? AND kind='contest'", (dt,)).fetchone()[0]
     return summary
 
 
